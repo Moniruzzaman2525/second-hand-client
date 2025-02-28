@@ -6,6 +6,25 @@ import logo from "../../app/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
+const navbarItem = [
+    {
+        name: 'Home',
+        href: '/'
+    },
+    {
+        name: 'About',
+        href: '/about-us'
+    },
+    {
+        name: 'Contact',
+        href: '/contact-us'
+    },
+    {
+        name: 'FAQ',
+        href: '/faq'
+    },
+]
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState("");
@@ -27,17 +46,17 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex space-x-10">
-                    {['Home', 'About', 'Contact', 'FAQ'].map((item) => (
-                        <a
-                            key={item}
-                            href="#"
-                            className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === item ? 'text-red-600' : ''}`}
-                            onMouseEnter={() => setActive(item)}
+                    {navbarItem.map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
+                            onMouseEnter={() => setActive(item.name)}
                             onMouseLeave={() => setActive("")}
                         >
-                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === item ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
-                            {item}
-                        </a>
+                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
+                            {item.name}
+                        </Link>
                     ))}
                 </div>
 
@@ -56,17 +75,17 @@ const Navbar = () => {
 
             {isOpen && (
                 <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full py-4 px-6 space-y-4">
-                    {['Home', 'About', 'Contact', 'FAQ'].map((item) => (
-                        <a
-                            key={item}
-                            href="#"
-                            className={`block text-[#374B5C] font-medium text-lg transition-colors ${active === item ? 'text-red-600' : ''}`}
-                            onMouseEnter={() => setActive(item)}
+                    {navbarItem.map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className={`block text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
+                            onMouseEnter={() => setActive(item.name)}
                             onMouseLeave={() => setActive("Home")}
                         >
-                            <span className={`mr-2 text-blue-500 transition-all duration-300 ease-in-out ${active === item ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
-                            {item}
-                        </a>
+                            <span className={`mr-2 text-blue-500 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
+                            {item.name}
+                        </Link>
                     ))}
                     <div className="border-t border-gray-200 pt-4">
                         <p className="text-yellow-500 font-semibold">Call Support</p>
