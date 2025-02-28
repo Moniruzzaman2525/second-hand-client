@@ -91,7 +91,7 @@ const HeroSection = () => {
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="bg-[#537cd9]  text-white hover:bg-[#3a5eb4] flex items-center justify-between gap-2 px-4 py-4 rounded-sm shadow-md ">
+                        <button className="text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] flex items-center justify-between gap-2 px-4 py-4 rounded-sm shadow-md ">
                             <span className="block md:hidden">Search</span> <Search size={20} />
                         </button>
                    </div>

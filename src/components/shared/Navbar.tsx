@@ -67,7 +67,7 @@ const Navbar = () => {
                         </span>
                         <button className="hidden md:block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</button>
                     </Link>
-                    <button className="hidden md:flex items-center gap-2 bg-[#537cd9] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#3a5eb4]">
+                    <button className="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#537cd9] to-[#6d90df] text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
                         Post Your Ad <PlusIcon />
                     </button>
                 </div>
