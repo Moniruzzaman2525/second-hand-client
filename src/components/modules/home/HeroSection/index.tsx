@@ -37,9 +37,11 @@ const HeroSection = () => {
                     Second Hand <br /> <span className="text-yellow-400">Bangladesh</span>.
                 </h1>
 
-                <div className="mt-6 bg-[#fdfdfe] p-3 md:p-4 rounded-lg shadow-lg flex items-center space-x-2 w-full max-w-2xl">
-                    <div className="flex items-center border bg-[#fdfdfe] bg-opacity-40 px-3 py-2 rounded-lg flex-1">
-                        <Lightbulb />
+                <div className="mt-6 bg-[#f4f4f6] p-3 md:p-4 rounded-lg shadow-lg md:flex items-center space-x-2 w-full max-w-2xl">
+                    <div className="flex items-center border bg-[#fdfdfe]  px-3 py-2 rounded-lg flex-1">
+                        <div className="bg-[#D5E3EE] p-1 rounded">
+                            <Lightbulb />
+                       </div>
                         <input
                             type="text"
                             placeholder="I'm looking for..."
@@ -49,10 +51,12 @@ const HeroSection = () => {
 
                     <div className="relative">
                         <div
-                            className="flex items-center border bg-[#fdfdfe] bg-opacity-40 px-3 py-4 rounded-lg cursor-pointer"
+                            className="flex items-center border bg-[#fdfdfe]  px-3 py-4 rounded-lg cursor-pointer"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            <List />
+                            <div className="bg-[#D5E3EE] p-1 rounded">
+                                <List />
+                          </div>
                             <span className="px-14">{selectedCategory}</span>
                             <ChevronDown />
                         </div>
@@ -86,9 +90,11 @@ const HeroSection = () => {
                         )}
                     </div>
 
-                    <button className="bg-[#537cd9] text-white hover:bg-[#3a5eb4] px-4 py-4 rounded-sm shadow-md flex items-center">
-                        <Search size={20} />
-                    </button>
+                    <div className="flex justify-center">
+                        <button className="bg-[#537cd9]  text-white hover:bg-[#3a5eb4] flex items-center justify-between gap-2 px-4 py-4 rounded-sm shadow-md ">
+                            <span className="block md:hidden">Search</span> <Search size={20} />
+                        </button>
+                   </div>
                 </div>
             </div>
         </div>
