@@ -40,9 +40,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center">
-                    <span className="text-2xl font-bold text-black flex items-center">
+                    <Link href='/' className="text-2xl font-bold text-black flex items-center">
                         <Image src={logo} alt="Logo" width={200} height={200} className="mr-2" />
-                    </span>
+                    </Link>
                 </div>
 
                 <div className="hidden md:flex space-x-10">
