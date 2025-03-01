@@ -3,12 +3,13 @@
 import { } from 'lucide-react';
 import styles from '../login/LoginForm.module.css';
 import Link from 'next/link';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
+import SHForm from '@/components/ui/core/form/SHForm';
+import SHInput from '@/components/ui/core/form/SHInput';
 
 const RegisterForm = () => {
-    const form = useForm()
+    const handleFormSubmit = (data: any) => {
+        console.log(data);
+    };
     return (
         <div
             className={`${styles.banner} relative w-full h-screen flex flex-col items-center justify-center text-center bg-cover bg-center`}
@@ -22,85 +23,53 @@ const RegisterForm = () => {
                         Join us today and start your journey!
                     </p>
                 </div>
-                <Form {...form}>
-                    <form className="space-y-4">
-                        <div className="w-full border border-gray-300 rounded-lg p-2">
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Name</FormLabel>
-                                        <FormControl>
-                                            <Input type="text" {...field} value={field.value || ""} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                        <div className="w-full border border-gray-300 rounded-lg p-2">
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input type="email" {...field} value={field.value || ""} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
-                        <div className="w-full border border-gray-300 rounded-lg p-2">
-                            <FormField
-                                control={form.control}
-                                name="Phone"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Phone</FormLabel>
-                                        <FormControl>
-                                            <Input type="text" {...field} value={field.value || ""} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                <SHForm onSubmit={handleFormSubmit}>
 
-                        <div className="w-full border border-gray-300 rounded-lg p-2">
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" {...field} value={field.value || ""} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
+                        <SHInput
+                            type="text"
+                            name="name"
+                            label="Name"
+                        />
+                    </div>
+                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
+                        <SHInput
+                            type="email"
+                            name="email"
+                            label="Email"
+                        />
+                    </div>
+                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
+                        <SHInput
+                            type="text"
+                            name="phone"
+                            label="Phone"
+                        />
+                    </div>
 
-                        <div className="flex justify-end items-center">
-                            <a href="#" className="text-[#ffb300] text-[16px]">
-                                Forgot password?
-                            </a>
-                        </div>
+                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
+                        <SHInput
+                            type="password"
+                            name="password"
+                            label="Password"
+                        />
+                    </div>
 
-                        <button className="w-full py-2 text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] rounded-lg">
-                            Register
-                        </button>
-                    </form>
-                </Form>
-                <p className="text-sm text-gray-600 text-center my-3">
-                    Do not have an account ?
-                    <Link href="/register" className="text-primary">
+                    <div className="flex justify-end items-center my-2">
+                        <a href="#" className="text-[#ffb300] text-[16px]">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <button type='submit' className="w-full py-2 text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] rounded-lg">
                         Register
+                    </button>
+
+                </SHForm>
+                <p className="text-sm text-gray-600 text-center my-3">
+                    Already have an account ?
+                    <Link href="/login" className="text-primary">
+                        Login
                     </Link>
                 </p>
             </div>
