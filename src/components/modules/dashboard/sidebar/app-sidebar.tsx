@@ -26,6 +26,7 @@ import Logo from "@/app/assets/logo.png";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import Image from "next/image";
+import { useUser } from "@/context/UserContext";
 
 const data = {
     navMain: [
@@ -104,6 +105,9 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const { user } = useUser();
+    const isAdmin = user?.role === 'admin';
+
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
@@ -120,7 +124,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain
+                    items={data.navMain.filter((item) => {
+                        if (item.title === "Admin" && !isAdmin) {
+                            return false;
+                        }
+                        return true;
+                    })}
+                />
             </SidebarContent>
             <SidebarFooter>
                 <NavUser />
