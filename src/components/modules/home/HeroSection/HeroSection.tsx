@@ -14,7 +14,12 @@ const categories = [
     { name: "Home Appliance", count: 24 },
     { name: "Laptop PC", count: 46 },
     { name: "Mobile", count: 68 },
+    { name: "Video Game Consoles", count: 68 },
     { name: "Others", count: 55 },
+    { name: "Vehicles", count: 55 },
+    { name: "Services", count: 55 },
+    { name: "Hobbies Sports", count: 55 },
+    { name: "Health & Beauty ", count: 55 },
 ];
 
 const HeroSection = () => {

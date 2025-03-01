@@ -12,6 +12,10 @@ const navbarItem = [
         href: '/'
     },
     {
+        name: 'Products',
+        href: '/products'
+    },
+    {
         name: 'About',
         href: '/about-us'
     },
@@ -31,7 +35,7 @@ const Navbar = () => {
 
     return (
         <nav className="bg-yellow-400 border-b w-full sticky top-0 z-10">
-            <div className="container mx-auto px-6 md:px-20 py-3 flex justify-between items-center">
+            <div className="container mx-auto px-5 py-3 flex justify-between items-center">
 
                 <div className="md:hidden border rounded-full p-2 flex items-center">
                     <button onClick={() => setIsOpen(!isOpen)} className="text-black text-2xl">
