@@ -9,7 +9,7 @@ import {
     PieChart,
     Send,
     Settings,
-    SquareTerminal,
+    Settings2
 } from "lucide-react";
 
 import {
@@ -31,36 +31,37 @@ const data = {
     navMain: [
         {
             title: "Dashboard",
-            url: "/user/dashboard",
-            icon: SquareTerminal,
-            isActive: true,
-        },
-        {
-            title: "Shop",
-            url: "/user/shop/products",
+            url: "3",
             icon: Bot,
             items: [
                 {
-                    title: "Manage Products",
-                    url: "/user/shop/products",
+                    title: "Purchase History",
+                    url: "/dashboard/purchase-history",
                 },
                 {
-                    title: "Manage Categories",
-                    url: "/user/shop/category",
-                },
-                {
-                    title: "Manage Brands",
-                    url: "/user/shop/brand",
-                },
-                {
-                    title: "Manage Coupon",
-                    url: "/user/shop/manage-coupon",
+                    title: "Listing",
+                    url: "/dashboard/listing",
                 },
             ],
         },
 
         {
-            title: "Settings",
+            title: "Admin",
+            url: "#",
+            icon: Settings2,
+            items: [
+                {
+                    title: "User Management",
+                    url: "/dashboard/admin/user-management",
+                },
+                {
+                    title: "Listings",
+                    url: "/dashboard/admin/listings",
+                },
+            ],
+        },
+        {
+            title: "Setting",
             url: "#",
             icon: Settings,
             items: [
