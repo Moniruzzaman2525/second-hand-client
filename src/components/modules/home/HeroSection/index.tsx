@@ -37,11 +37,11 @@ const HeroSection = () => {
                     Second Hand <br /> <span className="text-yellow-400">Bangladesh</span>.
                 </h1>
 
-                <div className="mt-6 bg-[#f4f4f6] p-3 md:p-4 rounded-lg shadow-lg md:flex items-center space-x-2 w-full max-w-2xl">
+                <div className="mt-6 bg-[#f4f4f6] p-3 md:p-4 rounded-lg shadow-lg flex flex-col md:flex-row items-center gap-4 w-[100%] mx-auto md:w-full">
                     <div className="flex items-center border bg-[#fdfdfe]  px-3 py-2 rounded-lg flex-1">
                         <div className="bg-[#D5E3EE] p-1 rounded">
                             <Lightbulb />
-                       </div>
+                        </div>
                         <input
                             type="text"
                             placeholder="I'm looking for..."
@@ -49,16 +49,18 @@ const HeroSection = () => {
                         />
                     </div>
 
-                    <div className="relative">
+                    <div className="relative w-full !ml-[-1px]">
                         <div
-                            className="flex items-center border bg-[#fdfdfe]  px-3 py-4 rounded-lg cursor-pointer"
+                            className="flex md:w-[350px] justify-between items-center border bg-[#fdfdfe] gap-2 px-3 py-3 rounded-lg cursor-pointer "
                             onClick={() => setIsOpen(!isOpen)}
                         >
-                            <div className="bg-[#D5E3EE] p-1 rounded">
-                                <List />
-                          </div>
-                            <span className="px-14">{selectedCategory}</span>
-                            <ChevronDown />
+                            <div className="flex items-center gap-5">
+                                <div className="bg-[#D5E3EE] p-1 rounded">
+                                    <List />
+                                </div>
+                                <span className="">{selectedCategory}</span>
+                            </div>
+                            <ChevronDown className="" />
                         </div>
 
                         {isOpen && (
@@ -91,10 +93,10 @@ const HeroSection = () => {
                     </div>
 
                     <div className="flex justify-center">
-                        <button className="text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] flex items-center justify-between gap-2 px-4 py-4 rounded-sm shadow-md ">
+                        <button className="text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] flex items-center justify-between gap-10 px-8 md:px-4 py-4 rounded-sm shadow-md ">
                             <span className="block md:hidden">Search</span> <Search size={20} />
                         </button>
-                   </div>
+                    </div>
                 </div>
             </div>
         </div>
