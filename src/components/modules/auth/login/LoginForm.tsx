@@ -6,10 +6,18 @@ import Link from 'next/link';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
+import { loginUser } from '@/services/AuthService';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
-const RegisterForm = () => {
-    const handleFormSubmit = (data: FieldValues) => {
-        console.log(data);
+const LoginForm = () => {
+     const router = useRouter()
+    const handleFormSubmit =  async(data: FieldValues) => {
+        const res = await loginUser(data)
+        if (res.success) {
+            toast.success(res?.message)
+            router.push('/')
+        }
     };
     return (
         <div
@@ -19,20 +27,12 @@ const RegisterForm = () => {
 
             <div className="relative z-10 w-full max-w-md p-6 bg-[#fdfdfe] rounded-lg shadow-lg">
                 <div className='py-5'>
-                    <h1 className="text-xl font-semibold">Registration</h1>
+                    <h1 className="text-xl font-semibold">Login</h1>
                     <p className="font-extralight text-sm text-gray-600">
-                        Join us today and start your journey!
+                        Welcome back!
                     </p>
                 </div>
                 <SHForm onSubmit={handleFormSubmit}>
-
-                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
-                        <SHInput
-                            type="text"
-                            name="name"
-                            label="Name"
-                        />
-                    </div>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
                             type="email"
@@ -40,14 +40,6 @@ const RegisterForm = () => {
                             label="Email"
                         />
                     </div>
-                    <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
-                        <SHInput
-                            type="text"
-                            name="phone"
-                            label="Phone"
-                        />
-                    </div>
-
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
                             type="password"
@@ -63,14 +55,14 @@ const RegisterForm = () => {
                     </div>
 
                     <button type='submit' className="w-full py-2 text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] rounded-lg">
-                        Register
+                        Login
                     </button>
 
                 </SHForm>
                 <p className="text-sm text-gray-600 text-center my-3">
-                    Already have an account ?
-                    <Link href="/login" className="text-primary">
-                        Login
+                    Do not have an account ?
+                    <Link href="/register" className="text-primary">
+                        Register
                     </Link>
                 </p>
             </div>
@@ -78,4 +70,4 @@ const RegisterForm = () => {
     );
 };
 
-export default RegisterForm;
+export default LoginForm;
