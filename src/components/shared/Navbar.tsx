@@ -65,10 +65,10 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
+                    <Link href='/dashboard/profile' className="border rounded-full p-2">
+                        <User className="text-black " />
+                    </Link>
                     <Link className="flex gap-4" href='/login'>
-                        <span className="border rounded-full p-2">
-                            <User className="text-black " />
-                        </span>
                         <button className="hidden md:block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</button>
                     </Link>
                     <button className="hidden md:flex items-center gap-2 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
