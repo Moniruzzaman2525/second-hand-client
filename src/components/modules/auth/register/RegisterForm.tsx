@@ -5,9 +5,10 @@ import styles from '../login/LoginForm.module.css';
 import Link from 'next/link';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
+import { FieldValues } from 'react-hook-form';
 
 const RegisterForm = () => {
-    const handleFormSubmit = (data: any) => {
+    const handleFormSubmit = (data: FieldValues) => {
         console.log(data);
     };
     return (
