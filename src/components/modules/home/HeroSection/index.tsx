@@ -30,7 +30,7 @@ const HeroSection = () => {
         <div
             className={`${styles.banner} relative w-full h-screen flex flex-col items-center justify-center text-center bg-cover bg-center`}
         >
-            <div className="absolute inset-0 bg-[#374B5C] bg-opacity-50 backdrop-blur-[3px]"></div>
+            <div className="absolute inset-0 bg-[#374B5C] bg-opacity-50 backdrop-blur-[4px]"></div>
 
             <div className="relative z-10">
                 <h1 className="text-white text-5xl md:text-6xl font-bold">
