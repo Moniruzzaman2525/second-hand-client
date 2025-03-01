@@ -17,13 +17,28 @@ const RegisterForm = () => {
 
             <div className="relative z-10 w-full max-w-md p-6 bg-[#fdfdfe] rounded-lg shadow-lg">
                 <div className='py-5'>
-                    <h1 className="text-xl font-semibold">Login</h1>
+                    <h1 className="text-xl font-semibold">Registration</h1>
                     <p className="font-extralight text-sm text-gray-600">
-                        Welcome back!
+                        Join us today and start your journey!
                     </p>
                 </div>
                 <Form {...form}>
                     <form className="space-y-4">
+                        <div className="w-full border border-gray-300 rounded-lg p-2">
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input type="text" {...field} value={field.value || ""} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
                         <div className="w-full border border-gray-300 rounded-lg p-2">
                             <FormField
                                 control={form.control}
@@ -33,6 +48,21 @@ const RegisterForm = () => {
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
                                             <Input type="email" {...field} value={field.value || ""} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                        <div className="w-full border border-gray-300 rounded-lg p-2">
+                            <FormField
+                                control={form.control}
+                                name="Phone"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Phone</FormLabel>
+                                        <FormControl>
+                                            <Input type="text" {...field} value={field.value || ""} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -63,7 +93,7 @@ const RegisterForm = () => {
                         </div>
 
                         <button className="w-full py-2 text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] rounded-lg">
-                            Login
+                            Register
                         </button>
                     </form>
                 </Form>
