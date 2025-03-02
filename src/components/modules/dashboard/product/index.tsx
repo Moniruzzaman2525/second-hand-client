@@ -1,10 +1,9 @@
 "use client";
 import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, Plus, Trash } from "lucide-react";
+import { Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
@@ -96,11 +95,11 @@ const ManageProducts = ({
             cell: ({ row }) => <span>$ {row.original.price.toFixed(2)}</span>,
         },
         {
-            accessorKey: "offerPrice",
-            header: "Ofter Price",
+            accessorKey: "location",
+            header: "City",
             cell: ({ row }) => (
                 <span>
-                     { row.original.price.toFixed(2)}
+                     { row.original.location}
                 </span>
             ),
         },
@@ -144,17 +143,6 @@ const ManageProducts = ({
 
     return (
         <div>
-            <div className="flex items-center justify-between">
-                <h1 className="text-xl font-bold">Manage Products</h1>
-                <div className="flex items-center gap-2">
-                    <Button
-                        onClick={() => router.push("/user/shop/products/add-product")}
-                        size="sm"
-                    >
-                        Add Product <Plus />
-                    </Button>
-                </div>
-            </div>
             <NMTable columns={columns} data={products || []} />
             <TablePagination totalPage={meta?.totalPage} />
         </div>
