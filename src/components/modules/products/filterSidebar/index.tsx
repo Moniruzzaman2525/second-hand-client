@@ -2,8 +2,8 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { useState, useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { categories, conditionOptions } from "@/contants";
+import { useRouter, useSearchParams } from "next/navigation";
+import { categories, conditionOptions } from "@/constant";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,6 @@ const FilterSidebar = () => {
     const [location, setLocation] = useState("");
     const [selectCondition, setSelectCondition] = useState("");
     const router = useRouter();
-    const pathname = usePathname();
     const searchParams = useSearchParams();
 
     const handleSearchQuery = (query: string, value: string | number) => {
@@ -25,7 +24,7 @@ const FilterSidebar = () => {
         } else {
             params.delete(query);
         }
-        router.push(`${pathname}?${params.toString()}`, {
+        router.push(`${window.location.pathname}?${params.toString()}`, {
             scroll: false,
         });
     };
@@ -39,7 +38,8 @@ const FilterSidebar = () => {
         setSelectCondition(params.get("condition") || "");
     }, [searchParams]);
 
-    const hasActiveFilters = minPrice || maxPrice || selectCategory || location || selectCondition;
+    const hasActiveFilters =
+        minPrice || maxPrice || selectCategory || location || selectCondition;
 
     const handleClearFilters = () => {
         setMinPrice("");
@@ -49,7 +49,7 @@ const FilterSidebar = () => {
         setSelectCondition("");
 
         const params = new URLSearchParams();
-        router.push(`${pathname}?${params.toString()}`, {
+        router.push(`${window.location.pathname}?${params.toString()}`, {
             scroll: false,
         });
     };
@@ -60,11 +60,7 @@ const FilterSidebar = () => {
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-semibold">Filter</h2>
                     {hasActiveFilters && (
-                        <Button
-                            onClick={handleClearFilters}
-                            size="sm"
-                            className="ml-5"
-                        >
+                        <Button onClick={handleClearFilters} size="sm" className="ml-5">
                             Clear Filters
                         </Button>
                     )}
@@ -100,16 +96,17 @@ const FilterSidebar = () => {
 
                 <h2 className="text-lg font-semibold mt-6">Product Category</h2>
                 <div className="mb-6">
-                    <RadioGroup className="space-y-2" value={selectCategory} onValueChange={(value) => {
-                        setSelectCategory(value);
-                        handleSearchQuery("category", value);
-                    }}>
+                    <RadioGroup
+                        className="space-y-2"
+                        value={selectCategory}
+                        onValueChange={(value) => {
+                            setSelectCategory(value);
+                            handleSearchQuery("category", value);
+                        }}
+                    >
                         {categories?.map((category) => (
                             <div key={category.name} className="flex items-center space-x-2">
-                                <RadioGroupItem
-                                    value={category.value}
-                                    id={category.value}
-                                />
+                                <RadioGroupItem value={category.value} id={category.value} />
                                 <Label
                                     htmlFor={category.name}
                                     className="text-gray-500 font-light"
@@ -136,20 +133,18 @@ const FilterSidebar = () => {
 
                 <h2 className="text-lg font-semibold mt-6">Condition</h2>
                 <div className="mb-6">
-                    <RadioGroup className="space-y-2" value={selectCondition} onValueChange={(value) => {
-                        setSelectCondition(value);
-                        handleSearchQuery("condition", value);
-                    }}>
+                    <RadioGroup
+                        className="space-y-2"
+                        value={selectCondition}
+                        onValueChange={(value) => {
+                            setSelectCondition(value);
+                            handleSearchQuery("condition", value);
+                        }}
+                    >
                         {conditionOptions?.map((status) => (
                             <div key={status.label} className="flex items-center space-x-2">
-                                <RadioGroupItem
-                                    value={status.value}
-                                    id={status.value}
-                                />
-                                <Label
-                                    htmlFor={status.value}
-                                    className="text-gray-500 font-light"
-                                >
+                                <RadioGroupItem value={status.value} id={status.value} />
+                                <Label htmlFor={status.value} className="text-gray-500 font-light">
                                     {status.label}
                                 </Label>
                             </div>

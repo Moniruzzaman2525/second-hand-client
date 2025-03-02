@@ -12,7 +12,7 @@ import SHForm from "@/components/ui/core/form/SHForm";
 import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
-import { categories, conditionOptions } from "@/contants";
+import { categories, conditionOptions } from "@/constant";
 import { addProduct } from "@/services/Product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
