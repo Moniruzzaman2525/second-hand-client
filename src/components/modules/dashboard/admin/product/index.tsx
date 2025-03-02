@@ -25,7 +25,7 @@ const ManageProductsByAdmin = ({
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
 
     const handleView = (product: IProduct) => {
-        router.push(`/dashboard/listing/ads-details/${product._id}`);
+        router.push(`/dashboard/admin/listings/ads-details/${product._id}`);
     };
 
     const handleDelete = (product: IProduct) => {
