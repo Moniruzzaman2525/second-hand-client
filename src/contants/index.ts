@@ -20,5 +20,5 @@ export const categories = [
 
 export const conditionOptions = [
     { value: 'new', label: 'New' },
-    { value: 'old', label: 'Old' },
+    { value: 'used', label: 'Used' },
 ]

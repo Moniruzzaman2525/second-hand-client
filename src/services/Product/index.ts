@@ -8,7 +8,7 @@ export const addProduct = async (productData: FormData): Promise<any> => {
             method: "POST",
             body: productData,
             headers: {
-                Authorization: (await cookies()).get("accessToken")!.value,
+                Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
             },
         });
         revalidateTag("PRODUCT");

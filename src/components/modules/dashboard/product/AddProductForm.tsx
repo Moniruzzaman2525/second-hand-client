@@ -14,20 +14,18 @@ import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
 import { categories, conditionOptions } from "@/contants";
 import { addProduct } from "@/services/Product";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-
+    const router = useRouter();
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
-
-
         const modifiedData = {
             ...data,
             price: parseFloat(data.price),
-            stock: parseInt(data.stock),
-            weight: parseFloat(data.stock),
         };
 
         const formData = new FormData();
@@ -38,16 +36,14 @@ export default function AddProductsForm() {
         }
         try {
             const res = await addProduct(formData);
-            console.log(res)
-            // console.log(res)
-            // if (res.success) {
-            //     toast.success(res.message);
-            //     router.push("/user/shop/products");
-            // } else {
-            //     toast.error(res.message);
-            // }
+            if (res.success) {
+                toast.success(res.message);
+                router.push("/dashboard/listing");
+            } else {
+                toast.error(res.message);
+            }
         } catch (err: any) {
-            console.error(err);
+            toast.error(err.message);
         }
     };
 
