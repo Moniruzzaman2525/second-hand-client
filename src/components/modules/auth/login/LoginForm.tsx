@@ -16,18 +16,30 @@ const LoginForm = () => {
       const { setIsLoading } = useUser();
     const searchParams = useSearchParams()
     const redirect = searchParams.get('redirectPath')
-    const handleFormSubmit =  async(data: FieldValues) => {
-        const res = await loginUser(data)
-        if (res.success) {
-            setIsLoading(true)
-            toast.success(res?.message)
-            if (redirect) {
-                router.push(redirect)
+    const handleFormSubmit = async (data: FieldValues) => {
+        try {
+            const res = await loginUser(data);
+
+            if (res.success) {
+                setIsLoading(true);
+                toast.success(res?.message);  
+
+                if (redirect) {
+                    router.push(redirect);  
+                } else {
+                    router.push('/');  
+                }
             } else {
-                router.push('/')
+                toast.error(res?.message || 'Login failed. Please try again.');
             }
+        } catch (error: any) {
+            
+            toast.error(error.message || 'An unexpected error occurred. Please try again.');
+        } finally {
+            setIsLoading(false);  
         }
     };
+
     return (
         <div
             className={`${styles.banner} relative w-full h-screen flex flex-col items-center justify-center text-center bg-cover bg-center`}

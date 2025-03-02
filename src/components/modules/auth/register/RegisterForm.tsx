@@ -18,7 +18,6 @@ const RegisterForm = () => {
     const { setIsLoading } = useUser();
     const handleFormSubmit = async (data: FieldValues) => {
         const res = await registerUser(data)
-        console.log(res)
         if (res.success) {
             setIsLoading(true)
             toast.success(res?.message)
