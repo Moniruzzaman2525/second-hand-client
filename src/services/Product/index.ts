@@ -102,6 +102,30 @@ export const getSingleProduct = async (productId: string) => {
         return Error(error.message);
     }
 };
+
+
+export const updateProduct = async (
+    productData: FormData,
+    productId: string
+): Promise<any> => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            {
+                method: "PATCH",
+                body: productData,
+                headers: {
+                    Authorization: (await cookies()).get("accessToken")!.value,
+                },
+            }
+        );
+        revalidateTag("PRODUCT");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
 export const handleDeleteProduct = async (productId: string) => {
     try {
         const res = await fetch(
