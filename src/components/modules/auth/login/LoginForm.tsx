@@ -22,21 +22,18 @@ const LoginForm = () => {
 
             if (res.success) {
                 setIsLoading(true);
-                toast.success(res?.message);  
+                toast.success(res?.message);
 
                 if (redirect) {
-                    router.push(redirect);  
+                    router.push(redirect);
                 } else {
-                    router.push('/');  
+                    router.push('/');
                 }
             } else {
                 toast.error(res?.message || 'Login failed. Please try again.');
             }
         } catch (error: any) {
-            
             toast.error(error.message || 'An unexpected error occurred. Please try again.');
-        } finally {
-            setIsLoading(false);  
         }
     };
 

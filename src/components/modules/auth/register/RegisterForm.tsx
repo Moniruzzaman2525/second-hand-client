@@ -33,9 +33,7 @@ const RegisterForm = () => {
             }
         } catch (error: any) {
             toast.error(error.message || 'An unexpected error occurred. Please try again.');
-        } finally {
-            setIsLoading(false);
-        }
+        } 
     };
 
     return (
