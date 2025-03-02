@@ -2,22 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
     FieldValues,
     SubmitHandler,
-    useFieldArray,
-    useForm,
 } from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus } from "lucide-react";
-
 import { useState } from "react";
 import SHImageUploader from "@/components/ui/core/SHImageUploader";
 import ImagePreviewer from "@/components/ui/core/SHImageUploader/ImagePreviewer";
@@ -28,58 +15,11 @@ export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
 
-    const form = useForm({
-        defaultValues: {
-            name: "",
-            description: "",
-            price: "",
-            category: "",
-            brand: "",
-            stock: "",
-            weight: "",
-            availableColors: [{ value: "" }],
-            keyFeatures: [{ value: "" }],
-            specification: [{ key: "", value: "" }],
-        },
-    });
-
-    const {
-        formState: { isSubmitting },
-    } = form;
-
-    const { append: appendColor, fields: colorFields } = useFieldArray({
-        control: form.control,
-        name: "availableColors",
-    });
-
-    const addColor = () => {
-        appendColor({ value: "" });
-    };
-
-
-
-
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const availableColors = data.availableColors.map(
-            (color: { value: string }) => color.value
-        );
-
-        const keyFeatures = data.keyFeatures.map(
-            (feature: { value: string }) => feature.value
-        );
-
-        const specification: { [key: string]: string } = {};
-        data.specification.forEach(
-            (item: { key: string; value: string }) =>
-                (specification[item.key] = item.value)
-        );
 
 
         const modifiedData = {
             ...data,
-            availableColors,
-            keyFeatures,
-            specification,
             price: parseFloat(data.price),
             stock: parseInt(data.stock),
             weight: parseFloat(data.stock),
@@ -119,68 +59,13 @@ export default function AddProductsForm() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <SHInput
                         type="text"
-                        name="name"
-                        label="Product Name"
+                        name="title"
+                        label="Product Title"
                     />
-
-                    <FormField
-                        control={form.control}
+                    <SHInput
+                        type="number"
                         name="price"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Price</FormLabel>
-                                <FormControl>
-                                    <Input {...field} value={field.value || ""} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="stock"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Stock</FormLabel>
-                                <FormControl>
-                                    <Input {...field} value={field.value || ""} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="weight"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Weight</FormLabel>
-                                <FormControl>
-                                    <Input {...field} value={field.value || ""} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-
-                <div className="my-5">
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Description</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        className="h-36 resize-none"
-                                        {...field}
-                                        value={field.value || ""}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+                        label="Product Price"
                     />
                 </div>
 
@@ -204,46 +89,9 @@ export default function AddProductsForm() {
                     </div>
                 </div>
 
-                <div>
-                    <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                        <p className="text-primary font-bold text-xl">Available Colors</p>
-                        <Button
-                            variant="outline"
-                            className="size-10"
-                            onClick={addColor}
-                            type="button"
-                        >
-                            <Plus className="text-primary" />
-                        </Button>
-                    </div>
 
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        {colorFields.map((colorField, index) => (
-                            <div key={colorField.id}>
-                                <FormField
-                                    control={form.control}
-                                    name={`availableColors.${index}.value`}
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Color {index + 1}</FormLabel>
-                                            <FormControl>
-                                                <Input {...field} value={field.value || ""} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-
-
-
-
-                <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Adding Product....." : "Add Product"}
+                <Button type="submit" className="mt-5 w-full">
+                    Add Product
                 </Button>
             </SHForm>
         </div>

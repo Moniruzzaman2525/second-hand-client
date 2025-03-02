@@ -1,15 +1,13 @@
-// components/SPInput.tsx
 
-import { Input } from '../../input';
+import { Textarea } from '../../textarea';
 import { FormControl, FormField, FormItem, FormMessage } from '../../form';
 
-type TInputProps = {
-    type: string;
+type TTextareaProps = {
     name: string;
     label?: string;
 };
 
-const SHInput = ({ type, name, label }: TInputProps) => {
+const SHTextarea = ({ name, label }: TTextareaProps) => {
     return (
         <div>
             {label && <label htmlFor={name} className="block py-2 text-sm font-normal">{label}</label>}
@@ -18,7 +16,7 @@ const SHInput = ({ type, name, label }: TInputProps) => {
                 render={({ field }) => (
                     <FormItem>
                         <FormControl>
-                            <Input type={type} {...field} value={field.value || ""} />
+                            <Textarea {...field} value={field.value || ""} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -28,4 +26,4 @@ const SHInput = ({ type, name, label }: TInputProps) => {
     );
 };
 
-export default SHInput;
+export default SHTextarea;
