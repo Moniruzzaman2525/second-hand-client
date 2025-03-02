@@ -12,7 +12,7 @@ import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 
-const ManageProducts = ({
+const ManageProductsByAdmin = ({
     products,
     meta,
 }: {
@@ -174,4 +174,4 @@ const ManageProducts = ({
     );
 };
 
-export default ManageProducts;
+export default ManageProductsByAdmin;
