@@ -13,7 +13,7 @@ const FilterSidebar = () => {
     const [maxPrice, setMaxPrice] = useState<number | string>("");
     const [selectCategory, setSelectCategory] = useState("");
     const [location, setLocation] = useState("");
-    const [selectCondition, setSelectCondition] = useState("");  // New state for condition
+    const [selectCondition, setSelectCondition] = useState("");
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ const FilterSidebar = () => {
         if (value) {
             params.set(query, value.toString());
         } else {
-            params.delete(query); // Remove the query param if value is empty
+            params.delete(query);
         }
         router.push(`${pathname}?${params.toString()}`, {
             scroll: false,
@@ -31,36 +31,37 @@ const FilterSidebar = () => {
     };
 
     useEffect(() => {
-        // Set initial values based on the URL search parameters
         const params = new URLSearchParams(searchParams.toString());
         setMinPrice(params.get("minPrice") || "");
         setMaxPrice(params.get("maxPrice") || "");
         setSelectCategory(params.get("category") || "");
         setLocation(params.get("location") || "");
-        setSelectCondition(params.get("condition") || "");  // Set condition from URL params
+        setSelectCondition(params.get("condition") || "");
     }, [searchParams]);
+
+    const hasActiveFilters = minPrice || maxPrice || selectCategory || location || selectCondition;
+
+    const handleClearFilters = () => {
+        setMinPrice("");
+        setMaxPrice("");
+        setSelectCategory("");
+        setLocation("");
+        setSelectCondition("");
+
+        const params = new URLSearchParams();
+        router.push(`${pathname}?${params.toString()}`, {
+            scroll: false,
+        });
+    };
 
     return (
         <Card className="p-4 rounded-2xl shadow-md w-72">
             <CardContent>
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-semibold">Filter</h2>
-                    {searchParams.toString().length > 0 && (
+                    {hasActiveFilters && (
                         <Button
-                            onClick={() => {
-                                // Reset state values
-                                setMinPrice("");
-                                setMaxPrice("");
-                                setSelectCategory("");
-                                setLocation("");
-                                setSelectCondition("");  // Reset condition state
-
-                                // Clear all query parameters
-                                const params = new URLSearchParams();
-                                router.push(`${pathname}?${params.toString()}`, {
-                                    scroll: false,
-                                });
-                            }}
+                            onClick={handleClearFilters}
                             size="sm"
                             className="ml-5"
                         >
@@ -69,7 +70,6 @@ const FilterSidebar = () => {
                     )}
                 </div>
 
-                {/* Min Price */}
                 <h3 className="text-sm font-semibold mb-2">Min Price</h3>
                 <input
                     type="number"
@@ -84,7 +84,6 @@ const FilterSidebar = () => {
                     min="0"
                 />
 
-                {/* Max Price */}
                 <h3 className="text-sm font-semibold mb-2 mt-4">Max Price</h3>
                 <input
                     type="number"
@@ -99,7 +98,6 @@ const FilterSidebar = () => {
                     min="0"
                 />
 
-                {/* Product Category */}
                 <h2 className="text-lg font-semibold mt-6">Product Category</h2>
                 <div className="mb-6">
                     <RadioGroup className="space-y-2" value={selectCategory} onValueChange={(value) => {
@@ -123,7 +121,6 @@ const FilterSidebar = () => {
                     </RadioGroup>
                 </div>
 
-                {/* Location Filter */}
                 <h3 className="text-sm font-semibold mb-2">Location</h3>
                 <input
                     type="text"
@@ -137,7 +134,6 @@ const FilterSidebar = () => {
                     placeholder="Enter location"
                 />
 
-                {/* Condition */}
                 <h2 className="text-lg font-semibold mt-6">Condition</h2>
                 <div className="mb-6">
                     <RadioGroup className="space-y-2" value={selectCondition} onValueChange={(value) => {
