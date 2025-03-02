@@ -8,6 +8,7 @@ type TImageUploader = {
     className?: string;
     setImageFiles: React.Dispatch<React.SetStateAction<File[]>>;
     setImagePreview: React.Dispatch<React.SetStateAction<string[]>>;
+    disabled?: boolean
 };
 
 const SHImageUploader = ({
@@ -15,6 +16,7 @@ const SHImageUploader = ({
     className,
     setImageFiles,
     setImagePreview,
+    disabled
 }: TImageUploader) => {
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
@@ -35,21 +37,22 @@ const SHImageUploader = ({
     };
 
     return (
-        <div className= { cn("flex flex-col items-center w-full gap-4", className) } >
-        <Input
+        <div className={cn("flex flex-col items-center w-full gap-4", className)} >
+            <Input
                 id="image-upload"
-    type = "file"
-    accept = "image/*"
-    multiple
-    className = "hidden"
-    onChange = { handleImageChange }
-        />
-        <label
+                type="file"
+                disabled={disabled}
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={handleImageChange}
+            />
+            <label
                 htmlFor="image-upload"
-    className = "w-full h-36 md:size-36 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-center text-sm text-gray-500 hover:bg-gray-50 transition"
-        >
-        { label }
-        </label>
+                className="w-full h-36 md:size-36 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-md cursor-pointer text-center text-sm text-gray-500 hover:bg-gray-50 transition"
+            >
+                {label}
+            </label>
         </div>
     );
 };
