@@ -24,8 +24,6 @@ export const getAllProducts = async (
     query?: { [key: string]: string | string[] | undefined }
 ) => {
     const params = new URLSearchParams();
-    console.log(query);
-
     if (query?.minPrice) {
         params.append("minPrice", query?.minPrice.toString());
     }
@@ -35,6 +33,19 @@ export const getAllProducts = async (
     if (query?.category) {
         const category = Array.isArray(query.category) ? query.category.join(',') : query.category;
         params.append("category", category);
+    }
+
+    if (query?.location) {
+        params.append("location", query?.location.toString());
+    }
+
+    if (query?.search) {
+        params.append("search", query?.search.toString());
+    }
+
+    if (query?.condition) {
+        const condition = Array.isArray(query.condition) ? query.condition.join(',') : query.condition;
+        params.append("condition", condition);
     }
 
     try {
@@ -52,6 +63,7 @@ export const getAllProducts = async (
         return Error(error.message);
     }
 };
+
 
 
 
