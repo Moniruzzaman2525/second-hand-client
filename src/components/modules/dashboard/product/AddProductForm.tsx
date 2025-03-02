@@ -53,15 +53,10 @@ export default function AddProductsForm() {
     };
 
     return (
-        <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 ">
-            <div className="flex items-center space-x-4 mb-5 ">
-
-
-                <h1 className="text-xl font-bold">Add Product</h1>
-            </div>
+        <div className="rounded-xl bg-[#fdfdfe] flex-grow w-full py-10 px-20">
             <SHForm onSubmit={handleFormSubmit}>
                 <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                    <p className="text-primary font-bold text-xl">Basic Information</p>
+                    <p className="text-primary font-bold text-xl">General Information</p>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <SHInput
@@ -87,7 +82,7 @@ export default function AddProductsForm() {
 
                 <div>
                     <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                        <p className="text-primary font-bold text-xl">Images</p>
+                        <p className="text-primary font-bold text-xl">Gallery</p>
                     </div>
                     <div className="flex gap-4 ">
                         <SHImageUploader

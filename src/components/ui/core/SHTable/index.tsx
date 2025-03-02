@@ -32,7 +32,7 @@ export function NMTable<TData, TValue>({
     });
 
     return (
-        <div className="my-5">
+        <div className="my-5 bg-[#fdfdfe]">
             <Table>
                 <TableHeader>
                     {table?.getHeaderGroups().map((headerGroup) => (

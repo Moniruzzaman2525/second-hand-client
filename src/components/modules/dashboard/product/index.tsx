@@ -141,7 +141,7 @@ const ManageProducts = ({
 
     return (
         <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center bg-[#fdfdfe] justify-between">
                 <h1 className="text-xl font-bold">Manage Products</h1>
                 <div className="flex items-center gap-2">
                     <Button

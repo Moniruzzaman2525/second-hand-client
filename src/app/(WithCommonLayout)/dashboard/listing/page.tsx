@@ -5,10 +5,14 @@ import SHContainer from "@/components/ui/core/SHContainer";
 
 const ListingPage = () => {
     return (
-        <SHContainer>
+         <div>
             <Sidebar />
-            <ManageProducts />
-        </SHContainer>
+            <div className='bg-[#f8fafd]'>
+                <SHContainer >
+                    <ManageProducts />
+                </SHContainer>
+            </div>
+        </div>
     );
 };
 
