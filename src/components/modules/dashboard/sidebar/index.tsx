@@ -14,25 +14,26 @@ const Sidebar = () => {
     return (
         <div className="w-full h-full bg-[#fdfdfe] shadow-sm">
             <SHContainer className="py-10 flex items-end gap-10 justify-start">
-                <Link className={`${isActive('/dashboard/listing/add-ads')} text-lg`} href="/dashboard/listing/add-ads">
-                    Add New
-                </Link>
-                <Link className={`${isActive('/dashboard/listing')} text-lg`} href="/dashboard/listing">
-                    My Ads
-                </Link>
-                <Link className={`${isActive('/dashboard/purchase-history')} text-lg`} href="/dashboard/purchase-history">
-                    Purchase History
-                </Link>
-                <Link className={`${isActive('/dashboard/favorites')} text-lg`} href="/dashboard/favorites">
-                    Favorites
-                </Link>
+                {user?.role === 'user' && <>
+                    <Link className={`${isActive('/dashboard/listing/add-ads')} text-lg`} href="/dashboard/listing/add-ads">
+                        Add New
+                    </Link>
+                    <Link className={`${isActive('/dashboard/listing')} text-lg`} href="/dashboard/listing">
+                        My Ads
+                    </Link>
+                    <Link className={`${isActive('/dashboard/purchase-history')} text-lg`} href="/dashboard/purchase-history">
+                        Purchase History
+                    </Link>
+                    <Link className={`${isActive('/dashboard/favorites')} text-lg`} href="/dashboard/favorites">
+                        Favorites
+                    </Link>
+                </>}
                 <Link className={`${isActive('/messages')} text-lg`} href="/messages">
                     Messages
                 </Link>
                 <Link className={`${isActive('/dashboard/profile')} text-lg`} href="/dashboard/profile">
                     Settings
                 </Link>
-
                 {user?.role === 'admin' && (
                     <>
                         <Link className={`${isActive('/dashboard/admin/user-management')} text-lg`} href="/dashboard/admin/user-management">

@@ -10,6 +10,8 @@ import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { logout } from "@/services/AuthService";
+import { protectedRoutes } from "@/constant";
+import { usePathname, useRouter } from "next/navigation";
 
 const navbarItem = [
     {
@@ -64,10 +66,14 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState("");
     const { user, setIsLoading } = useUser();
-
+    const pathname = usePathname();
+    const router = useRouter();
     const handleLogOut = () => {
         logout()
         setIsLoading(true);
+        if (protectedRoutes.some((route) => pathname.match(route))) {
+            router.push("/");
+        }
     };
 
     return (
@@ -128,7 +134,7 @@ const Navbar = () => {
                                     <Link href={`/dashboard/profile`}>Profile</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
-                                    <Link href={`/dashboard/purchase-history`}>Dashboard</Link>
+                                    <Link href={`${user.role === 'admin' ? "/dashboard/admin/user-management" : "/dashboard/purchase-history"}`}>Dashboard</Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem

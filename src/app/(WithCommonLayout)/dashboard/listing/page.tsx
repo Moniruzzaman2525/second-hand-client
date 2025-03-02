@@ -9,7 +9,7 @@ const ListingPage = async ({ searchParams }: { searchParams: Promise<{ page: str
     const { page } = await searchParams;
     const { data, meta } = await getAllUserProducts(page, "1");
 
-    if (data.length === 0) {
+    if (data?.length === 0) {
         return (
             <div>
                 <Sidebar />
