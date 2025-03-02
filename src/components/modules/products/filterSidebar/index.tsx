@@ -25,7 +25,6 @@ const FilterSidebar = () => {
     ];
 
     const availability = ["Available", "Sold"];
-    const conditionType = ["New", "Old"];
 
     return (
         <Card className="p-4 rounded-2xl shadow-md w-72">
@@ -56,16 +55,6 @@ const FilterSidebar = () => {
                         <li key={index} className="flex items-center gap-2">
                             <Checkbox />
                             <span>{type}</span>
-                        </li>
-                    ))}
-                </ul>
-
-                <h2 className="text-lg font-semibold mt-6">condition</h2>
-                <ul className="space-y-2 mt-2">
-                    {conditionType.map((status, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                            <Checkbox />
-                            <span>{status}</span>
                         </li>
                     ))}
                 </ul>
