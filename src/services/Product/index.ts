@@ -111,11 +111,9 @@ export const handleDeleteProduct = async (productId: string) => {
                 headers: {
                     Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
                 },
-                next: {
-                    tags: ["PRODUCT"],
-                },
             },
         );
+        revalidateTag("PRODUCT");
         const data = await res.json();
         return data;
     } catch (error: any) {

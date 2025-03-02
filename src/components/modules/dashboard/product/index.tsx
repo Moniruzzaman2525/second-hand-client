@@ -9,6 +9,8 @@ import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
+import { handleDeleteProduct } from "@/services/Product";
+import { toast } from "sonner";
 
 const ManageProducts = ({
     products,
@@ -31,12 +33,24 @@ const ManageProducts = ({
         setIsModalOpen(true);
     };
 
-    const confirmDelete = () => {
-        if (productToDelete) {
-            console.log("Deleting product with ID:", productToDelete._id);
-            setProductToDelete(null);
+
+    const confirmDelete = async () => {
+        try {
+            if (productToDelete && productToDelete._id) {
+                const res = await handleDeleteProduct(productToDelete._id);
+                console.log(res)
+                if (res) {
+                    toast.success('Product deleted successfully!');
+                } else {
+                    toast.error('Failed to delete the product. Please try again.');
+                }
+                setProductToDelete(null);
+            }
+        } catch (error: any) {
+            toast.error(error.message);
         }
     };
+
 
     const columns: ColumnDef<IProduct>[] = [
         {
