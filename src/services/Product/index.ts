@@ -40,7 +40,7 @@ export const getAllProducts = async (
     }
 
     if (query?.search) {
-        params.append("search", query?.search.toString());
+        params.append("searchTerm", query?.search.toString());
     }
 
     if (query?.condition) {

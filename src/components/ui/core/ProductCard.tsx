@@ -55,7 +55,7 @@ console.log(product)
             <CardFooter className="block p-0">
                 <div className="flex gap-2 items-center justify-between">
                     <Button
-                        disabled={product?.status === 'available'}
+                        disabled={product?.status === 'sold'}
                         size="sm"
                         variant="outline"
                         className="w-32"
@@ -63,6 +63,7 @@ console.log(product)
                         Buy Now
                     </Button>
                     <Button
+                        disabled={product?.status === 'sold'}
                         variant="outline"
                         size="sm"
                         className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
@@ -70,6 +71,7 @@ console.log(product)
                         <ShoppingCart />
                     </Button>
                     <Button
+                        disabled={product?.status === 'sold'}
                         variant="outline"
                         size="sm"
                         className="w-8 h-8 p-0 flex items-center justify-center rounded-full"

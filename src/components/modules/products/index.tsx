@@ -14,7 +14,7 @@ const SearchPage = ({
     return (
         <div className="flex flex-col gap-8 my-10">
             <SearchInput />
-            <div className="flex justify-between items-start mb-6">
+            <div className="flex justify-between gap-5 items-start mb-6">
                 <div className="w-72">
                     <FilterSidebar />
                 </div>
