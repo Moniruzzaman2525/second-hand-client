@@ -122,7 +122,7 @@ const ManageProducts = ({
                         title="Edit"
                         onClick={() =>
                             router.push(
-                                `/user/shop/products/update-product/${row.original._id}`
+                                `/dashboard/listing/update-ads/${row.original._id}`
                             )
                         }
                     >

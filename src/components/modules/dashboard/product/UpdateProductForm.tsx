@@ -21,7 +21,9 @@ import { IProduct } from "@/types";
 
 export default function UpdateProductForm({ product }: { product: IProduct }) {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-    const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+    const [imagePreview, setImagePreview] = useState<string[] | []>(
+        product?.images || []
+    );
     const router = useRouter();
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
         const modifiedData = {
@@ -50,7 +52,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
 
     return (
         <div className="rounded-xl bg-[#fdfdfe] flex-grow w-full py-10 px-20">
-            <SHForm onSubmit={handleFormSubmit}>
+            <SHForm defaultValues={product} onSubmit={handleFormSubmit}>
                 <div className="flex justify-between items-center border-t border-b py-3 my-5">
                     <p className="text-primary font-bold text-xl">General Information</p>
                 </div>
