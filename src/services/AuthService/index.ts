@@ -83,10 +83,10 @@ export const logout = async () => {
 }
 
 
-export const getUserDetails = async (page?: string, limit?: string) => {
+export const getUserDetails = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/product/user-products?limit=${limit}&page=${page}`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/get-me`,
       {
         method: 'GET',
         headers: {

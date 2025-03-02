@@ -3,10 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
-import { IAuthUser } from '@/types';
 import React from 'react';
 
-const ChangesPassword = ({profile} : {profile: IAuthUser}) => {
+const ChangesPassword = () => {
     const handleFormSubmit = () => {
 
     }

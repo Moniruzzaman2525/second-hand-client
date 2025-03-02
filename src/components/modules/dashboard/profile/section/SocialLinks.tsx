@@ -10,7 +10,7 @@ const SocialLinks = ({profile} : {profile: IAuthUser}) => {
 
     }
     return (
-        <SHForm onSubmit={handleFormSubmit}>
+        <SHForm defaultValues={profile} onSubmit={handleFormSubmit}>
 
             <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="social-links">
                 <AccordionTrigger>Social Links</AccordionTrigger>
