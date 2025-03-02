@@ -17,19 +17,27 @@ const RegisterForm = () => {
     const redirect = searchParams.get('redirectPath')
     const { setIsLoading } = useUser();
     const handleFormSubmit = async (data: FieldValues) => {
-        const res = await registerUser(data)
-        if (res.success) {
-            setIsLoading(true)
-            toast.success(res?.message)
-            if (redirect) {
-                router.push(redirect)
+        try {
+            const res = await registerUser(data);
+            if (res.success) {
+                setIsLoading(true);
+                toast.success(res?.message);
+
+                if (redirect) {
+                    router.push(redirect);
+                } else {
+                    router.push('/');
+                }
             } else {
-                router.push('/')
+                toast.error(res?.message || 'Registration failed. Please try again.');
             }
-        } else {
-            toast.error(res?.message)
+        } catch (error: any) {
+            toast.error(error.message || 'An unexpected error occurred. Please try again.');
+        } finally {
+            setIsLoading(false);
         }
     };
+
     return (
         <div
             className={`${styles.banner} relative w-full h-screen flex flex-col items-center justify-center text-center bg-cover bg-center`}
