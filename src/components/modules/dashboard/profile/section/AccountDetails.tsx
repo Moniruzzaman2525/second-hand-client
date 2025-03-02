@@ -35,6 +35,14 @@ const AccountDetails = ({profile} : {profile: IAuthUser}) => {
                                 />
                             </div>
                             <div>
+                                <SHInput
+                                    type="text"
+                                    name="email"
+                                    label="Email"
+                                    disabled={true}
+                                />
+                            </div>
+                            <div>
                                 <SHTextarea name="description" placeholder="Write something about yourself" label="Profile Description" />
                             </div>
                             <div className="flex gap-10">
