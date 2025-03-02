@@ -37,6 +37,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
         for (const file of imageFiles) {
             formData.append("images", file);
         }
+
         try {
             if (product && product._id) {
                 const res = await updateProduct(formData, product._id);
@@ -113,7 +114,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                                 setImagePreview={setImagePreview}
                                 label="Upload Image"
                                 className="w-fit mt-0"
-                                disabled={imageFiles.length >= 5}
+                                disabled={imagePreview.length >= 5}
                             />
                             <ImagePreviewer
                                 className="flex flex-wrap gap-4"
@@ -123,7 +124,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                             />
                         </div>
                         <div className="flex justify-end mt-2text-[#374b5c] text-[20px] font-semibold">
-                            <h1>{imageFiles.length} / 5</h1>
+                            <h1>{imagePreview.length} / 5</h1>
                         </div>
                     </div>
                     <div className="flex justify-end">
