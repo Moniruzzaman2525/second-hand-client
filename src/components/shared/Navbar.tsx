@@ -9,6 +9,7 @@ import { useUser } from "@/context/UserContext";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { logout } from "@/services/AuthService";
 
 const navbarItem = [
     {
@@ -32,6 +33,32 @@ const navbarItem = [
         href: '/faq'
     },
 ]
+const navbarItemPhone = [
+    {
+        name: 'Home',
+        href: '/'
+    },
+    {
+        name: 'Products',
+        href: '/products'
+    },
+    {
+        name: 'Post Your Ad',
+        href: '/'
+    },
+    {
+        name: 'About',
+        href: '/about-us'
+    },
+    {
+        name: 'Contact',
+        href: '/contact-us'
+    },
+    {
+        name: 'FAQ',
+        href: '/faq'
+    },
+]
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +66,7 @@ const Navbar = () => {
     const { user, setIsLoading } = useUser();
 
     const handleLogOut = () => {
+        logout()
         setIsLoading(true);
     };
 
@@ -77,12 +105,6 @@ const Navbar = () => {
                     <Link href='/dashboard/profile' className="border rounded-full p-2">
                         <User className="text-black " />
                     </Link>
-                    <Link className="flex gap-4" href='/login'>
-                        <button className="hidden md:block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</button>
-                    </Link>
-                    <button className="hidden md:flex items-center gap-2 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
-                        Post Your Ad <PlusIcon />
-                    </button>
                 </div> */}
                 {user?.email ? (
                     <>
@@ -100,11 +122,12 @@ const Navbar = () => {
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
                                 <DropdownMenuItem>
-                                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                    <Link href={`/dashboard/profile`}>Profile</Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Link href={`/dashboard/purchase-history`}>Dashboard</Link>
+                                </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem
                                     className="bg-red-500 cursor-pointer"
@@ -118,14 +141,14 @@ const Navbar = () => {
                     </>
                 ) : (
                             <Link className="flex gap-4" href='/login'>
-                                <Button className="hidden md:block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</Button>
+                                <Button className="block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</Button>
                             </Link>
                 )}
             </div>
 
             {isOpen && (
                 <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full py-4 px-6 space-y-4 z-[999]">
-                    {navbarItem.map((item) => (
+                    {navbarItemPhone.map((item) => (
                         <Link
                             key={item.name}
                             href={item.href}
