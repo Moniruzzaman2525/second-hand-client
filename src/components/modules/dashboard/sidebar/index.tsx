@@ -42,7 +42,7 @@ const Sidebar = () => {
                     Messages
                 </Link>
                 <Link className={`${isActive('/dashboard/profile')} text-lg`} href="/dashboard/profile">
-                    Settings
+                    Profile
                 </Link>
                 {user?.role === 'admin' && (
                     <>
