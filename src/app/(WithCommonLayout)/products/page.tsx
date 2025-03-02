@@ -2,12 +2,30 @@ import AllProducts from "@/components/modules/products";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { getAllProducts } from "@/services/Product";
 
-const ProductsPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
-    const { page } = await searchParams
-    const { data, meta } = await getAllProducts(page, "1");
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+const ProductsPage = async ({
+    searchParams,
+}: {
+    searchParams: SearchParams;
+}) => {
+    const query = await searchParams;
+    const page = query.page as string | undefined;
+
+
+    if (query?.category && Array.isArray(query.category)) {
+        query.category = query.category.join(',');
+    }
+    if (query?.price && Array.isArray(query.price)) {
+        query.price = query.price.join(',');
+    }
+
+
+    const { data: products, meta } = await getAllProducts(page, '3', query);
+
     return (
         <SHContainer>
-            <AllProducts meta={meta} products={data} />
+            <AllProducts meta={meta} products={products} />
         </SHContainer>
     );
 };

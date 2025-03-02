@@ -18,10 +18,28 @@ export const addProduct = async (productData: FormData): Promise<any> => {
     }
 };
 
-export const getAllProducts = async (page?: string, limit?: string) => {
+export const getAllProducts = async (
+    page?: string,
+    limit?: string,
+    query?: { [key: string]: string | string[] | undefined }
+) => {
+    const params = new URLSearchParams();
+    console.log(query);
+
+    if (query?.minPrice) {
+        params.append("minPrice", query?.minPrice.toString());
+    }
+    if (query?.maxPrice) {
+        params.append("maxPrice", query?.maxPrice.toString());
+    }
+    if (query?.category) {
+        const category = Array.isArray(query.category) ? query.category.join(',') : query.category;
+        params.append("category", category);
+    }
+
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product?limit=${limit}&page=${page}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/product?limit=${limit}&page=${page}&${params}`,
             {
                 next: {
                     tags: ["PRODUCT"],
@@ -34,3 +52,6 @@ export const getAllProducts = async (page?: string, limit?: string) => {
         return Error(error.message);
     }
 };
+
+
+

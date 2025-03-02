@@ -1,3 +1,4 @@
+
 import { IMeta, IProduct } from "@/types";
 import FilterSidebar from "./filterSidebar";
 import ProductCard from "@/components/ui/core/ProductCard";
@@ -15,15 +16,13 @@ const AllProducts = ({
             <div>
                 <FilterSidebar />
             </div>
-            <div className="flex flex-col flex-grow">
+            <div>
                 <div className="grid grid-cols-3 gap-8">
                     {products?.map((product: IProduct, idx: number) => (
                         <ProductCard key={idx} product={product} />
                     ))}
                 </div>
-                <div className="mt-auto flex justify-end">
-                    <TablePagination totalPage={meta?.totalPage} />
-                </div>
+                <TablePagination totalPage={meta?.totalPage} />
             </div>
         </div>
     );
