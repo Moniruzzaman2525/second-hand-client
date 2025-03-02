@@ -1,75 +1,115 @@
 "use client";
 
-import { Slider } from "@/components/ui/slider";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { categories } from "@/contants";
+import { categories, conditionOptions } from "@/contants";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 const FilterSidebar = () => {
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(500000);
+    const [minPrice, setMinPrice] = useState<number | string>("");
+    const [maxPrice, setMaxPrice] = useState<number | string>("");
+    const [selectCategory, setSelectCategory] = useState("");
+    const [location, setLocation] = useState("");
+    const [selectCondition, setSelectCondition] = useState("");  // New state for condition
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
     const handleSearchQuery = (query: string, value: string | number) => {
         const params = new URLSearchParams(searchParams.toString());
-        params.set(query, value.toString());
+        if (value) {
+            params.set(query, value.toString());
+        } else {
+            params.delete(query); // Remove the query param if value is empty
+        }
         router.push(`${pathname}?${params.toString()}`, {
             scroll: false,
         });
     };
 
-    const availability = ["Available", "Sold"];
-    const conditionType = ["New", "Old"];
+    useEffect(() => {
+        // Set initial values based on the URL search parameters
+        const params = new URLSearchParams(searchParams.toString());
+        setMinPrice(params.get("minPrice") || "");
+        setMaxPrice(params.get("maxPrice") || "");
+        setSelectCategory(params.get("category") || "");
+        setLocation(params.get("location") || "");
+        setSelectCondition(params.get("condition") || "");  // Set condition from URL params
+    }, [searchParams]);
 
     return (
         <Card className="p-4 rounded-2xl shadow-md w-72">
             <CardContent>
-                <h2 className="text-lg font-semibold mb-4">Filter By Price</h2>
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold">Filter</h2>
+                    {searchParams.toString().length > 0 && (
+                        <Button
+                            onClick={() => {
+                                // Reset state values
+                                setMinPrice("");
+                                setMaxPrice("");
+                                setSelectCategory("");
+                                setLocation("");
+                                setSelectCondition("");  // Reset condition state
 
-                {/* Min Price Slider */}
+                                // Clear all query parameters
+                                const params = new URLSearchParams();
+                                router.push(`${pathname}?${params.toString()}`, {
+                                    scroll: false,
+                                });
+                            }}
+                            size="sm"
+                            className="ml-5"
+                        >
+                            Clear Filters
+                        </Button>
+                    )}
+                </div>
+
+                {/* Min Price */}
                 <h3 className="text-sm font-semibold mb-2">Min Price</h3>
-                <Slider
-                    min={0}
-                    max={500000}
-                    step={1}
-                    value={[minPrice]}
-                    onValueChange={(value) => {
-                        setMinPrice(value[0]);
-                        handleSearchQuery("minPrice", value[0]);
+                <input
+                    type="number"
+                    value={minPrice}
+                    placeholder="Min Price"
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setMinPrice(value);
+                        handleSearchQuery("minPrice", value);
                     }}
-                    className="w-full mb-4"
+                    className="w-full p-2 border rounded-md mb-4"
+                    min="0"
                 />
-                <p className="mt-2">${minPrice}</p>
 
-                {/* Max Price Slider */}
+                {/* Max Price */}
                 <h3 className="text-sm font-semibold mb-2 mt-4">Max Price</h3>
-                <Slider
-                    min={0}
-                    max={500000}
-                    step={1}
-                    value={[maxPrice]}
-                    onValueChange={(value) => {
-                        setMaxPrice(value[0]);
-                        handleSearchQuery("maxPrice", value[0]);
+                <input
+                    type="number"
+                    value={maxPrice}
+                    placeholder="Max Price"
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setMaxPrice(value);
+                        handleSearchQuery("maxPrice", value);
                     }}
-                    className="w-full"
+                    className="w-full p-2 border rounded-md"
+                    min="0"
                 />
-                <p className="mt-2">${maxPrice}</p>
 
+                {/* Product Category */}
                 <h2 className="text-lg font-semibold mt-6">Product Category</h2>
                 <div className="mb-6">
-                    <RadioGroup className="space-y-2">
+                    <RadioGroup className="space-y-2" value={selectCategory} onValueChange={(value) => {
+                        setSelectCategory(value);
+                        handleSearchQuery("category", value);
+                    }}>
                         {categories?.map((category) => (
                             <div key={category.name} className="flex items-center space-x-2">
                                 <RadioGroupItem
-                                    onClick={() => handleSearchQuery("category", category.value)}
-                                    value={category.name}
+                                    value={category.value}
                                     id={category.value}
                                 />
                                 <Label
@@ -83,25 +123,43 @@ const FilterSidebar = () => {
                     </RadioGroup>
                 </div>
 
-                <h2 className="text-lg font-semibold mt-6">Condition</h2>
-                <ul className="space-y-2 mt-2">
-                    {conditionType.map((status, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                            <Checkbox />
-                            <span>{status}</span>
-                        </li>
-                    ))}
-                </ul>
+                {/* Location Filter */}
+                <h3 className="text-sm font-semibold mb-2">Location</h3>
+                <input
+                    type="text"
+                    value={location}
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setLocation(value);
+                        handleSearchQuery("location", value);
+                    }}
+                    className="w-full p-2 border rounded-md mb-4"
+                    placeholder="Enter location"
+                />
 
-                <h2 className="text-lg font-semibold mt-6">Availability</h2>
-                <ul className="space-y-2 mt-2">
-                    {availability.map((status, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                            <Checkbox />
-                            <span>{status}</span>
-                        </li>
-                    ))}
-                </ul>
+                {/* Condition */}
+                <h2 className="text-lg font-semibold mt-6">Condition</h2>
+                <div className="mb-6">
+                    <RadioGroup className="space-y-2" value={selectCondition} onValueChange={(value) => {
+                        setSelectCondition(value);
+                        handleSearchQuery("condition", value);
+                    }}>
+                        {conditionOptions?.map((status) => (
+                            <div key={status.label} className="flex items-center space-x-2">
+                                <RadioGroupItem
+                                    value={status.value}
+                                    id={status.value}
+                                />
+                                <Label
+                                    htmlFor={status.value}
+                                    className="text-gray-500 font-light"
+                                >
+                                    {status.label}
+                                </Label>
+                            </div>
+                        ))}
+                    </RadioGroup>
+                </div>
             </CardContent>
         </Card>
     );
