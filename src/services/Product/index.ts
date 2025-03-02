@@ -115,7 +115,7 @@ export const updateProduct = async (
                 method: "PATCH",
                 body: productData,
                 headers: {
-                    Authorization: (await cookies()).get("accessToken")!.value,
+                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
                 },
             }
         );

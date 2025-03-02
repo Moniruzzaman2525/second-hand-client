@@ -40,7 +40,7 @@ const ProductDetailsPage = ({ product }: { product: IProduct }) => {
 
                 <div className="bg-gray-100 p-6 rounded-lg shadow-sm">
                     <h2 className="text-xl font-semibold mb-4">Gallery</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         {product.images.map((image, index) => (
                             <div key={index} className="w-full h-48 relative rounded-lg overflow-hidden">
                                 <Image
