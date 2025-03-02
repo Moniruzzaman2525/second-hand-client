@@ -8,18 +8,24 @@ import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
 import { loginUser } from '@/services/AuthService';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
 const LoginForm = () => {
-     const router = useRouter()
-      const { setIsLoading } = useUser();
-    const handleFormSubmit =  async(data: FieldValues) => {
+    const router = useRouter()
+    const { setIsLoading } = useUser();
+    const searchParams = useSearchParams()
+    const redirect = searchParams.get('redirectPath')
+    const handleFormSubmit = async (data: FieldValues) => {
         const res = await loginUser(data)
         if (res.success) {
             setIsLoading(true)
             toast.success(res?.message)
-            router.push('/')
+            if (redirect) {
+                router.push(redirect)
+            } else {
+                router.push('/')
+            }
         }
     };
     return (
