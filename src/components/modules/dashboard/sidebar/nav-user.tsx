@@ -36,7 +36,6 @@ export function NavUser() {
         //     router.push("/");
         // }
     };
-
     return (
         <SidebarMenu>
             <SidebarMenuItem>

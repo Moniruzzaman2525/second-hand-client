@@ -1,10 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, User, PlusIcon } from "lucide-react";
+import { Menu, X, User, PlusIcon, LogOut } from "lucide-react";
 import logo from "../../app/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const navbarItem = [
     {
@@ -32,9 +36,14 @@ const navbarItem = [
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState("");
+    const { user, setIsLoading } = useUser();
+
+    const handleLogOut = () => {
+        setIsLoading(true);
+    };
 
     return (
-        <nav className="bg-yellow-400 border-b w-full sticky top-0 z-10">
+        <nav className="bg-yellow-400 border-b w-full sticky top-0 z-50">
             <div className="container mx-auto px-5 py-3 flex justify-between items-center">
 
                 <div className="md:hidden border rounded-full p-2 flex items-center">
@@ -64,7 +73,7 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                <div className="flex items-center space-x-4">
+                {/* <div className="flex items-center space-x-4">
                     <Link href='/dashboard/profile' className="border rounded-full p-2">
                         <User className="text-black " />
                     </Link>
@@ -74,11 +83,48 @@ const Navbar = () => {
                     <button className="hidden md:flex items-center gap-2 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
                         Post Your Ad <PlusIcon />
                     </button>
-                </div>
+                </div> */}
+                {user?.email ? (
+                    <>
+                        <button className="hidden md:flex items-center gap-2 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
+                            Post Your Ad <PlusIcon />
+                        </button>
+
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Avatar>
+                                    <AvatarImage> <User className="text-black " /></AvatarImage>
+                                    <AvatarFallback><User className="text-black " /></AvatarFallback>
+                                </Avatar>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>Profile</DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>My Shop</DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                    className="bg-red-500 cursor-pointer"
+                                    onClick={handleLogOut}
+                                >
+                                    <LogOut />
+                                    <span>Log Out</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </>
+                ) : (
+                            <Link className="flex gap-4" href='/login'>
+                                <Button className="hidden md:block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</Button>
+                            </Link>
+                )}
             </div>
 
             {isOpen && (
-                <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full py-4 px-6 space-y-4">
+                <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full py-4 px-6 space-y-4 z-[999]">
                     {navbarItem.map((item) => (
                         <Link
                             key={item.name}

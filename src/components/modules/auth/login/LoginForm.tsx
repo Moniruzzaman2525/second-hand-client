@@ -14,6 +14,7 @@ const LoginForm = () => {
      const router = useRouter()
     const handleFormSubmit =  async(data: FieldValues) => {
         const res = await loginUser(data)
+        console.log(res)
         if (res.success) {
             toast.success(res?.message)
             router.push('/')
