@@ -2,14 +2,15 @@
 
 import * as React from "react";
 import {
-    Bot,
     Frame,
     LifeBuoy,
     Map,
     PieChart,
     Send,
-    Settings,
-    Settings2
+    User2Icon,
+    Settings2,
+    History,
+    ListCheckIcon
 } from "lucide-react";
 
 import {
@@ -31,19 +32,14 @@ import { useUser } from "@/context/UserContext";
 const data = {
     navMain: [
         {
-            title: "Dashboard",
-            url: "3",
-            icon: Bot,
-            items: [
-                {
-                    title: "Purchase History",
-                    url: "/dashboard/purchase-history",
-                },
-                {
-                    title: "Listing",
-                    url: "/dashboard/listing",
-                },
-            ],
+            title: "Purchase History",
+            url: "/dashboard/purchase-history",
+            icon: History,
+        },
+        {
+            title: "Listing",
+            url: "/dashboard/listing",
+            icon: ListCheckIcon,
         },
 
         {
@@ -62,15 +58,9 @@ const data = {
             ],
         },
         {
-            title: "Setting",
-            url: "#",
-            icon: Settings,
-            items: [
-                {
-                    title: "Profile",
-                    url: "/dashboard/profile",
-                },
-            ],
+            title: "Profile",
+            url: "/dashboard/profile",
+            icon: User2Icon,
         },
     ],
     navSecondary: [

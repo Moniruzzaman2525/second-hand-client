@@ -44,7 +44,7 @@ const navbarItemPhone = [
     },
     {
         name: 'Post Your Ad',
-        href: '/'
+        href: '/dashboard/listing'
     },
     {
         name: 'About',
@@ -108,9 +108,11 @@ const Navbar = () => {
                 </div> */}
                 {user?.email ? (
                     <>
-                        <button className="hidden md:flex items-center gap-2 text-white px-4 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
-                            Post Your Ad <PlusIcon />
-                        </button>
+                        <Link href='dashboard/listing'>
+                            <Button className="hidden md:flex items-center gap-2 text-white px-6 py-2 rounded-lg font-medium bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
+                                Post Your Ad <PlusIcon />
+                            </Button>
+                        </Link>
 
                         <DropdownMenu>
                             <DropdownMenuTrigger>
@@ -140,9 +142,9 @@ const Navbar = () => {
                         </DropdownMenu>
                     </>
                 ) : (
-                            <Link className="flex gap-4" href='/login'>
-                                <Button className="block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</Button>
-                            </Link>
+                    <Link className="flex gap-4" href='/login'>
+                        <Button className="block text-[#374B5C] font-medium text-lg hover:text-[#536C88]">Log In</Button>
+                    </Link>
                 )}
             </div>
 

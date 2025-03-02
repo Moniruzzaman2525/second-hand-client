@@ -9,13 +9,15 @@ import { FieldValues } from 'react-hook-form';
 import { loginUser } from '@/services/AuthService';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
 
 const LoginForm = () => {
      const router = useRouter()
+      const { setIsLoading } = useUser();
     const handleFormSubmit =  async(data: FieldValues) => {
         const res = await loginUser(data)
-        console.log(res)
         if (res.success) {
+            setIsLoading(true)
             toast.success(res?.message)
             router.push('/')
         }
