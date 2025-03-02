@@ -15,7 +15,7 @@ const UserProfileSettings = ({profile} : {profile: IAuthUser}) => {
                    <AccountDetails profile={profile} />
                    {/* <ProfileImage /> */}
                    <SocialLinks profile={profile} />
-                   <ChangesPassword profile={profile} />
+                   <ChangesPassword />
                 </Accordion>
 
         </div>
