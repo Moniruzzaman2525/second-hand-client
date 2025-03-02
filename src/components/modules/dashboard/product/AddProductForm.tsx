@@ -81,7 +81,7 @@ export default function AddProductsForm() {
                     <div className="flex gap-10 justify-between items-center">
                         <SHInput
                             type="text"
-                            name="city"
+                            name="location"
                             label="City"
                         />
                         <SHInput

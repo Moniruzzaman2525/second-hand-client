@@ -68,17 +68,27 @@ export const getAllProducts = async (
 export const getAllUserProducts = async (page?: string, limit?: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product?limit=${limit}&page=${page}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/product/user-products?limit=${limit}&page=${page}`,
             {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+                },
                 next: {
                     tags: ["PRODUCT"],
                 },
-            }
+            },
         );
+
+        if (!res.ok) {
+            throw new Error('Failed to fetch products');
+        }
+
         const data = await res.json();
         return data;
     } catch (error: any) {
-        return Error(error.message);
+        return new Error(error.message);
     }
 };
+
 
