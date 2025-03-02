@@ -13,7 +13,7 @@ import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
 import { categories, conditionOptions } from "@/constant";
-import { addProduct } from "@/services/Product";
+import { updateProduct } from "@/services/Product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { IProduct } from "@/types";
@@ -38,13 +38,16 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
             formData.append("images", file);
         }
         try {
-            const res = await addProduct(formData);
-            if (res.success) {
-                toast.success(res.message);
-                router.push("/dashboard/listing");
-            } else {
-                toast.error(res.message);
+            if (product && product._id) {
+                const res = await updateProduct(formData, product._id);
+                if (res.success) {
+                    toast.success(res.message);
+                    router.push("/dashboard/listing");
+                } else {
+                    toast.error(res.message);
+                }
             }
+
         } catch (err: any) {
             toast.error(err.message);
         }
