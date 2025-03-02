@@ -16,7 +16,7 @@ const SHTextarea = ({ name, label }: TTextareaProps) => {
                 render={({ field }) => (
                     <FormItem>
                         <FormControl>
-                            <Textarea {...field} value={field.value || ""} />
+                            <Textarea className='resize-none' {...field} value={field.value || ""} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
