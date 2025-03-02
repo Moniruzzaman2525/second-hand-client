@@ -3,24 +3,7 @@
 import { Lightbulb, List, Search, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import styles from "./HeroSection.module.css";
-
-const categories = [
-    { name: "Electronics", count: 163 },
-    { name: "Fashion", count: 30 },
-    { name: "For Kids", count: 8 },
-    { name: "Gadget Accessories", count: 12 },
-    { name: "Health & Beauty", count: 9 },
-    { name: "Hobbies Sports", count: 7 },
-    { name: "Home Appliance", count: 24 },
-    { name: "Laptop PC", count: 46 },
-    { name: "Mobile", count: 68 },
-    { name: "Video Game Consoles", count: 68 },
-    { name: "Others", count: 55 },
-    { name: "Vehicles", count: 55 },
-    { name: "Services", count: 55 },
-    { name: "Hobbies Sports", count: 55 },
-    { name: "Health & Beauty ", count: 55 },
-];
+import { categories } from "@/contants";
 
 const HeroSection = () => {
     const [isOpen, setIsOpen] = useState(false);

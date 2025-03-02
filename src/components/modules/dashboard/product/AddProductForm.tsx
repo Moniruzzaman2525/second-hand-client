@@ -12,11 +12,9 @@ import SHForm from "@/components/ui/core/form/SHForm";
 import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
+import { categories, conditionOptions } from "@/contants";
+import { addProduct } from "@/services/Product";
 
-const conditionOptions = [
-    { value: 'new', label: 'New' },
-    { value: 'old', label: 'Old' },
-]
 
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -39,7 +37,8 @@ export default function AddProductsForm() {
             formData.append("images", file);
         }
         try {
-            // const res = await addProduct(formData);
+            const res = await addProduct(formData);
+            console.log(res)
             // console.log(res)
             // if (res.success) {
             //     toast.success(res.message);
@@ -68,9 +67,9 @@ export default function AddProductsForm() {
                     </div>
                     <div className="flex gap-10 justify-between items-center">
                         <SHSelect
-                            options={conditionOptions}
-                            name="condition"
-                            label="Condition"
+                            options={categories}
+                            name="category"
+                            label="Category"
                         />
                         <SHSelect
                             options={conditionOptions}
