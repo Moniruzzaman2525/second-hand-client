@@ -4,15 +4,36 @@ import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import SHTextarea from '@/components/ui/core/form/SHTextarea';
+import { updateProfile } from '@/services/AuthService';
 import { IAuthUser } from '@/types';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { FieldValues } from 'react-hook-form';
+import { toast } from 'sonner';
 
-const AccountDetails = ({profile} : {profile: IAuthUser}) => {
-    const handleFormSubmit = () => {
+const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
+    const router = useRouter();
 
-    }
+    const handleFormSubmit = async (data: FieldValues) => {
+        try {
+            const res = await updateProfile(data);
+            if (res.success) {
+                toast.success("Profile updated successfully!");
+                router.refresh(); 
+            } else {
+                toast.error(res.message);
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+
     return (
-        <SHForm defaultValues={profile} onSubmit={handleFormSubmit}>
+        <SHForm
+            key={JSON.stringify(profile)}
+            defaultValues={profile}
+            onSubmit={handleFormSubmit}
+        >
             <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="account-details">
                 <AccordionTrigger>Account Details</AccordionTrigger>
                 <AccordionContent>

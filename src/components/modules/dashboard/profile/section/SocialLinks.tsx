@@ -4,13 +4,29 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { IAuthUser } from '@/types';
+import { useRouter } from 'next/navigation';
+import { FieldValues } from 'react-hook-form';
+import { updateProfile } from '@/services/AuthService';
+import { toast } from 'sonner';
 
 const SocialLinks = ({profile} : {profile: IAuthUser}) => {
-    const handleFormSubmit = () => {
+    const router = useRouter();
 
-    }
+    const handleFormSubmit = async (data: FieldValues) => {
+        try {
+            const res = await updateProfile(data);
+            if (res.success) {
+                toast.success("Profile updated successfully!");
+                router.refresh();
+            } else {
+                toast.error(res.message);
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
     return (
-        <SHForm defaultValues={profile} onSubmit={handleFormSubmit}>
+        <SHForm key={JSON.stringify(profile)} defaultValues={profile} onSubmit={handleFormSubmit}>
 
             <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="social-links">
                 <AccordionTrigger>Social Links</AccordionTrigger>
