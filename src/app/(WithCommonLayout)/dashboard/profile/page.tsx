@@ -1,15 +1,18 @@
 import ProfileSection from '@/components/modules/dashboard/profile';
 import Sidebar from '@/components/modules/dashboard/sidebar';
 import SHContainer from '@/components/ui/core/SHContainer';
+import { getUserDetails } from '@/services/AuthService';
 import React from 'react';
 
-const ProfilePage = () => {
+const ProfilePage = async() => {
+    const { data: profile } = await getUserDetails();
+
     return (
          <div>
             <Sidebar />
             <div className='bg-[#f8fafd]'>
                 <SHContainer>
-                    <ProfileSection />
+                    <ProfileSection profile={profile} />
                 </SHContainer>
             </div>
         </div>

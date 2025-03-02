@@ -3,8 +3,9 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHInput from '@/components/ui/core/form/SHInput';
+import { IAuthUser } from '@/types';
 
-const SocialLinks = () => {
+const SocialLinks = ({profile} : {profile: IAuthUser}) => {
     const handleFormSubmit = () => {
 
     }

@@ -4,9 +4,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import SHTextarea from '@/components/ui/core/form/SHTextarea';
+import { IAuthUser } from '@/types';
 import React from 'react';
 
-const AccountDetails = () => {
+const AccountDetails = ({profile} : {profile: IAuthUser}) => {
     const handleFormSubmit = () => {
 
     }

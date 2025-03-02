@@ -36,7 +36,6 @@ export const loginUser = async (userData: FieldValues) => {
     });
 
     const result = await res.json();
-    console.log(result)
     if (result.success) {
       (await cookies()).set("accessToken", result.data.token);
     }
@@ -59,6 +58,8 @@ export const getCurrentUser = async () => {
   }
 };
 
+
+
 export const reCaptchaTokenVerification = async (token: string) => {
   try {
     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
@@ -80,3 +81,22 @@ export const reCaptchaTokenVerification = async (token: string) => {
 export const logout = async () => {
   ((await cookies()).delete('accessToken'))
 }
+
+
+export const getUserDetails = async (page?: string, limit?: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/product/user-products?limit=${limit}&page=${page}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+        },
+      },
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    return new Error(error.message);
+  }
+};
