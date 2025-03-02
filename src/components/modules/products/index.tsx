@@ -1,7 +1,15 @@
 
+import { IMeta, IProduct } from "@/types";
 import FilterSidebar from "./filterSidebar";
+import ProductCard from "@/components/ui/core/ProductCard";
 
-const AllProducts = ({ products }) => {
+const AllProducts = ({
+    products,
+    meta,
+}: {
+    products: IProduct[];
+    meta: IMeta;
+}) => {
     return (
         <div className="flex gap-8 my-10">
             <div>
@@ -9,7 +17,9 @@ const AllProducts = ({ products }) => {
             </div>
             <div>
                 <div className="grid grid-cols-3 gap-8">
-
+                    {products?.map((product: IProduct, idx: number) => (
+                        <ProductCard key={idx} product={product} />
+                    ))}
                 </div>
             </div>
         </div>
