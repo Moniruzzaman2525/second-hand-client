@@ -8,7 +8,10 @@ const Sidebar = () => {
     const pathname = usePathname();
     const { user } = useUser();
     const isActive = (path: string) => {
-        return pathname === path ? 'text-blue-500 font-semibold' : 'text-gray-700';
+        if (pathname.startsWith(path)) {
+            return 'text-blue-500 font-semibold';
+        }
+        return 'text-gray-700';
     };
 
     return (

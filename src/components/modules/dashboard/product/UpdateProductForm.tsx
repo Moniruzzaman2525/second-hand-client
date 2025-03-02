@@ -119,9 +119,11 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                             />
                         </div>
                     </div>
-                    <Button type="submit" className="mt-5 w-full">
-                        Add Product
-                    </Button>
+                    <div className="flex justify-end">
+                        <Button type="submit" className="mt-5 w-[20%]">
+                            Update Product
+                        </Button>
+                    </div>
                 </div>
             </SHForm>
         </div>

@@ -2,6 +2,8 @@ export interface IProduct {
     _id?: string;
     title: string;
     description: string;
+    location: string;
+    address: string;
     price: number;
     condition: 'new' | 'used';
     images: string[];

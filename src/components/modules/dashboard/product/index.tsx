@@ -21,7 +21,7 @@ const ManageProducts = ({
     const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
     const handleView = (product: IProduct) => {
-        console.log("Viewing product:", product);
+       router.push(`/dashboard/listing/ads-details/${product._id}`)
     };
 
     const handleDelete = (productId: string) => {
