@@ -11,14 +11,14 @@ type TInputProps = {
 
 const SHInput = ({ type, name, label }: TInputProps) => {
     return (
-        <div>
-            {label && <label htmlFor={name} className="block py-2 text-sm font-normal">{label}</label>}
+        <div className='w-full'>
+            {label && <label htmlFor={name} className="block py-2 text-[#374b5c] text-[16px] font-bold">{label}</label>}
             <FormField
                 name={name}
                 render={({ field }) => (
                     <FormItem>
                         <FormControl>
-                            <Input type={type} {...field} value={field.value || ""} />
+                            <Input className='py-7' type={type} {...field} value={field.value || ""} />
                         </FormControl>
                         <FormMessage />
                     </FormItem>

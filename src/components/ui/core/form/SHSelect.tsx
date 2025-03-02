@@ -9,8 +9,8 @@ type TSelectProps = {
 
 const SHSelect = ({ name, label, options }: TSelectProps) => {
     return (
-        <div>
-            {label && <label htmlFor={name} className="block py-2 text-sm font-normal">{label}</label>}
+        <div className='w-full'>
+            {label && <label htmlFor={name} className="block py-2 text-[#374b5c] text-[16px] font-bold">{label}</label>}
             <FormField
                 name={name}
                 render={({ field }) => (
@@ -19,7 +19,7 @@ const SHSelect = ({ name, label, options }: TSelectProps) => {
                             <select
                                 {...field}
                                 value={field.value || ""}
-                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                className="block w-full px-3 py-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             >
                                 <option value="" disabled>Select an option</option>
                                 {options.map((option) => (

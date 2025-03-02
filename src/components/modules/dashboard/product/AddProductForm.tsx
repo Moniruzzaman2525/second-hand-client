@@ -58,52 +58,61 @@ export default function AddProductsForm() {
                 <div className="flex justify-between items-center border-t border-b py-3 my-5">
                     <p className="text-primary font-bold text-xl">General Information</p>
                 </div>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <SHInput
-                        type="text"
-                        name="title"
-                        label="Product Title"
-                    />
-                    <SHInput
-                        type="number"
-                        name="price"
-                        label="Product Price"
-                    />
-                    <SHSelect
-                        options={conditionOptions}
-                        name="condition"
-                        label="Condition"
-                    />
-                    <SHTextarea
-                        name="description"
-                        label="Description"
-                    />
-                </div>
-
-                <div>
-                    <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                        <p className="text-primary font-bold text-xl">Gallery</p>
-                    </div>
-                    <div className="flex gap-4 ">
-                        <SHImageUploader
-                            setImageFiles={setImageFiles}
-                            setImagePreview={setImagePreview}
-                            label="Upload Image"
-                            className="w-fit mt-0"
-                        />
-                        <ImagePreviewer
-                            className="flex flex-wrap gap-4"
-                            setImageFiles={setImageFiles}
-                            imagePreview={imagePreview}
-                            setImagePreview={setImagePreview}
+                <div className="flex flex-col gap-10">
+                    <div className="">
+                        <SHInput
+                            type="text"
+                            name="title"
+                            label="Product Title"
                         />
                     </div>
+                    <div className="flex gap-10 justify-between items-center">
+                        <SHSelect
+                            options={conditionOptions}
+                            name="condition"
+                            label="Condition"
+                        />
+                        <SHSelect
+                            options={conditionOptions}
+                            name="condition"
+                            label="Condition"
+                        />
+                        <SHInput
+                            type="number"
+                            name="price"
+                            label="Product Price"
+                        />
+                    </div>
+                    <div>
+                        <SHTextarea
+                            name="description"
+                            label="Description"
+                        />
+                    </div>
+
+                    <div>
+                        <div className="flex justify-between items-center border-t border-b py-3 my-5">
+                            <p className="text-primary font-bold text-xl">Gallery</p>
+                        </div>
+                        <div className="flex gap-4 ">
+                            <SHImageUploader
+                                setImageFiles={setImageFiles}
+                                setImagePreview={setImagePreview}
+                                label="Upload Image"
+                                className="w-fit mt-0"
+                            />
+                            <ImagePreviewer
+                                className="flex flex-wrap gap-4"
+                                setImageFiles={setImageFiles}
+                                imagePreview={imagePreview}
+                                setImagePreview={setImagePreview}
+                            />
+                        </div>
+                    </div>
+                    <Button type="submit" className="mt-5 w-full">
+                        Add Product
+                    </Button>
                 </div>
-
-
-                <Button type="submit" className="mt-5 w-full">
-                    Add Product
-                </Button>
             </SHForm>
         </div>
     );

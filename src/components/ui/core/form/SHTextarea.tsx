@@ -10,7 +10,7 @@ type TTextareaProps = {
 const SHTextarea = ({ name, label }: TTextareaProps) => {
     return (
         <div>
-            {label && <label htmlFor={name} className="block py-2 text-sm font-normal">{label}</label>}
+            {label && <label htmlFor={name} className="block py-2 text-[#374b5c] text-[16px] font-bold">{label}</label>}
             <FormField
                 name={name}
                 render={({ field }) => (
