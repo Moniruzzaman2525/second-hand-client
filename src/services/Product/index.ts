@@ -91,4 +91,22 @@ export const getAllUserProducts = async (page?: string, limit?: string) => {
     }
 };
 
+export const getSingleProduct = async (productId: string) => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            {
+                next: {
+                    tags: ["PRODUCT"],
+                },
+            }
+        );
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};
+
+
 

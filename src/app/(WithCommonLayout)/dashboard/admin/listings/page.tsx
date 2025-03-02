@@ -1,17 +1,17 @@
 import Sidebar from "@/components/modules/dashboard/sidebar";
 import SHContainer from "@/components/ui/core/SHContainer";
 
-const MessagePage = () => {
+const ListingsPage = () => {
     return (
         <div>
             <Sidebar />
             <div className='bg-[#f8fafd] h-screen'>
-                <SHContainer >
-                    Message
+                <SHContainer>
+                    ListingsPage
                 </SHContainer>
             </div>
         </div>
     );
 };
 
-export default MessagePage;
+export default ListingsPage;

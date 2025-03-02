@@ -4,10 +4,14 @@ import React from 'react';
 
 const UserManagementPage = () => {
     return (
-        <SHContainer>
+        <div>
             <Sidebar />
-            <h1>Hello</h1>
-        </SHContainer>
+            <div className='bg-[#f8fafd] h-screen'>
+                <SHContainer >
+                    user management
+                </SHContainer>
+            </div>
+        </div>
     );
 };
 

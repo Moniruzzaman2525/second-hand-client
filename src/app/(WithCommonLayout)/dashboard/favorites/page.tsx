@@ -6,7 +6,7 @@ const page = () => {
     return (
         <div>
             <Sidebar />
-            <div className='bg-[#f8fafd]'>
+            <div className='bg-[#f8fafd] h-screen'>
                 <SHContainer >
                     Favorite Items
                 </SHContainer>
