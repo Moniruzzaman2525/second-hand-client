@@ -13,6 +13,11 @@ import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
 
+const conditionOptions = [
+    { value: 'new', label: 'New' },
+    { value: 'old', label: 'Old' },
+]
+
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
@@ -70,11 +75,7 @@ export default function AddProductsForm() {
                         label="Product Price"
                     />
                     <SHSelect
-                        options={
-                            [
-                                { value: 'string', label: 'string' }
-                            ]
-                        }
+                        options={conditionOptions}
                         name="condition"
                         label="Condition"
                     />
