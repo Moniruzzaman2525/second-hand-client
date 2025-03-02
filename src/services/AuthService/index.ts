@@ -105,8 +105,22 @@ export const getUserDetails = async () => {
 
 export const changesPassword = async (userData: FieldValues): Promise<any> => {
   try {
-    console.log(userData)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/changes-password`, {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+      },
+    });
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+export const updateProfile = async (userData: FieldValues): Promise<any> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/update-profile`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
