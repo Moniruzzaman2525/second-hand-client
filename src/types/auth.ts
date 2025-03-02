@@ -12,3 +12,4 @@ export interface IAuthUser {
     facebook?: string;
     twitter?: string;
 }
+

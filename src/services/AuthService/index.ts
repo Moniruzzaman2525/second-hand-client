@@ -27,6 +27,7 @@ export const registerUser = async (userData: FieldValues) => {
 
 export const loginUser = async (userData: FieldValues) => {
   try {
+    console.log(userData)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
       headers: {
@@ -102,12 +103,14 @@ export const getUserDetails = async () => {
 };
 
 
-export const changesPassword = async (userData: FormData): Promise<any> => {
+export const changesPassword = async (userData: FieldValues): Promise<any> => {
   try {
+    console.log(userData)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/changes-password`, {
       method: "POST",
-      body: userData,
+      body: JSON.stringify(userData),
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
       },
     });

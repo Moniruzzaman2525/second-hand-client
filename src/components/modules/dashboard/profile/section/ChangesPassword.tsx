@@ -3,11 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
+import { changesPassword } from '@/services/AuthService';
 import React from 'react';
+import { FieldValues } from 'react-hook-form';
 
 const ChangesPassword = () => {
-    const handleFormSubmit = () => {
-
+    const handleFormSubmit = async (data: FieldValues) => {
+        console.log(data)
+        const res = await changesPassword(data)
+        console.log(res)
     }
     return (
         <SHForm onSubmit={handleFormSubmit}>
