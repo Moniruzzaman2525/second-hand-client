@@ -1,3 +1,4 @@
+import ManageUser from '@/components/modules/dashboard/admin/users';
 import Sidebar from '@/components/modules/dashboard/sidebar';
 import SHContainer from '@/components/ui/core/SHContainer';
 import React from 'react';
@@ -8,7 +9,7 @@ const UserManagementPage = () => {
             <Sidebar />
             <div className='bg-[#f8fafd] h-screen'>
                 <SHContainer >
-                    user management
+                    <ManageUser />
                 </SHContainer>
             </div>
         </div>
