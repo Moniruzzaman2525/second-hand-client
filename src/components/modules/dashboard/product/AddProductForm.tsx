@@ -11,6 +11,7 @@ import ImagePreviewer from "@/components/ui/core/SHImageUploader/ImagePreviewer"
 import SHForm from "@/components/ui/core/form/SHForm";
 import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
+import SHSelect from "@/components/ui/core/form/SHSelect";
 
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -68,10 +69,14 @@ export default function AddProductsForm() {
                         name="price"
                         label="Product Price"
                     />
-                    <SHInput
-                        type="number"
-                        name="price"
-                        label="Product Price"
+                    <SHSelect
+                        options={
+                            [
+                                { value: 'string', label: 'string' }
+                            ]
+                        }
+                        name="condition"
+                        label="Condition"
                     />
                     <SHTextarea
                         name="description"
