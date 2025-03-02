@@ -1,4 +1,5 @@
 "use client";
+import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Plus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -12,11 +13,14 @@ import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 const ManageProducts = ({
     products,
     meta,
+}: {
+    products: IProduct[];
+    meta: IMeta;
 }) => {
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
-    const handleView = (product) => {
+    const handleView = (product: IProduct) => {
         console.log("Viewing product:", product);
     };
 
@@ -24,7 +28,7 @@ const ManageProducts = ({
         console.log("Deleting product with ID:", productId);
     };
 
-    const columns: ColumnDef[] = [
+    const columns: ColumnDef<IProduct>[] = [
         {
             id: "select",
             header: ({ table }) => (
@@ -41,12 +45,15 @@ const ManageProducts = ({
                 <Checkbox
                     checked={row.getIsSelected()}
                     onCheckedChange={(value) => {
-                        if (value) {
-                            setSelectedIds((prev) => [...prev, row.original._id]);
-                        } else {
-                            setSelectedIds(
-                                selectedIds.filter((id) => id !== row.original._id)
-                            );
+                        const id = row.original._id;
+                        if (id) {
+                            if (value) {
+                                setSelectedIds((prev) => [...prev, id]);
+                            } else {
+                                setSelectedIds(
+                                    selectedIds.filter((id) => id !== id)
+                                );
+                            }
                         }
                         row.toggleSelected(!!value);
                     }}
@@ -63,30 +70,25 @@ const ManageProducts = ({
             cell: ({ row }) => (
                 <div className="flex items-center space-x-3">
                     <Image
-                        src={row.original.imageUrls[0]}
-                        alt={row.original.name}
+                        src={row.original.images[0]}
+                        alt={row.original.title}
                         width={40}
                         height={40}
                         className="w-8 h-8 rounded-full"
                     />
-                    <span className="truncate">{row.original.name}</span>
+                    <span className="truncate">{row.original.title}</span>
                 </div>
             ),
         },
         {
             accessorKey: "category",
             header: "Category",
-            cell: ({ row }) => <span>{row.original.category.name}</span>,
-        },
-        {
-            accessorKey: "brand",
-            header: "Brand",
-            cell: ({ row }) => <span>{row.original.brand.name}</span>,
+            cell: ({ row }) => <span>{row.original.category}</span>,
         },
         {
             accessorKey: "stock",
             header: "Stock",
-            cell: ({ row }) => <span>{row.original.stock}</span>,
+            cell: ({ row }) => <span>{row.original.status}</span>,
         },
         {
             accessorKey: "price",
@@ -98,7 +100,7 @@ const ManageProducts = ({
             header: "Ofter Price",
             cell: ({ row }) => (
                 <span>
-                    $ {row.original.offerPrice ? row.original.offerPrice.toFixed(2) : "0"}
+                     { row.original.price.toFixed(2)}
                 </span>
             ),
         },
@@ -130,10 +132,11 @@ const ManageProducts = ({
                     <button
                         className="text-gray-500 hover:text-red-500"
                         title="Delete"
-                        onClick={() => handleDelete(row.original._id)}
+                        onClick={() => handleDelete(row.original._id || '')}
                     >
                         <Trash className="w-5 h-5" />
                     </button>
+
                 </div>
             ),
         },
@@ -141,11 +144,11 @@ const ManageProducts = ({
 
     return (
         <div>
-            <div className="flex items-center bg-[#fdfdfe] justify-between">
+            <div className="flex items-center justify-between">
                 <h1 className="text-xl font-bold">Manage Products</h1>
                 <div className="flex items-center gap-2">
                     <Button
-                        onClick={() => router.push("/dashboard/listing/add-listing")}
+                        onClick={() => router.push("/user/shop/products/add-product")}
                         size="sm"
                     >
                         Add Product <Plus />

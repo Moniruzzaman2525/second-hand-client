@@ -65,7 +65,6 @@ export const getAllProducts = async (
 };
 
 
-// get all products
 export const getAllUserProducts = async (page?: string, limit?: string) => {
     try {
         const res = await fetch(

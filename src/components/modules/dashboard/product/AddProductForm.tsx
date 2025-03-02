@@ -78,6 +78,18 @@ export default function AddProductsForm() {
                             label="Product Price"
                         />
                     </div>
+                    <div className="flex gap-10 justify-between items-center">
+                        <SHInput
+                            type="text"
+                            name="city"
+                            label="City"
+                        />
+                        <SHInput
+                            type="text"
+                            name="address"
+                            label="Address"
+                        />
+                    </div>
                     <div>
                         <SHTextarea
                             name="description"
