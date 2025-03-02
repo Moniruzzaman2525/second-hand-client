@@ -20,22 +20,12 @@ const HeroSectionFilter = () => {
 
     const handleSearch = () => {
         let url = "/products";
-
-
         const queryParams: string[] = [];
-
-
         if (search) queryParams.push(`search=${search}`);
-
-
         if (selectedCategory !== "Category") queryParams.push(`category=${selectedCategory}`);
-
-
         if (queryParams.length > 0) {
             url += `?${queryParams.join("&")}`;
         }
-
-
         router.push(url);
     };
     return (
@@ -87,9 +77,9 @@ const HeroSectionFilter = () => {
                                         }}
                                     >
                                         {category.name}
-                                        <span className="bg-yellow-400 text-white text-xs px-2 py-1 rounded-full">
+                                        {/* <span className="bg-yellow-400 text-white text-xs px-2 py-1 rounded-full">
                                             {category.count}
-                                        </span>
+                                        </span> */}
                                     </li>
                                 ))}
                             </ul>
