@@ -4,10 +4,14 @@ import React from 'react';
 
 const SalesHistoryPage = () => {
     return (
-        <SHContainer>
+         <div>
             <Sidebar />
-            sss
-        </SHContainer>
+            <div className='bg-[#f8fafd]'>
+                <SHContainer>
+                    sss
+                </SHContainer>
+            </div>
+        </div>
     );
 };
 

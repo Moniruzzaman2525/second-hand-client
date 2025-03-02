@@ -4,10 +4,14 @@ import React from 'react';
 
 const PurchaseHistoryPage = () => {
     return (
-        <SHContainer>
+         <div>
             <Sidebar />
-            hello
-        </SHContainer>
+            <div className='bg-[#f8fafd]'>
+                <SHContainer>
+                    hello
+                </SHContainer>
+            </div>
+        </div>
     );
 };
 

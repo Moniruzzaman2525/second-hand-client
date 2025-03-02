@@ -12,20 +12,30 @@ const ProductsPage = async ({
     const query = await searchParams;
     const page = query.page as string | undefined;
 
-
     if (query?.category && Array.isArray(query.category)) {
-        query.category = query.category.join(',');
+        query.category = query.category.join(",");
     }
     if (query?.price && Array.isArray(query.price)) {
-        query.price = query.price.join(',');
+        query.price = query.price.join(",");
     }
 
+    let loading = true;
+    let products = [];
+    let meta = null;
 
-    const { data: products, meta } = await getAllProducts(page, '3', query);
+    try {
+        const data = await getAllProducts(page, "3", query);
+        products = data.data;
+        meta = data.meta;
+        loading = false;
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        loading = false; 
+    }
 
     return (
         <SHContainer>
-            <AllProducts meta={meta} products={products} />
+           <AllProducts isLoading={loading} meta={meta} products={products} />
         </SHContainer>
     );
 };

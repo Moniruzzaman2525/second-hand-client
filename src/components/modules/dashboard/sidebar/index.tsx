@@ -13,7 +13,6 @@ const Sidebar = () => {
     return (
         <div className="w-full h-full bg-[#fdfdfe] shadow-sm">
             <SHContainer className="py-10 flex items-end gap-10 justify-start">
-                {/* Navigation Links */}
                 <Link className={`${isActive('/dashboard/listing/add-ads')} text-lg`} href="/dashboard/listing/add-ads">
                     Add New
                 </Link>

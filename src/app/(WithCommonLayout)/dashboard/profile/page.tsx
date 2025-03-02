@@ -4,10 +4,15 @@ import React from 'react';
 
 const ProfilePage = () => {
     return (
-        <SHContainer>
+         <div>
             <Sidebar />
-            This is profile route
-        </SHContainer>
+            <div className='bg-[#f8fafd]'>
+                <SHContainer>
+                    This is profile route
+                </SHContainer>
+            </div>
+        </div>
+
     );
 };
 

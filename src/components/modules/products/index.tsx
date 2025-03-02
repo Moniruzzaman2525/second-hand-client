@@ -3,14 +3,18 @@ import ProductCard from "@/components/ui/core/ProductCard";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import FilterSidebar from "./filterSidebar";
 import SearchInput from "./SearchInput";
+import { Card, CardContent } from "@/components/ui/card";
+import Skeleton from "react-loading-skeleton";
 
-const SearchPage = ({
+const AllProducts = ({
     products,
     meta,
+    isLoading,
 }: {
     products: IProduct[];
     meta: IMeta;
-}) => {
+    isLoading: boolean;
+    }) => {
     return (
         <div className="flex flex-col gap-8 my-10">
             <SearchInput />
@@ -19,16 +23,39 @@ const SearchPage = ({
                     <FilterSidebar />
                 </div>
                 <div className="flex-grow">
-                    <div className="grid grid-cols-3 gap-8">
-                        {products?.map((product: IProduct, idx: number) => (
-                            <ProductCard key={idx} product={product} />
-                        ))}
-                    </div>
-                    <TablePagination totalPage={meta?.totalPage} />
+                    {isLoading ? (
+                        <div className="grid grid-cols-3 gap-8">
+                            {[...Array(6)].map((_, idx) => (
+                                <div key={idx}>
+                                    <Skeleton height={200} width="100%" />
+                                </div>
+                            ))}
+                        </div>
+                    ) : products.length > 0 ? (
+                        <div className="grid grid-cols-3 gap-8">
+                            {products?.map((product: IProduct, idx: number) => (
+                                <ProductCard key={idx} product={product} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex justify-center items-center h-60">
+                            <Card className="w-full max-w-xs mx-auto p-4">
+                                <CardContent className="text-center text-gray-500">
+                                    <p>No products found</p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    )}
+
+                    {isLoading ? (
+                        <Skeleton height={40} width={200} className="mt-5" />
+                    ) : (
+                        <TablePagination totalPage={meta?.totalPage} />
+                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export default SearchPage;
+export default AllProducts;
