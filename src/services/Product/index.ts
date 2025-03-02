@@ -79,11 +79,6 @@ export const getAllUserProducts = async (page?: string, limit?: string) => {
                 },
             },
         );
-
-        if (!res.ok) {
-            throw new Error('Failed to fetch products');
-        }
-
         const data = await res.json();
         return data;
     } catch (error: any) {
@@ -100,6 +95,26 @@ export const getSingleProduct = async (productId: string) => {
                     tags: ["PRODUCT"],
                 },
             }
+        );
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};
+export const handleDeleteProduct = async (productId: string) => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+                },
+                next: {
+                    tags: ["PRODUCT"],
+                },
+            },
         );
         const data = await res.json();
         return data;
