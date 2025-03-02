@@ -5,7 +5,7 @@ export interface IAuthUser {
     password: string;
     phoneNumber: string;
     role?: 'admin' | 'user';
-    isBlocked?: boolean;
+    ban?: boolean;
     description?: string;
     location?: string;
     address?: string;

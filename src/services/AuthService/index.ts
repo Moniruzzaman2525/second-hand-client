@@ -88,7 +88,7 @@ export const logout = async () => {
 
 export const changesPassword = async (userData: FieldValues): Promise<any> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/changes-password`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/changes-password`, {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
@@ -105,7 +105,7 @@ export const changesPassword = async (userData: FieldValues): Promise<any> => {
 export const getUserDetails = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/auth/get-me`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/users/get-me`,
       {
         method: 'GET',
         headers: {
@@ -126,7 +126,7 @@ export const getUserDetails = async () => {
 
 export const updateProfile = async (userData: FieldValues): Promise<any> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/update-profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users`, {
       method: "PATCH",
       body: JSON.stringify(userData),
       headers: {

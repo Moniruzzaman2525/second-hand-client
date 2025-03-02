@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export const addProduct = async (productData: FormData): Promise<any> => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/product`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings`, {
             method: "POST",
             body: productData,
             headers: {
@@ -50,7 +50,7 @@ export const getAllProducts = async (
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product?limit=${limit}&page=${page}&${params}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings?limit=${limit}&page=${page}&${params}`,
             {
                 next: {
                     tags: ["PRODUCT"],
@@ -68,7 +68,7 @@ export const getAllProducts = async (
 export const getAllUserProducts = async (page?: string, limit?: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product/user-products?limit=${limit}&page=${page}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings/user-products?limit=${limit}&page=${page}`,
             {
                 method: 'GET',
                 headers: {
@@ -89,7 +89,7 @@ export const getAllUserProducts = async (page?: string, limit?: string) => {
 export const getSingleProduct = async (productId: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
             {
                 next: {
                     tags: ["PRODUCT"],
@@ -110,7 +110,7 @@ export const updateProduct = async (
 ): Promise<any> => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
             {
                 method: "PATCH",
                 body: productData,
@@ -129,7 +129,7 @@ export const updateProduct = async (
 export const handleDeleteProduct = async (productId: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
             {
                 method: 'DELETE',
                 headers: {
