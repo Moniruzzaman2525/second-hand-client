@@ -1,7 +1,7 @@
 // components/SPInput.tsx
 
 import { Input } from '../../input';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../form';
+import { FormControl, FormField, FormItem, FormMessage } from '../../form';
 
 type TInputProps = {
     type: string;
@@ -12,12 +12,11 @@ type TInputProps = {
 const SHInput = ({ type, name, label }: TInputProps) => {
     return (
         <div>
-            {label && <label htmlFor={name} className="block text-sm font-semibold">{label}</label>}
+            {label && <label htmlFor={name} className="block py-2 text-sm font-semibold">{label}</label>}
             <FormField
                 name={name}
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>{label}</FormLabel>
                         <FormControl>
                             <Input type={type} {...field} value={field.value || ""} />
                         </FormControl>

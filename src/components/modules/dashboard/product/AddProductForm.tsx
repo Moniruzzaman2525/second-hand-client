@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    Form,
     FormControl,
     FormField,
     FormItem,
@@ -22,6 +21,8 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import SHImageUploader from "@/components/ui/core/SHImageUploader";
 import ImagePreviewer from "@/components/ui/core/SHImageUploader/ImagePreviewer";
+import SHForm from "@/components/ui/core/form/SHForm";
+import SHInput from "@/components/ui/core/form/SHInput";
 
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -58,7 +59,7 @@ export default function AddProductsForm() {
 
 
 
-    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
         const availableColors = data.availableColors.map(
             (color: { value: string }) => color.value
         );
@@ -111,150 +112,140 @@ export default function AddProductsForm() {
 
                 <h1 className="text-xl font-bold">Add Product</h1>
             </div>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                        <p className="text-primary font-bold text-xl">Basic Information</p>
-                    </div>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Product Name</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} value={field.value || ""} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+            <SHForm onSubmit={handleFormSubmit}>
+                <div className="flex justify-between items-center border-t border-b py-3 my-5">
+                    <p className="text-primary font-bold text-xl">Basic Information</p>
+                </div>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <SHInput
+                        type="text"
+                        name="name"
+                        label="Product Name"
+                    />
 
-                        <FormField
-                            control={form.control}
-                            name="price"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Price</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} value={field.value || ""} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="stock"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Stock</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} value={field.value || ""} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="weight"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Weight</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} value={field.value || ""} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
+                    <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Price</FormLabel>
+                                <FormControl>
+                                    <Input {...field} value={field.value || ""} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="stock"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Stock</FormLabel>
+                                <FormControl>
+                                    <Input {...field} value={field.value || ""} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="weight"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Weight</FormLabel>
+                                <FormControl>
+                                    <Input {...field} value={field.value || ""} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
 
-                    <div className="my-5">
-                        <FormField
-                            control={form.control}
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Description</FormLabel>
-                                    <FormControl>
-                                        <Textarea
-                                            className="h-36 resize-none"
-                                            {...field}
-                                            value={field.value || ""}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-
-                    <div>
-                        <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                            <p className="text-primary font-bold text-xl">Images</p>
-                        </div>
-                        <div className="flex gap-4 ">
-                            <SHImageUploader
-                                setImageFiles={setImageFiles}
-                                setImagePreview={setImagePreview}
-                                label="Upload Image"
-                                className="w-fit mt-0"
-                            />
-                            <ImagePreviewer
-                                className="flex flex-wrap gap-4"
-                                setImageFiles={setImageFiles}
-                                imagePreview={imagePreview}
-                                setImagePreview={setImagePreview}
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="flex justify-between items-center border-t border-b py-3 my-5">
-                            <p className="text-primary font-bold text-xl">Available Colors</p>
-                            <Button
-                                variant="outline"
-                                className="size-10"
-                                onClick={addColor}
-                                type="button"
-                            >
-                                <Plus className="text-primary" />
-                            </Button>
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            {colorFields.map((colorField, index) => (
-                                <div key={colorField.id}>
-                                    <FormField
-                                        control={form.control}
-                                        name={`availableColors.${index}.value`}
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Color {index + 1}</FormLabel>
-                                                <FormControl>
-                                                    <Input {...field} value={field.value || ""} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
+                <div className="my-5">
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        className="h-36 resize-none"
+                                        {...field}
+                                        value={field.value || ""}
                                     />
-                                </div>
-                            ))}
-                        </div>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+
+                <div>
+                    <div className="flex justify-between items-center border-t border-b py-3 my-5">
+                        <p className="text-primary font-bold text-xl">Images</p>
+                    </div>
+                    <div className="flex gap-4 ">
+                        <SHImageUploader
+                            setImageFiles={setImageFiles}
+                            setImagePreview={setImagePreview}
+                            label="Upload Image"
+                            className="w-fit mt-0"
+                        />
+                        <ImagePreviewer
+                            className="flex flex-wrap gap-4"
+                            setImageFiles={setImageFiles}
+                            imagePreview={imagePreview}
+                            setImagePreview={setImagePreview}
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <div className="flex justify-between items-center border-t border-b py-3 my-5">
+                        <p className="text-primary font-bold text-xl">Available Colors</p>
+                        <Button
+                            variant="outline"
+                            className="size-10"
+                            onClick={addColor}
+                            type="button"
+                        >
+                            <Plus className="text-primary" />
+                        </Button>
                     </div>
 
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        {colorFields.map((colorField, index) => (
+                            <div key={colorField.id}>
+                                <FormField
+                                    control={form.control}
+                                    name={`availableColors.${index}.value`}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Color {index + 1}</FormLabel>
+                                            <FormControl>
+                                                <Input {...field} value={field.value || ""} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
 
 
 
-                    <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
-                        {isSubmitting ? "Adding Product....." : "Add Product"}
-                    </Button>
-                </form>
-            </Form>
+
+                <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "Adding Product....." : "Add Product"}
+                </Button>
+            </SHForm>
         </div>
     );
 }
