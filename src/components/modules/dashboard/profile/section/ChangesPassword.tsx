@@ -6,13 +6,25 @@ import SHInput from '@/components/ui/core/form/SHInput';
 import { changesPassword } from '@/services/AuthService';
 import React from 'react';
 import { FieldValues } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const ChangesPassword = () => {
     const handleFormSubmit = async (data: FieldValues) => {
-        console.log(data)
-        const res = await changesPassword(data)
-        console.log(res)
-    }
+        try {
+            if (data.newPassword === data.oldPassword) {
+                toast.error('Old and new password is same');
+                return
+            }
+            const res = await changesPassword(data);
+            if (res.success) {
+                toast.success("Password changed successfully!");
+            } else {
+                toast.error(res.message);
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
     return (
         <SHForm onSubmit={handleFormSubmit}>
             <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="change-password">
