@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Trash } from "lucide-react";
@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
+import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 
 const ManageProducts = ({
     products,
@@ -18,13 +19,23 @@ const ManageProducts = ({
 }) => {
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
 
     const handleView = (product: IProduct) => {
-       router.push(`/dashboard/listing/ads-details/${product._id}`)
+        router.push(`/dashboard/listing/ads-details/${product._id}`);
     };
 
-    const handleDelete = (productId: string) => {
-        console.log("Deleting product with ID:", productId);
+    const handleDelete = (product: IProduct) => {
+        setProductToDelete(product);
+        setIsModalOpen(true);
+    };
+
+    const confirmDelete = () => {
+        if (productToDelete) {
+            console.log("Deleting product with ID:", productToDelete._id);
+            setProductToDelete(null);
+        }
     };
 
     const columns: ColumnDef<IProduct>[] = [
@@ -49,9 +60,7 @@ const ManageProducts = ({
                             if (value) {
                                 setSelectedIds((prev) => [...prev, id]);
                             } else {
-                                setSelectedIds(
-                                    selectedIds.filter((id) => id !== id)
-                                );
+                                setSelectedIds(selectedIds.filter((id) => id !== id));
                             }
                         }
                         row.toggleSelected(!!value);
@@ -97,11 +106,7 @@ const ManageProducts = ({
         {
             accessorKey: "location",
             header: "City",
-            cell: ({ row }) => (
-                <span>
-                     { row.original.location}
-                </span>
-            ),
+            cell: ({ row }) => <span>{row.original.location}</span>,
         },
         {
             accessorKey: "action",
@@ -120,9 +125,7 @@ const ManageProducts = ({
                         className="text-gray-500 hover:text-green-500"
                         title="Edit"
                         onClick={() =>
-                            router.push(
-                                `/dashboard/listing/update-ads/${row.original._id}`
-                            )
+                            router.push(`/dashboard/listing/update-ads/${row.original._id}`)
                         }
                     >
                         <Edit className="w-5 h-5" />
@@ -131,11 +134,10 @@ const ManageProducts = ({
                     <button
                         className="text-gray-500 hover:text-red-500"
                         title="Delete"
-                        onClick={() => handleDelete(row.original._id || '')}
+                        onClick={() => handleDelete(row.original)}
                     >
                         <Trash className="w-5 h-5" />
                     </button>
-
                 </div>
             ),
         },
@@ -145,6 +147,16 @@ const ManageProducts = ({
         <div>
             <NMTable columns={columns} data={products || []} />
             <TablePagination totalPage={meta?.totalPage} />
+
+            {/* Delete Confirmation Modal */}
+            {productToDelete && (
+                <DeleteConfirmationModal
+                    name={productToDelete.title}
+                    isOpen={isModalOpen}
+                    onOpenChange={setIsModalOpen}
+                    onConfirm={confirmDelete}
+                />
+            )}
         </div>
     );
 };
