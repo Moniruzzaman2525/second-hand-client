@@ -27,7 +27,6 @@ const ManageUser = ({
     const [banToUser, setBanToUser] = useState<IAuthUser | null>(null);
     const { user } = useUser();
     const filteredUsers = users?.filter(u => u._id !== user?.userId);
-    console.log(user)
 
     const handleView = (users: IAuthUser) => {
         router.push(`/dashboard/admin/listings/ads-details/${users._id}`);
