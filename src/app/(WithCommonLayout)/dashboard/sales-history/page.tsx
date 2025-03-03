@@ -12,7 +12,7 @@ const SalesHistoryPage = async ({ searchParams }: { searchParams: Promise<{ page
             <Sidebar />
             <div className='bg-[#f8fafd]'>
                 <SHContainer>
-                    <SellerHistory products={products.result} meta={meta} />
+                    <SellerHistory products={products?.result} meta={meta} />
                 </SHContainer>
             </div>
         </div>
