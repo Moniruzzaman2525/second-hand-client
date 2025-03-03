@@ -35,33 +35,6 @@ const navbarItem = [
     },
 ]
 
-const navbarItemPhone = [
-    {
-        name: 'Home',
-        href: '/'
-    },
-    {
-        name: 'Products',
-        href: '/products'
-    },
-    {
-        name: 'Post Your Ad',
-        href: '/dashboard/listing'
-    },
-    {
-        name: 'About',
-        href: '/about-us'
-    },
-    {
-        name: 'Contact',
-        href: '/contact-us'
-    },
-    {
-        name: 'FAQ',
-        href: '/faq'
-    },
-]
-
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState("");
@@ -101,22 +74,18 @@ const Navbar = () => {
 
                 <div className="hidden md:flex space-x-10">
                     {navbarItem.map((item) => (
-                        <div
+                        <Link
                             key={item.name}
-                            className="relative group"
+                            href={item.href}
+                            className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
+                            onMouseEnter={() => setActive(item.name)}
+                            onMouseLeave={() => setActive("")}
                         >
-                            <Link
-                                href={item.href}
-                                className={`text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
-                                onMouseEnter={() => setActive(item.name)}
-                                onMouseLeave={() => setActive("")}
-                            >
-                                {item.name}
-                            </Link>
-                        </div>
+                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
+                            {item.name}
+                        </Link>
                     ))}
                 </div>
-
                 {user?.email ? (
                     <>
                         <Link href='dashboard/listing'>
@@ -130,7 +99,7 @@ const Navbar = () => {
                                 <AvatarImage> <User className="text-black cursor-pointer" /></AvatarImage>
                                 <AvatarFallback><User className="text-black cursor-pointer" /></AvatarFallback>
                             </Avatar>
-                            <div className="absolute top-[60px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                            <div className="absolute top-[55px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
                                 <div className="py-2">
                                     <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
                                     <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
@@ -160,7 +129,7 @@ const Navbar = () => {
 
             {isOpen && (
                 <div className="md:hidden bg-white shadow-lg absolute top-16 left-0 w-full py-4 px-6 space-y-4 z-[999]">
-                    {navbarItemPhone.map((item) => (
+                    {navbarItem.map((item) => (
                         <Link
                             key={item.name}
                             href={item.href}
