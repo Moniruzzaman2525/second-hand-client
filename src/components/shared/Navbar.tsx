@@ -107,7 +107,7 @@ const Navbar = () => {
                                 <div className="py-2">
                                     <Link href={`/dashboard/listing/add-ads`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
                                     <Link href={`/dashboard/listing`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
-                                    <Link href={`/dashboard/messages`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
+                                    <Link href={`/messages`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
                                     <Link href={`/dashboard/favorites`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Favorite</span></Link>
                                     <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Profile</span></Link>
                                     <Link href={`${user.role === 'admin' ? "/dashboard/admin/user-management" : "/dashboard/purchase-history"}`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]">Purchase History</Link>

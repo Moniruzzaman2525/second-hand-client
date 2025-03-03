@@ -71,6 +71,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                                 disabled={product?.status === 'sold'}
                                 variant="outline"
                                 size="sm"
+                                title="View"
                                 className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
                             >
                                 <Eye />
@@ -80,6 +81,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                             disabled={product?.status === 'sold'}
                             variant="outline"
                             size="sm"
+                            title="whitelist"
                             className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
                         >
                             <Heart />
