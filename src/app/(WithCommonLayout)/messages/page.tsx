@@ -4,7 +4,7 @@ import SHContainer from "@/components/ui/core/SHContainer";
 import { getAllMessage } from "@/services/Message";
 
 const MessagePage = async () => {
-    const {data: message} = await getAllMessage();
+    const { data: message } = await getAllMessage();
     return (
         <div>
             <Sidebar />

@@ -1,86 +1,58 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { getUserMessage, sendMessage } from "@/services/Message";
+import { MessageAppProps, MessageContent, User } from "@/types";
+import { formatDistanceToNow } from 'date-fns';
+const MessageApp = ({ message }: MessageAppProps) => {
+    const [activeUser, setActiveUser] = useState<string | null>(null);
+    const [activeUserDetails, setActiveUserDetails] = useState<User | undefined>();
+    const [messages, setMessages] = useState<MessageContent[]>([]);
+    const [newMessage, setNewMessage] = useState<string>("");
 
-const MessageApp = ({ message }) => {
-    console.log(message)
-    const users = [
-        { id: 1, name: "Shazzad K.p", avatar: "bg-blue-500", lastMessage: "You: I am interested in..." },
-        { id: 2, name: "Saiful Islam Emon", avatar: "bg-red-500", lastMessage: "You: I am interested in..." },
-    ];
-
-    const initialMessages = [
-        {
-            userId: 1,
-            messages: [
-                { sender: "you", time: "12:40 PM", content: "I am interested in iPhone 12 | 128 GB . Purple" },
-                { sender: "other", time: "12:45 PM", content: "Okay, let me check availability." },
-            ],
-        },
-        {
-            userId: 2,
-            messages: [
-                { sender: "you", time: "12:40 PM", content: "I am interested in iPhone 12 | 128 GB . Purple" },
-                { sender: "other", time: "12:50 PM", content: "Got it, I'll check that." },
-            ],
-        },
-    ];
-
-    const [activeUser, setActiveUser] = useState(null);
-    const [activeUserDetails, setActiveUserDetails] = useState();
-    const [messages, setMessages] = useState(initialMessages);
-    const [newMessage, setNewMessage] = useState("");
-
-    const handleUserClick = (user) => {
-        console.log(user)
-        setActiveUserDetails(user)
-        setActiveUser(user.id);
+    const handleUserClick = async (user: User) => {
+        try {
+            const res = await getUserMessage(user.id);
+            if (res.success) {
+                console.log(res)
+                setMessages(res.data);
+                setActiveUserDetails(user);
+                setActiveUser(user.id);
+            }
+        } catch (error) {
+            console.error("Error fetching user messages", error);
+        }
     };
 
-    const handleMessageSend = () => {
+    const handleMessageSend = async () => {
         if (!newMessage.trim()) return;
-
-        const updatedMessages = messages.map((conversation) => {
-            if (conversation.userId === activeUser) {
-                return {
-                    ...conversation,
-                    messages: [
-                        ...conversation.messages,
-                        {
-                            sender: "you",
-                            time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-                            content: newMessage,
-                        },
-                    ],
-                };
+        if (newMessage && activeUser) {
+            const res = await sendMessage({ message: newMessage, receiverID: activeUser })
+            if (res) {
+                setMessages(res.data);
             }
-            return conversation;
-        });
-
-        setMessages(updatedMessages);
+        }
         setNewMessage("");
     };
 
     return (
         <div className="flex flex-col w-full h-screen bg-[#f8fafd]">
-            <h1 className="text-xl font-semibold text-gray-800">Messages</h1>
+            <h1 className="text-[30px] py-5 font-semibold text-gray-800">Messages</h1>
             <div className="flex justify-between items-center p-4 bg-white shadow-md">
                 <h1 className="text-xl font-semibold text-gray-800">Conversations</h1>
                 <h1 className="text-xl font-semibold text-gray-800">{activeUserDetails?.name}</h1>
                 <Button variant="default">View Profile</Button>
             </div>
-
-            <div className="flex py-4 shadow-sm h-full w-full">
-                <div className="w-1/3 bg-white p-4 rounded-lg h-[90%]">
+            <div className="flex shadow-sm w-full h-[55%]">
+                <div className="w-1/3 bg-white py-4">
                     {message.map((user) => (
                         <div
                             key={user.id}
                             onClick={() => handleUserClick(user)}
-                            className={`flex items-center space-x-2 mb-4 py-3 px-2 rounded cursor-pointer ${activeUser === user.id ? 'bg-gray-200' : ''}`}
+                            className={`flex items-center space-x-2 mb-4 py-3 px-10 cursor-pointer ${activeUser === user.id ? "bg-gray-200" : ""}`}
                         >
-                            <div className={`${user.avatar} w-8 h-8 rounded-full`}></div>
                             <div>
                                 <p className="text-sm font-semibold text-gray-800">{user.name}</p>
                                 <p className="text-xs text-gray-600">{user.lastMessage}</p>
@@ -88,44 +60,56 @@ const MessageApp = ({ message }) => {
                         </div>
                     ))}
                 </div>
+                <div className="flex-1 h-[100%] flex flex-col bg-[#f2f4f8] shadow-sm">
+                    {activeUser ? (
+                        <div className="pt-10 h-full flex flex-col">
+                            <div className="flex-1 px-6 overflow-y-scroll h-[70%]">
+                                {messages?.length > 0 ? (
+                                    messages?.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className={`flex ${item.sender === "you" ? "justify-end" : "justify-start"} mb-3`}
+                                        >
+                                            <div>
+                                                <div className="text-xs py-1 text-gray-600">
+                                                    {formatDistanceToNow(new Date(item.content.timestamp), { addSuffix: true })}
+                                                </div>
 
-                <div className="flex-1 rounded-lg shadow-sm">
-                    {activeUser && (
-                        <div className="px-6 pt-10 bg-[#f2f4f8] h-[50%]">
-                            {messages
-                                .find((conversation) => conversation.userId === activeUser)
-                                ?.messages.map((message, index) => (
-                                    <div key={index} className={`flex ${message.sender === "you" ? "justify-end" : "justify-start"}`}>
-                                        <div>
-                                            <div className="text-xs py-2 text-gray-600">{message.time}</div>
-                                            <div className={`text-white p-5 rounded-lg mt-1 ${message.sender === "you" ? "bg-blue-500" : "bg-gray-400"}`}>
-                                                {message.content}
+                                                <div
+                                                    className={`text-white p-4 rounded-lg ${item.sender === "you" ? "bg-blue-500" : "bg-gray-400"
+                                                        }`}
+                                                >
+                                                    {item.content.message}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                        </div>
-                    )}
-
-                    <div className="flex-1 bg-[#f8fafd]">
-                        <div className="px-10 flex gap-5 flex-col py-20">
-                            <Textarea
-                                placeholder="Write your message here"
-                                className="resize-none py-10"
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                            />
-                            <div className="flex justify-end">
-                                <Button className="w-[25%]" onClick={handleMessageSend}>
-                                    Send
-                                </Button>
+                                    ))
+                                ) : (
+                                    <div className="text-center text-gray-500 mt-5">No messages yet</div>
+                                )}
+                            </div>
+                            <div className="bg-white py-4 px-6">
+                                <Textarea
+                                    placeholder="Write your message here..."
+                                    className="resize-none py-3"
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                />
+                                <div className="flex justify-end mt-3">
+                                    <Button className="w-[25%]" onClick={handleMessageSend}>
+                                        Send
+                                    </Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="flex items-center h-full justify-center text-gray-500">
+                            Select a conversation to start messaging
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
-
 export default MessageApp;
