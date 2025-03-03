@@ -110,7 +110,7 @@ const ManageUser = ({
                     </button>
                     <button
                         className="text-gray-500 hover:text-red-500"
-                        title="Delete"
+                        title={row.original.ban ? "Unban" : "Ban"}
                         onClick={() => banUser(row.original)}
                     >
                         <BanIcon className="w-5 h-5" />
