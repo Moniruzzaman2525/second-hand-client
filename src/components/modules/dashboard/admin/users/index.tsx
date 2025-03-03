@@ -58,15 +58,15 @@ const ManageUser = ({
     };
     const confirmBan = async () => {
         try {
-           if (banToUser && banToUser._id) {
-               const res = await banUnBanUser(banToUser._id);
-               if (res) {
-                   toast.success(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
-               } else {
-                   toast.error('Failed to update user. Please try again.');
-               }
-               setBanToUser(null);
-           }
+            if (banToUser && banToUser._id) {
+                const res = await banUnBanUser(banToUser._id);
+                if (res) {
+                    toast.success(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
+                } else {
+                    toast.error('Failed to update user. Please try again.');
+                }
+                setBanToUser(null);
+            }
         } catch (error: any) {
             toast.error(error.message);
         }
