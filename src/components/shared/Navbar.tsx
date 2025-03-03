@@ -7,7 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "@/context/UserContext";
 import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { logout } from "@/services/AuthService";
 import { protectedRoutes } from "@/constant";
@@ -35,6 +34,7 @@ const navbarItem = [
         href: '/faq'
     },
 ]
+
 const navbarItemPhone = [
     {
         name: 'Home',
@@ -68,8 +68,9 @@ const Navbar = () => {
     const { user, setIsLoading } = useUser();
     const pathname = usePathname();
     const router = useRouter();
+
     const handleLogOut = () => {
-        logout()
+        logout();
         setIsLoading(true);
         if (protectedRoutes.some((route) => pathname.match(route))) {
             router.push("/");
@@ -98,19 +99,21 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-
                 <div className="hidden md:flex space-x-10">
                     {navbarItem.map((item) => (
-                        <Link
+                        <div
                             key={item.name}
-                            href={item.href}
-                            className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
-                            onMouseEnter={() => setActive(item.name)}
-                            onMouseLeave={() => setActive("")}
+                            className="relative group"
                         >
-                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
-                            {item.name}
-                        </Link>
+                            <Link
+                                href={item.href}
+                                className={`text-[#374B5C] font-medium text-lg transition-colors ${active === item.name ? 'text-red-600' : ''}`}
+                                onMouseEnter={() => setActive(item.name)}
+                                onMouseLeave={() => setActive("")}
+                            >
+                                {item.name}
+                            </Link>
+                        </div>
                     ))}
                 </div>
 
@@ -122,32 +125,31 @@ const Navbar = () => {
                             </Button>
                         </Link>
 
-                        <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Avatar>
-                                    <AvatarImage> <User className="text-black " /></AvatarImage>
-                                    <AvatarFallback><User className="text-black " /></AvatarFallback>
-                                </Avatar>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <Link href={`/dashboard/profile`}>Profile</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Link href={`${user.role === 'admin' ? "/dashboard/admin/user-management" : "/dashboard/purchase-history"}`}>Dashboard</Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                    className="bg-red-500 cursor-pointer"
-                                    onClick={handleLogOut}
-                                >
-                                    <LogOut />
-                                    <span>Log Out</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <div className="relative group">
+                            <Avatar>
+                                <AvatarImage> <User className="text-black cursor-pointer" /></AvatarImage>
+                                <AvatarFallback><User className="text-black cursor-pointer" /></AvatarFallback>
+                            </Avatar>
+                            <div className="absolute top-[60px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                                <div className="py-2">
+                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
+                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
+                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
+                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Favorite</span></Link>
+                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Profile</span></Link>
+                                    <Link href={`${user.role === 'admin' ? "/dashboard/admin/user-management" : "/dashboard/purchase-history"}`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]">Purchase History</Link>
+                                    <div className="border-t border-gray-200">
+                                        <Link
+                                            href="#"
+                                            onClick={handleLogOut}
+                                            className="flex gap-5 font-medium px-4 py-3 hover:bg-[#f8fafd]"
+                                        >
+                                            <LogOut /> <span>Log Out</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </>
                 ) : (
                     <Link className="flex gap-4" href='/login'>
@@ -166,21 +168,9 @@ const Navbar = () => {
                             onMouseEnter={() => setActive(item.name)}
                             onMouseLeave={() => setActive("Home")}
                         >
-                            <span className={`mr-2 text-blue-500 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
                             {item.name}
                         </Link>
                     ))}
-                    <div className="border-t border-gray-200 pt-4">
-                        <p className="text-yellow-500 font-semibold">Call Support</p>
-                        <p className="text-gray-700">+880 1925-716395</p>
-                        <p className="text-yellow-500 font-semibold mt-2">Email Address</p>
-                        <p className="text-gray-700">web.moniruzzaman1@gmail.com</p>
-                        <div className="mt-4 flex space-x-4">
-                            <a href="#" className="text-xl text-[#374B5C] hover:text-[#536C88]"><i className="fab fa-facebook"></i></a>
-                            <a href="#" className="text-xl text-[#374B5C] hover:text-[#536C88]"><i className="fab fa-instagram"></i></a>
-                            <a href="#" className="text-xl text-[#374B5C] hover:text-[#536C88]"><i className="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
                 </div>
             )}
         </nav>
