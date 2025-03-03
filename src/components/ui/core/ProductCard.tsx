@@ -9,12 +9,18 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
-import { IProduct } from "@/types";
+import { ISingleProduct } from "@/types";
 import { Eye, Heart, ShoppingBagIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import TransactionModal from "./SHModel/TransactionModal";
+import { useState } from "react";
 
-const ProductCard = ({ product }: { product: IProduct }) => {
+const ProductCard = ({ product }: { product: ISingleProduct }) => {
+const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
+    const handlePurchaseProduct = () => {
+        setIsPurchaseOpen(true);
+    };
 
     return (
         <Card className="p-3">
@@ -93,6 +99,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     <div className="flex items-center justify-center gap-1">
                         <Button
                             disabled={product?.status === 'sold'}
+                            onClick={handlePurchaseProduct}
                             size="sm"
                             className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
                         >
@@ -101,6 +108,11 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     </div>
                 </div>
             </CardFooter>
+            <TransactionModal
+                isOpen={isPurchaseOpen}
+                onClose={() => setIsPurchaseOpen(false)}
+                user={product}
+            />
         </Card>
     );
 };

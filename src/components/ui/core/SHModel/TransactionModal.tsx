@@ -4,6 +4,8 @@
 import { createTransaction } from "@/services/Transaction";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 interface MessageModalProps {
@@ -13,11 +15,15 @@ interface MessageModalProps {
 }
 
 const TransactionModal = ({ isOpen, onClose, user }: MessageModalProps) => {
-
+    const router = useRouter()
     const purchaseNow = async () => {
         if (user && user.userID?._id && user._id) {
             const res = await createTransaction({ sellerID: user.userID?._id, itemID: user._id })
-            console.log(res)
+            if (res.success) {
+                toast.success('Purchase successfully!')
+                router.push('/dashboard/purchase-history')
+                onClose()
+            }
         }
 
     }
