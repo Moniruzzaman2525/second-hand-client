@@ -1,7 +1,7 @@
 'use client'
 import { IMeta, IAuthUser } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Trash } from "lucide-react";
+import { BanIcon, Eye, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
@@ -9,6 +9,7 @@ import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
+import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 
 const ManageUser = ({
     users,
@@ -20,6 +21,8 @@ const ManageUser = ({
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IAuthUser | null>(null);
+    const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+    const [banToUser, setBanToUser] = useState<IAuthUser | null>(null);
 
     const handleView = (users: IAuthUser) => {
         router.push(`/dashboard/admin/listings/ads-details/${users._id}`);
@@ -28,6 +31,10 @@ const ManageUser = ({
     const handleDelete = (users: IAuthUser) => {
         setProductToDelete(users);
         setIsModalOpen(true);
+    };
+    const banUser = (users: IAuthUser) => {
+        setBanToUser(users);
+        setIsBanModalOpen(true);
     };
 
 
@@ -42,6 +49,13 @@ const ManageUser = ({
                 }
                 setProductToDelete(null);
             }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+    const confirmBan = async () => {
+        try {
+            console.log(banToUser)
         } catch (error: any) {
             toast.error(error.message);
         }
@@ -90,6 +104,13 @@ const ManageUser = ({
                     >
                         <Trash className="w-5 h-5" />
                     </button>
+                    <button
+                        className="text-gray-500 hover:text-red-500"
+                        title="Delete"
+                        onClick={() => banUser(row.original)}
+                    >
+                        <BanIcon className="w-5 h-5" />
+                    </button>
                 </div>
             ),
         },
@@ -107,6 +128,15 @@ const ManageUser = ({
                     isOpen={isModalOpen}
                     onOpenChange={setIsModalOpen}
                     onConfirm={confirmDelete}
+                />
+            )}
+            {/* Delete Confirmation Modal */}
+            {banToUser && (
+                <BanConfirmationModal
+                    user={banToUser}
+                    isOpen={isBanModalOpen}
+                    onOpenChange={setIsBanModalOpen}
+                    onConfirm={confirmBan}
                 />
             )}
         </div>
