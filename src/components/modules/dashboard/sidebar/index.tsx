@@ -11,10 +11,10 @@ const Sidebar = () => {
 
     const isActive = (path: string) => {
         if (pathname === path) {
-            return 'text-blue-500 font-semibold';
+            return 'text-[#6d90df] font-semibold';
         }
         if (pathname.startsWith(`${path}/`) && pathname !== '/dashboard/listing/add-ads') {
-            return 'text-blue-500 font-semibold';
+            return 'text-[#6d90df] font-semibold';
         }
         return 'text-gray-700';
     };
