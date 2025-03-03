@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/card";
 
 import { IProduct } from "@/types";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Eye, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const ProductCard = ({ product }: { product: IProduct }) => {
 
-console.log(product)
     return (
         <Card className="p-3">
             <CardHeader className="relative p-0 h-48">
@@ -64,30 +63,31 @@ console.log(product)
 
             <CardFooter className="block p-0">
                 <div className="flex gap-2 items-center justify-between">
-                    <Button
-                        disabled={product?.status === 'sold'}
-                        size="sm"
-                        variant="outline"
-                        className="w-32"
-                    >
-                        Buy Now
-                    </Button>
-                    <Button
-                        disabled={product?.status === 'sold'}
-                        variant="outline"
-                        size="sm"
-                        className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
-                    >
-                        <ShoppingCart />
-                    </Button>
-                    <Button
-                        disabled={product?.status === 'sold'}
-                        variant="outline"
-                        size="sm"
-                        className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
-                    >
-                        <Heart />
-                    </Button>
+
+
+                    <div className="flex gap-5">
+                        <Button
+                            disabled={product?.status === 'sold'}
+                            variant="outline"
+                            size="sm"
+                            className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                        >
+                            <Eye />
+                        </Button>
+                        <Button
+                            disabled={product?.status === 'sold'}
+                            variant="outline"
+                            size="sm"
+                            className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                        >
+                            <Heart />
+                        </Button>
+                    </div>
+                    <div className="flex items-center justify-center gap-1">
+                        <span className="text-sm font-medium text-gray-700">
+                            <span className="font-bold">condition:</span> {product?.condition}
+                        </span>
+                    </div>
                 </div>
             </CardFooter>
         </Card>

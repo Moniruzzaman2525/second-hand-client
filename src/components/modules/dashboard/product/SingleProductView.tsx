@@ -53,7 +53,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 <div className="w-full lg:w-1/2 flex flex-col justify-between">
                     <div className="mb-4">
                         <h1 className="text-2xl font-bold text-gray-800">{product.title}</h1>
-                        <p className="text-xl text-gray-600 mt-2">৳{product.price}</p>
+                        <p className="text-xl text-gray-600 mt-2">${product.price}</p>
                     </div>
 
                     <div className="space-y-2 mb-4">
@@ -70,10 +70,10 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         </div>
                     </div>
 
-                    <div className="mt-4 flex gap-4">
+                    <div className="mt-4 justify-center flex gap-4">
                         <button
                             onClick={handleMessageClick}
-                            className="w-full py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg"
+                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg"
                         >
                             Chat
                         </button>
