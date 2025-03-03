@@ -57,6 +57,11 @@ const Sidebar = () => {
                                 </Link>
                                 </div>
                                 <div>
+                                    <Link className={`${isActive('/dashboard/sales-history')} text-[14px] md:text-lg`} href="/dashboard/sales-history">
+                                    Sales History
+                                </Link>
+                                </div>
+                                <div>
                                     <Link className={`${isActive('/dashboard/favorites')} text-[14px] md:text-lg`} href="/dashboard/favorites">
                                     Favorites
                                 </Link>
