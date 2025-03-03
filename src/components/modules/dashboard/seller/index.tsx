@@ -1,7 +1,7 @@
 'use client'
 import { IItemId, IMeta, IPurchaseHistory } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Trash } from "lucide-react";
+import { CheckCircle, Eye, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
@@ -9,6 +9,7 @@ import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
+import ConfirmModal from "@/components/ui/core/SHModel/ConfirmModal";
 
 
 const SellerHistory = ({
@@ -20,7 +21,9 @@ const SellerHistory = ({
 }) => {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IPurchaseHistory | null>(null);
+    const [productToConfirm, setProductToConfirm] = useState<IPurchaseHistory | null>(null);
 
     const handleView = (product: IItemId) => {
         router.push(`/dashboard/listing/ads-details/${product._id}`);
@@ -29,6 +32,10 @@ const SellerHistory = ({
     const handleDelete = (product: IPurchaseHistory) => {
         setProductToDelete(product);
         setIsModalOpen(true);
+    };
+    const handleConfirm = (product: IPurchaseHistory) => {
+        setProductToConfirm(product);
+        setIsConfirmModalOpen(true);
     };
 
 
@@ -73,7 +80,7 @@ const SellerHistory = ({
         {
             accessorKey: "sellerID",
             header: "Seller",
-            cell: ({ row }) => <span>{row.original.sellerID.name}</span>,
+            cell: ({ row }) => <span>{row.original.buyerID.name}</span>,
         },
         {
             accessorKey: "action",
@@ -86,6 +93,13 @@ const SellerHistory = ({
                         onClick={() => handleView(row.original.itemID)}
                     >
                         <Eye className="w-5 h-5" />
+                    </button>
+                    <button
+                        className="text-gray-500 hover:text-red-500"
+                        title="Confirm"
+                        onClick={() => handleConfirm(row.original)}
+                    >
+                        <CheckCircle className="w-5 h-5" />
                     </button>
                     <button
                         className="text-gray-500 hover:text-red-500"
@@ -112,6 +126,13 @@ const SellerHistory = ({
                     isOpen={isModalOpen}
                     onOpenChange={setIsModalOpen}
                     onConfirm={confirmDelete}
+                />
+            )}
+            {productToConfirm && (
+                <ConfirmModal
+                    isOpen={isConfirmModalOpen}
+                    onClose={() => setIsConfirmModalOpen(false)}
+                    user={productToConfirm}
                 />
             )}
         </div>
