@@ -94,7 +94,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSendMessage={handleSendMessage}
-                userName={product.userID.name}
+                user={product}
             />
         </div>
     );

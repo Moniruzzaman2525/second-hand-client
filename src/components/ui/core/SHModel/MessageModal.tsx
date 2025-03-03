@@ -3,16 +3,17 @@
 
 import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
+import { ISingleProduct } from "@/types";
 
 
 interface MessageModalProps {
     isOpen: boolean;
     onClose: () => void;
     onSendMessage: (message: string) => void;
-    userName: string;
+    user: Partial<ISingleProduct>;
 }
 
-const MessageModal = ({ isOpen, onClose, onSendMessage, userName }: MessageModalProps) => {
+const MessageModal = ({ isOpen, onClose, onSendMessage, user }: MessageModalProps) => {
     const [message, setMessage] = useState<string>("");
 
     const handleSend = () => {
@@ -28,7 +29,7 @@ const MessageModal = ({ isOpen, onClose, onSendMessage, userName }: MessageModal
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
                 <DialogTitle className="text-xl font-bold text-gray-800">Send a Message</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    You are about to send a message to {userName}. Write your message below:
+                    You are about to send a message to {user?.userID?.name}. Write your message below:
                 </DialogDescription>
                 <textarea
                     className="w-full resize-none mt-4 p-4 border-2 border-gray-300 rounded-lg"
