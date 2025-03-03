@@ -14,7 +14,7 @@ const AllProducts = ({
     products: IProduct[];
     meta: IMeta;
     isLoading: boolean;
-    }) => {
+}) => {
     return (
         <div className="flex flex-col gap-8 my-10">
             <SearchInput />
@@ -50,7 +50,9 @@ const AllProducts = ({
                     {isLoading ? (
                         <Skeleton height={40} width={200} className="mt-5" />
                     ) : (
-                        <TablePagination totalPage={meta?.totalPage} />
+                        <div className="flex justify-center mt-5">
+                            <TablePagination totalPage={meta?.totalPage} />
+                        </div>
                     )}
                 </div>
             </div>
