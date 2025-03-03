@@ -96,15 +96,19 @@ const Navbar = () => {
 
                         <div className="relative group">
                             <Avatar>
-                                <AvatarImage> <User className="text-black cursor-pointer" /></AvatarImage>
-                                <AvatarFallback><User className="text-black cursor-pointer" /></AvatarFallback>
+                                <AvatarImage>
+                                    <User className="text-black cursor-pointer" />
+                                </AvatarImage>
+                                <AvatarFallback>
+                                    <User className="text-black cursor-pointer" />
+                                </AvatarFallback>
                             </Avatar>
-                            <div className="absolute top-[55px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                            <div className="absolute top-[55px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-x-100 group-hover:scale-y-100 scale-x-0 scale-y-0">
                                 <div className="py-2">
-                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
-                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
-                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
-                                    <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Favorite</span></Link>
+                                    <Link href={`/dashboard/listing/add-ads`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
+                                    <Link href={`/dashboard/listing`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
+                                    <Link href={`/dashboard/messages`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
+                                    <Link href={`/dashboard/favorites`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Favorite</span></Link>
                                     <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Profile</span></Link>
                                     <Link href={`${user.role === 'admin' ? "/dashboard/admin/user-management" : "/dashboard/purchase-history"}`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]">Purchase History</Link>
                                     <div className="border-t border-gray-200">
@@ -119,6 +123,7 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
+
                     </>
                 ) : (
                     <Link className="flex gap-4" href='/login'>
