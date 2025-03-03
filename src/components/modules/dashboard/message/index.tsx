@@ -32,7 +32,7 @@ const MessageApp = ({ message }) => {
     const [activeUserDetails, setActiveUserDetails] = useState();
     const [messages, setMessages] = useState(initialMessages);
     const [newMessage, setNewMessage] = useState("");
-    console.log(activeUser)
+
     const handleUserClick = (user) => {
         console.log(user)
         setActiveUserDetails(user)
@@ -73,8 +73,8 @@ const MessageApp = ({ message }) => {
             </div>
 
             <div className="flex py-4 shadow-sm h-full w-full">
-                <div className="w-1/3 bg-white p-4 rounded-lg h-[100%] shadow-sm">
-                    {users.map((user) => (
+                <div className="w-1/3 bg-white p-4 rounded-lg h-[90%]">
+                    {message.map((user) => (
                         <div
                             key={user.id}
                             onClick={() => handleUserClick(user)}
