@@ -27,7 +27,7 @@ const ChangesPassword = () => {
     };
     return (
         <SHForm onSubmit={handleFormSubmit}>
-            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="change-password">
+            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-2 md:px-5 my-8" value="change-password">
                 <AccordionTrigger>Change Password</AccordionTrigger>
                 <AccordionContent>
                     <Card>

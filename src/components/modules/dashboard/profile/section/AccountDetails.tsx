@@ -19,7 +19,7 @@ const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
             const res = await updateProfile(data);
             if (res.success) {
                 toast.success("Profile updated successfully!");
-                router.refresh(); 
+                router.refresh();
             } else {
                 toast.error(res.message);
             }
@@ -34,7 +34,7 @@ const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
             defaultValues={profile}
             onSubmit={handleFormSubmit}
         >
-            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="account-details">
+            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-2 md:px-5 my-8" value="account-details">
                 <AccordionTrigger>Account Details</AccordionTrigger>
                 <AccordionContent>
                     <Card>
@@ -64,9 +64,13 @@ const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
                                 />
                             </div>
                             <div>
-                                <SHTextarea name="description" placeholder="Write something about yourself" label="Profile Description" />
+                                <SHTextarea
+                                    name="description"
+                                    placeholder="Write something about yourself"
+                                    label="Profile Description"
+                                />
                             </div>
-                            <div className="flex gap-10">
+                            <div className="flex flex-col sm:flex-row gap-10">
                                 <SHInput
                                     type="text"
                                     name="location"
@@ -80,7 +84,7 @@ const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
                                     placeholder="Enter your address"
                                 />
                             </div>
-                            <Button className="mt-4">Save Changes</Button>
+                            <Button className="mt-4 w-full sm:w-auto">Save Changes</Button>
                         </CardContent>
                     </Card>
                 </AccordionContent>

@@ -28,7 +28,7 @@ const SocialLinks = ({profile} : {profile: IAuthUser}) => {
     return (
         <SHForm key={JSON.stringify(profile)} defaultValues={profile} onSubmit={handleFormSubmit}>
 
-            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-5 py-2 my-8" value="social-links">
+            <AccordionItem className="shadow-sm bg-[#fdfdfe] rounded px-2 md:px-5 my-8" value="social-links">
                 <AccordionTrigger>Social Links</AccordionTrigger>
                 <AccordionContent>
                     <Card>
