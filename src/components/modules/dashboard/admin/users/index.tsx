@@ -10,6 +10,7 @@ import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
+import { useUser } from "@/context/UserContext";
 
 const ManageUser = ({
     users,
@@ -23,6 +24,9 @@ const ManageUser = ({
     const [productToDelete, setProductToDelete] = useState<IAuthUser | null>(null);
     const [isBanModalOpen, setIsBanModalOpen] = useState(false);
     const [banToUser, setBanToUser] = useState<IAuthUser | null>(null);
+    const { user } = useUser();
+    const filteredUsers = users?.filter(u => u._id !== user?.userId);
+    console.log(user)
 
     const handleView = (users: IAuthUser) => {
         router.push(`/dashboard/admin/listings/ads-details/${users._id}`);
@@ -118,7 +122,7 @@ const ManageUser = ({
 
     return (
         <div>
-            <NMTable columns={columns} data={users || []} />
+            <NMTable columns={columns} data={filteredUsers || []} />
             <TablePagination totalPage={meta?.totalPage} />
 
             {/* Delete Confirmation Modal */}

@@ -12,8 +12,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 
 const LoginForm = () => {
-     const router = useRouter()
-      const { setIsLoading } = useUser();
+    const router = useRouter()
+    const { setIsLoading } = useUser();
     const searchParams = useSearchParams()
     const redirect = searchParams.get('redirectPath')
     const handleFormSubmit = async (data: FieldValues) => {
