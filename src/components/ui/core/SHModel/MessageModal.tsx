@@ -18,15 +18,25 @@ const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const router = useRouter()
     const handleSend = async () => {
-        if (user && user.userID?._id) {
-            const res = await sendMessage({ message, receiverID: user?.userID?._id })
-            if (res) {
-                toast.success('Message send successfully!')
-                router.push('/messages')
-                onClose()
+        try {
+            if (user && user.userID?._id) {
+                const res = await sendMessage({ message, receiverID: user?.userID?._id });
+                if (res) {
+                    toast.success('Message sent successfully!');
+                    router.push('/messages');
+                    onClose();
+                } else {
+                    toast.error(res.message || 'Failed to send message');
+                }
+            } else {
+                throw new Error('User or required ID is missing');
             }
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            onClose();
         }
     };
+
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>

@@ -17,16 +17,26 @@ interface MessageModalProps {
 const TransactionModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const router = useRouter()
     const purchaseNow = async () => {
-        if (user && user.userID?._id && user._id) {
-            const res = await createTransaction({ sellerID: user.userID?._id, itemID: user._id })
-            if (res.success) {
-                toast.success('Purchase successfully!')
-                router.push('/dashboard/purchase-history')
-                onClose()
+        try {
+            if (user && user.userID?._id && user._id) {
+                const res = await createTransaction({ sellerID: user.userID?._id, itemID: user._id });
+                if (res.success) {
+                    toast.success('Purchase successfully!');
+                    router.push('/dashboard/purchase-history');
+                    onClose();
+                } else {
+                    toast.error(res.message);
+                    onClose();
+                }
+            } else {
+                throw new Error('User or required ID is missing');
             }
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            onClose();
         }
+    };
 
-    }
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
