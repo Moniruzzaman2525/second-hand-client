@@ -7,7 +7,7 @@ import emptyCart from '../../../assets/empty-product.png'
 
 const ListingPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
-    const { data, meta } = await getAllUserProducts(page, "1");
+    const { data, meta } = await getAllUserProducts(page, "5");
 
     if (data?.length === 0) {
         return (

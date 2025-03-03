@@ -5,7 +5,7 @@ import { getAllProducts } from "@/services/Product";
 
 const ListingsPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
-    const { data, meta } = await getAllProducts(page, "1");
+    const { data, meta } = await getAllProducts(page, "5");
 
     return (
         <div>
