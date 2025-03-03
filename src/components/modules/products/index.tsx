@@ -16,15 +16,15 @@ const AllProducts = ({
     isLoading: boolean;
 }) => {
     return (
-        <div className="flex flex-col gap-8 my-10">
+        <div className="flex flex-col justify-center gap-8 my-10">
             <SearchInput />
-            <div className="flex justify-between gap-5 items-start mb-6">
-                <div className="w-72">
+            <div className="flex flex-col lg:flex-row justify-between gap-5 items-start mb-6">
+                <div className="lg:w-72 w-full mb-4 flex justify-center lg:mb-0">
                     <FilterSidebar />
                 </div>
                 <div className="flex-grow">
                     {isLoading ? (
-                        <div className="grid grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                             {[...Array(6)].map((_, idx) => (
                                 <div key={idx}>
                                     <Skeleton height={200} width="100%" />
@@ -32,7 +32,7 @@ const AllProducts = ({
                             ))}
                         </div>
                     ) : products.length > 0 ? (
-                        <div className="grid grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                             {products?.map((product: IProduct, idx: number) => (
                                 <ProductCard key={idx} product={product} />
                             ))}
