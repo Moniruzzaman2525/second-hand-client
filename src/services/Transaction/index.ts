@@ -38,6 +38,7 @@ export const getAllPurchaseHistory = async (page?: string, limit?: string) => {
             },
         );
         const data = await res.json();
+        console.log(data)
         return data;
     } catch (error: any) {
         return new Error(error.message);
