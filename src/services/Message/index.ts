@@ -24,4 +24,19 @@ export const getAllMessage =async () => {
     }
 }
 
-
+export const sendMessage = async ({message, receiverID} : { message: string, receiverID: string }): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/message`, {
+            method: "POST",
+            body: JSON.stringify({message, receiverID}),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+            },
+        });
+        revalidateTag("MESSAGE");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
+    }
+};

@@ -19,10 +19,6 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
         setSelectedImage(image);
     };
 
-    const handleSendMessage = (message: string) => {
-
-        console.log("Message sent:", message);
-    };
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -93,7 +89,6 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
             <MessageModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onSendMessage={handleSendMessage}
                 user={product}
             />
         </div>

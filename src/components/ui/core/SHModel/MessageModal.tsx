@@ -1,24 +1,36 @@
-// components/MessageModal.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
-
+import { sendMessage } from "@/services/Message";
 
 interface MessageModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSendMessage: (message: string) => void;
     user: Partial<ISingleProduct>;
 }
 
-const MessageModal = ({ isOpen, onClose, onSendMessage, user }: MessageModalProps) => {
-    const [message, setMessage] = useState<string>("");
+const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
+    const [message, setMessage] = useState<string>(`I'm interested in ${user.title}`);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    useEffect(() => {
+        if (isOpen && textareaRef.current) {
+            const textarea = textareaRef.current;
+            textarea.focus();
 
-    const handleSend = () => {
+            const length = textarea.value.length;
+            textarea.setSelectionRange(length, length);
+        }
+    }, [isOpen]);
+
+    const handleSend = async() => {
+        if (user && user.userID?._id) {
+            const res = await sendMessage({message, receiverID: user?.userID?._id})
+            console.log(res)
+        }
+
         if (message.trim()) {
-            onSendMessage(message);
             setMessage("");
             onClose();
         }
@@ -32,6 +44,7 @@ const MessageModal = ({ isOpen, onClose, onSendMessage, user }: MessageModalProp
                     You are about to send a message to {user?.userID?.name}. Write your message below:
                 </DialogDescription>
                 <textarea
+                    ref={textareaRef}
                     className="w-full resize-none mt-4 p-4 border-2 border-gray-300 rounded-lg"
                     rows={4}
                     value={message}
