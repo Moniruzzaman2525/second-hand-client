@@ -49,7 +49,17 @@ console.log(product)
                     </CardTitle>
                 </Link>
 
+                <div className="flex items-center justify-between my-2">
+                    <p className="text-sm text-gray-600">
+                        <span className="font-semibold">$ {product?.price}</span>
+                    </p>
 
+                    <div className="flex items-center justify-center gap-1">
+                        <span className="text-sm font-medium text-gray-700">
+                            {product?.category}
+                        </span>
+                    </div>
+                </div>
             </CardContent>
 
             <CardFooter className="block p-0">
