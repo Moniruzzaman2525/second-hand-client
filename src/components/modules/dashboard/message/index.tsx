@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-const MessageApp = () => {
+const MessageApp = ({message}) => {
     const users = [
         { id: 1, name: "Shazzad K.p", avatar: "bg-blue-500", lastMessage: "You: I am interested in..." },
         { id: 2, name: "Saiful Islam Emon", avatar: "bg-red-500", lastMessage: "You: I am interested in..." },

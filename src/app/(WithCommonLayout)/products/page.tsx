@@ -4,11 +4,7 @@ import { getAllProducts } from "@/services/Product";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-const ProductsPage = async ({
-    searchParams,
-}: {
-    searchParams: SearchParams;
-}) => {
+const ProductsPage = async ({ searchParams }: {searchParams: SearchParams}) => {
     const query = await searchParams;
     const page = query.page as string | undefined;
 
@@ -30,7 +26,7 @@ const ProductsPage = async ({
         loading = false;
     } catch (error) {
         console.error("Error fetching products:", error);
-        loading = false; 
+        loading = false;
     }
 
     return (
