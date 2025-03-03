@@ -25,7 +25,7 @@ export const getAllUsers =async (page?: string, limit?: string,) => {
 }
 
 
-export const banUser = async (userId: string): Promise<any> => {
+export const banUnBanUser = async (userId: string): Promise<any> => {
   try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/${userId}/ban`, {
       method: "PATCH",

@@ -11,6 +11,7 @@ import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 import { useUser } from "@/context/UserContext";
+import { banUnBanUser } from "@/services/Users";
 
 const ManageUser = ({
     users,
@@ -59,7 +60,15 @@ const ManageUser = ({
     };
     const confirmBan = async () => {
         try {
-            console.log(banToUser)
+           if (banToUser && banToUser._id) {
+               const res = await banUnBanUser(banToUser._id);
+               if (res) {
+                   toast.success(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
+               } else {
+                   toast.error('Failed to update user. Please try again.');
+               }
+               setBanToUser(null);
+           }
         } catch (error: any) {
             toast.error(error.message);
         }
