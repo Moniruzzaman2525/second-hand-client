@@ -78,7 +78,7 @@ const Navbar = () => {
 
     return (
         <nav className="bg-yellow-400 border-b w-full sticky top-0 z-50">
-            <div className="container mx-auto px-40 py-3 flex justify-between items-center">
+            <div className="md:container mx-auto px-3 md:px-40 py-3 flex justify-between items-center">
 
                 <div className="md:hidden border rounded-full p-2 flex items-center">
                     <button onClick={() => setIsOpen(!isOpen)} className="text-black text-2xl">
@@ -88,9 +88,16 @@ const Navbar = () => {
 
                 <div className="flex items-center">
                     <Link href='/' className="text-2xl font-bold text-black flex items-center">
-                        <Image src={logo} alt="Logo" width={200} height={200} className="mr-2" />
+                        <Image
+                            src={logo}
+                            alt="Logo"
+                            width={200}
+                            height={200}
+                            className="mr-2 sm:w-auto sm:h-auto max-w-[150px] md:max-w-[200px]"
+                        />
                     </Link>
                 </div>
+
 
                 <div className="hidden md:flex space-x-10">
                     {navbarItem.map((item) => (
@@ -107,11 +114,6 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* <div className="flex items-center space-x-4">
-                    <Link href='/dashboard/profile' className="border rounded-full p-2">
-                        <User className="text-black " />
-                    </Link>
-                </div> */}
                 {user?.email ? (
                     <>
                         <Link href='dashboard/listing'>

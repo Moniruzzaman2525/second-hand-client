@@ -7,7 +7,7 @@ interface SHContainerProps {
 
 const SHContainer = ({ children, className = "" }: SHContainerProps) => {
     return (
-        <div className={`container mx-auto px-40 ${className}`}>{children}</div>
+        <div className={`md:container mx-auto px-5 md:px-40 ${className}`}>{children}</div>
     );
 };
 
