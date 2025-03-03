@@ -26,7 +26,7 @@ const TablePagination = ({ totalPage }: { totalPage: number }) => {
     };
 
     return (
-        <div className="flex items-center gap-2 my-5">
+        <div className="flex justify-center items-center gap-2 my-5">
             <Button
                 onClick={handlePrev}
                 disabled={currentPage === 1}
