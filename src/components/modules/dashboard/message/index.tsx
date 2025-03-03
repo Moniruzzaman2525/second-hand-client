@@ -77,7 +77,7 @@ const MessageApp = () => {
                         <div
                             key={user.id}
                             onClick={() => handleUserClick(user)}
-                            className={`flex items-center space-x-2 mb-4 cursor-pointer ${activeUser === user.id ? 'bg-gray-200' : ''}`}
+                            className={`flex items-center space-x-2 mb-4 py-3 px-2 rounded cursor-pointer ${activeUser === user.id ? 'bg-gray-200' : ''}`}
                         >
                             <div className={`${user.avatar} w-8 h-8 rounded-full`}></div>
                             <div>
