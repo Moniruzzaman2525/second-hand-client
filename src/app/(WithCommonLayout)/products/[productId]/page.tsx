@@ -1,4 +1,5 @@
 import SingleProductView from "@/components/modules/dashboard/product/SingleProductView";
+import SHContainer from "@/components/ui/core/SHContainer";
 import { getSingleProduct } from "@/services/Product";
 
 const SingleProductPage = async ({
@@ -10,9 +11,9 @@ const SingleProductPage = async ({
 
     const { data: product } = await getSingleProduct(productId);
     return (
-        <div>
+        <SHContainer>
             <SingleProductView product={product.product} />
-        </div>
+        </SHContainer>
     );
 };
 

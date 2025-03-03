@@ -3,16 +3,22 @@
 import { ISingleProduct } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, ShoppingBagIcon } from "lucide-react";
 import MessageModal from "@/components/ui/core/SHModel/MessageModal";
+import { useUser } from "@/context/UserContext";
+import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal";
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
     const [selectedImage, setSelectedImage] = useState<string>(product.images[0]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+    const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
+    const { user } = useUser()
     const handleMessageClick = () => {
         setIsModalOpen(true);
+    };
+    const handlePurchaseProduct = () => {
+        setIsPurchaseOpen(true);
     };
 
     const handleImageClick = (image: string) => {
@@ -73,8 +79,17 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         </div>
                     </div>
 
-                    <div className="mt-4 justify-center flex gap-4">
+                    <div className="mt-4 justify-between flex gap-4">
                         <button
+                            disabled={product.userID._id === user?.userId || product?.status === 'sold'}
+                            onClick={handlePurchaseProduct}
+                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
+                        >
+                            <ShoppingBagIcon size={20} />
+                            BuyNow
+                        </button>
+                        <button
+                            disabled={product.userID._id === user?.userId}
                             onClick={handleMessageClick}
                             className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
                         >
@@ -89,6 +104,11 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
             <MessageModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
+                user={product}
+            />
+            <PurchaseModal
+                isOpen={isPurchaseOpen}
+                onClose={() => setIsPurchaseOpen(false)}
                 user={product}
             />
         </div>

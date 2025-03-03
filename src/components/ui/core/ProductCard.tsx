@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { IProduct } from "@/types";
-import { Eye, Heart } from "lucide-react";
+import { Eye, Heart, ShoppingBagIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -53,9 +53,12 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                         <span className="font-semibold">$ {product?.price}</span>
                     </p>
 
-                    <div className="flex items-center justify-center gap-1">
+                    <div className="flex flex-col items-center justify-center gap-1">
                         <span className="text-sm font-medium text-gray-700">
                             {product?.category}
+                        </span>
+                        <span className="text-sm font-medium text-gray-700">
+                            <span className="font-bold">condition:</span> {product?.condition}
                         </span>
                     </div>
                 </div>
@@ -88,9 +91,13 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                         </Button>
                     </div>
                     <div className="flex items-center justify-center gap-1">
-                        <span className="text-sm font-medium text-gray-700">
-                            <span className="font-bold">condition:</span> {product?.condition}
-                        </span>
+                        <Button
+                            disabled={product?.status === 'sold'}
+                            size="sm"
+                            className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
+                        >
+                            <ShoppingBagIcon size={20} /> Buy Now
+                        </Button>
                     </div>
                 </div>
             </CardFooter>

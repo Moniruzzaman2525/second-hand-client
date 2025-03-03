@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
 import { sendMessage } from "@/services/Message";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface MessageModalProps {
     isOpen: boolean;
@@ -15,13 +15,13 @@ interface MessageModalProps {
 const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const [message, setMessage] = useState<string>(`I'm interested in ${user.title}`);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const router = useRouter()
 
     const handleSend = async() => {
         if (user && user.userID?._id) {
             const res = await sendMessage({message, receiverID: user?.userID?._id})
-           if (res) {
-             router.push('/')
+            if (res) {
+               toast.success('Message send successfully!')
+               onClose()
            }
         }
 
