@@ -154,6 +154,7 @@ const ManageProductsByAdmin = ({
             {/* Delete Confirmation Modal */}
             {productToDelete && (
                 <DeleteConfirmationModal
+                    item="Product"
                     name={productToDelete.title}
                     isOpen={isModalOpen}
                     onOpenChange={setIsModalOpen}

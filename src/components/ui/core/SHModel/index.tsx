@@ -14,6 +14,7 @@ interface DeleteModalProps {
     isOpen: boolean;
     onOpenChange: (isOpen: boolean) => void;
     onConfirm: () => void;
+    item?: string;
 }
 
 const DeleteConfirmationModal: React.FC<DeleteModalProps> = ({
@@ -21,12 +22,14 @@ const DeleteConfirmationModal: React.FC<DeleteModalProps> = ({
     isOpen,
     onOpenChange,
     onConfirm,
+    item
 }) => {
+    console.log(item)
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Delete Item</DialogTitle>
+                    <DialogTitle>Delete {item}</DialogTitle>
                     <DialogDescription>
                         Are you sure you want to delete{" "}
                         <span className="font-semibold text-red-500">{name}</span>? This

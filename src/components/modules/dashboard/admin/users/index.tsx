@@ -7,11 +7,10 @@ import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
-import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 import { useUser } from "@/context/UserContext";
-import { banUnBanUser } from "@/services/Users";
+import { banUnBanUser, handleDeleteUser } from "@/services/Users";
 
 const ManageUser = ({
     users,
@@ -22,7 +21,7 @@ const ManageUser = ({
 }) => {
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [productToDelete, setProductToDelete] = useState<IAuthUser | null>(null);
+    const [userToDelete, setUserToDelete] = useState<IAuthUser | null>(null);
     const [isBanModalOpen, setIsBanModalOpen] = useState(false);
     const [banToUser, setBanToUser] = useState<IAuthUser | null>(null);
     const { user } = useUser();
@@ -33,7 +32,7 @@ const ManageUser = ({
     };
 
     const handleDelete = (users: IAuthUser) => {
-        setProductToDelete(users);
+        setUserToDelete(users);
         setIsModalOpen(true);
     };
     const banUser = (users: IAuthUser) => {
@@ -44,14 +43,14 @@ const ManageUser = ({
 
     const confirmDelete = async () => {
         try {
-            if (productToDelete && productToDelete._id) {
-                const res = await handleDeleteProduct(productToDelete._id);
+            if (userToDelete && userToDelete._id) {
+                const res = await handleDeleteUser(userToDelete._id);
                 if (res) {
-                    toast.success('Product deleted successfully!');
+                    toast.success('User deleted successfully!');
                 } else {
-                    toast.error('Failed to delete the product. Please try again.');
+                    toast.error('Failed to delete the User. Please try again.');
                 }
-                setProductToDelete(null);
+                setUserToDelete(null);
             }
         } catch (error: any) {
             toast.error(error.message);
@@ -134,9 +133,10 @@ const ManageUser = ({
             <TablePagination totalPage={meta?.totalPage} />
 
             {/* Delete Confirmation Modal */}
-            {productToDelete && (
+            {userToDelete && (
                 <DeleteConfirmationModal
-                    name={productToDelete.name}
+                    item="User"
+                    name={userToDelete.name}
                     isOpen={isModalOpen}
                     onOpenChange={setIsModalOpen}
                     onConfirm={confirmDelete}

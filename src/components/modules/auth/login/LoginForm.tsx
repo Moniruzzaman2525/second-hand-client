@@ -19,7 +19,6 @@ const LoginForm = () => {
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await loginUser(data);
-
             if (res.success) {
                 setIsLoading(true);
                 toast.success(res?.message);
