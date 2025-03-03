@@ -1,26 +1,33 @@
+
 "use client";
 import { ISingleProduct } from "@/types";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { MessageSquare } from "lucide-react";
+import MessageModal from "@/components/ui/core/SHModel/MessageModal";
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
-    const router = useRouter();
+
     const [selectedImage, setSelectedImage] = useState<string>(product.images[0]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const handleMessageClick = () => {
-        router.push(`/message/${product.userID._id}`);
+        setIsModalOpen(true);
     };
 
     const handleImageClick = (image: string) => {
         setSelectedImage(image);
     };
+
+    const handleSendMessage = (message: string) => {
+
+        console.log("Message sent:", message);
+    };
+
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col lg:flex-row gap-8">
-
                 <div className="w-full lg:w-1/2 flex flex-col items-center">
-
                     <div className="relative w-full h-96 mb-4">
                         <Image
                             src={selectedImage}
@@ -73,13 +80,22 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                     <div className="mt-4 justify-center flex gap-4">
                         <button
                             onClick={handleMessageClick}
-                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg"
+                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
                         >
+                            <MessageSquare size={20} />
                             Chat
                         </button>
                     </div>
                 </div>
             </div>
+
+
+            <MessageModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSendMessage={handleSendMessage}
+                userName={product.userID.name}
+            />
         </div>
     );
 };
