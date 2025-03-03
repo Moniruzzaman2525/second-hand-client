@@ -1,3 +1,4 @@
+import MessageApp from "@/components/modules/dashboard/message";
 import Sidebar from "@/components/modules/dashboard/sidebar";
 import SHContainer from "@/components/ui/core/SHContainer";
 
@@ -7,7 +8,7 @@ const MessagePage = () => {
             <Sidebar />
             <div className='bg-[#f8fafd] h-screen'>
                 <SHContainer >
-                    Message
+                    <MessageApp />
                 </SHContainer>
             </div>
         </div>
