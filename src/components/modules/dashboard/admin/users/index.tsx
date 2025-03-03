@@ -3,7 +3,6 @@ import { IMeta, IAuthUser } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
@@ -19,10 +18,9 @@ const ManageUser = ({
     meta: IMeta;
 }) => {
     const router = useRouter();
-    const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IAuthUser | null>(null);
-console.log(users)
+
     const handleView = (users: IAuthUser) => {
         router.push(`/dashboard/admin/listings/ads-details/${users._id}`);
     };
@@ -51,38 +49,6 @@ console.log(users)
 
 
     const columns: ColumnDef<IAuthUser>[] = [
-        {
-            id: "select",
-            header: ({ table }) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() ||
-                        (table.getIsSomePageRowsSelected() && "indeterminate")
-                    }
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({ row }) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => {
-                        const id = row.original._id;
-                        if (id) {
-                            if (value) {
-                                setSelectedIds((prev) => [...prev, id]);
-                            } else {
-                                setSelectedIds(selectedIds.filter((id) => id !== id));
-                            }
-                        }
-                        row.toggleSelected(!!value);
-                    }}
-                    aria-label="Select row"
-                />
-            ),
-            enableSorting: false,
-            enableHiding: false,
-        },
 
         {
             accessorKey: "name",

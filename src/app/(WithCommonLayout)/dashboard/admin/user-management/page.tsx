@@ -6,7 +6,7 @@ import React from 'react';
 
 const UserManagementPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
      const { page } = await searchParams;
-        const { data, meta } = await getAllUsers(page, "1");
+        const { data, meta } = await getAllUsers(page, "5");
     return (
         <div>
             <Sidebar />
