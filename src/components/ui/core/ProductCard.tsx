@@ -66,14 +66,16 @@ const ProductCard = ({ product }: { product: IProduct }) => {
 
 
                     <div className="flex gap-5">
-                        <Button
-                            disabled={product?.status === 'sold'}
-                            variant="outline"
-                            size="sm"
-                            className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
-                        >
-                            <Eye />
-                        </Button>
+                        <Link href={`/products/${product?._id}`} >
+                            <Button
+                                disabled={product?.status === 'sold'}
+                                variant="outline"
+                                size="sm"
+                                className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                            >
+                                <Eye />
+                            </Button>
+                        </Link>
                         <Button
                             disabled={product?.status === 'sold'}
                             variant="outline"
