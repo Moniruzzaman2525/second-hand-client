@@ -12,23 +12,23 @@ import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 
 const ManageUser = ({
-    products,
+    users,
     meta,
 }: {
-    products: IAuthUser[];
+    users: IAuthUser[];
     meta: IMeta;
 }) => {
     const router = useRouter();
     const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IAuthUser | null>(null);
-
-    const handleView = (product: IAuthUser) => {
-        router.push(`/dashboard/admin/listings/ads-details/${product._id}`);
+console.log(users)
+    const handleView = (users: IAuthUser) => {
+        router.push(`/dashboard/admin/listings/ads-details/${users._id}`);
     };
 
-    const handleDelete = (product: IAuthUser) => {
-        setProductToDelete(product);
+    const handleDelete = (users: IAuthUser) => {
+        setProductToDelete(users);
         setIsModalOpen(true);
     };
 
@@ -131,7 +131,7 @@ const ManageUser = ({
 
     return (
         <div>
-            <NMTable columns={columns} data={products || []} />
+            <NMTable columns={columns} data={users || []} />
             <TablePagination totalPage={meta?.totalPage} />
 
             {/* Delete Confirmation Modal */}
