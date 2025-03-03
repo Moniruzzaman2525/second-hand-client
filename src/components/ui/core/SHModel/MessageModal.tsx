@@ -27,13 +27,12 @@ const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const handleSend = async() => {
         if (user && user.userID?._id) {
             const res = await sendMessage({message, receiverID: user?.userID?._id})
-            console.log(res)
+           if (res) {
+             console.log(res)
+           }
         }
 
-        if (message.trim()) {
-            setMessage("");
-            onClose();
-        }
+
     };
 
     return (
