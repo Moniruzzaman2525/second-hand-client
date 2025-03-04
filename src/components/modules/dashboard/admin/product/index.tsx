@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { CheckCircle, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
@@ -21,7 +20,6 @@ const ManageProductsByAdmin = ({
     meta: IMeta;
 }) => {
     const router = useRouter();
-    const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
     const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
@@ -59,39 +57,6 @@ const ManageProductsByAdmin = ({
 
 
     const columns: ColumnDef<IProduct>[] = [
-        {
-            id: "select",
-            header: ({ table }) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() ||
-                        (table.getIsSomePageRowsSelected() && "indeterminate")
-                    }
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({ row }) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => {
-                        const id = row.original._id;
-                        if (id) {
-                            if (value) {
-                                setSelectedIds((prev) => [...prev, id]);
-                            } else {
-                                setSelectedIds(selectedIds.filter((id) => id !== id));
-                            }
-                        }
-                        row.toggleSelected(!!value);
-                    }}
-                    aria-label="Select row"
-                />
-            ),
-            enableSorting: false,
-            enableHiding: false,
-        },
-
         {
             accessorKey: "name",
             header: "Product Name",
@@ -131,7 +96,20 @@ const ManageProductsByAdmin = ({
         {
             accessorKey: "permission",
             header: "Permission",
-            cell: ({ row }) => <span>{row.original.permission}</span>,
+            cell: ({ row }) => {
+                const permission = row.original.permission;
+                let textColor;
+                if (permission === "pending") {
+                    textColor = "text-yellow-500";
+                } else if (permission === "reject") {
+                    textColor = "text-red-500";
+                } else if (permission === "accepted") {
+                    textColor = "text-green-500";
+                } else {
+                    textColor = "text-gray-500";
+                }
+                return <span className={textColor}>{permission}</span>;
+            },
         },
         {
             accessorKey: "action",

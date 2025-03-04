@@ -7,9 +7,14 @@ export interface IProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userID: string;
-    status?: string;
+    userID: {
+        phoneNumber: string;
+        email: string;
+        name: string;
+        _id: string
+    };
     permission?: string;
+    status?: string;
     category: string
 }
 export interface ISingleProduct {

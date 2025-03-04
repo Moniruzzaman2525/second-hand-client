@@ -138,8 +138,7 @@ const ManageProducts = ({
                 }
                 return <span className={textColor}>{permission}</span>;
             },
-        }
-,
+        },
         {
             accessorKey: "action",
             header: "Action",

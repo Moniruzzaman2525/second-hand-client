@@ -34,10 +34,12 @@ const PermissionModal = ({ isOpen, onClose, product }: PermissionModalProps) => 
 
                     onClose();
                 } else {
+                    onClose();
                     toast.error(res.message || 'Failed to update product permission');
                 }
             }
         } catch (error) {
+            onClose();
             toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
         }
     };
