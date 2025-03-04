@@ -68,7 +68,7 @@ export const getAllSellerHistory = async (page?: string, limit?: string) => {
 
 export const completeTransaction = async (userId: string): Promise<any> => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/transactions/${userId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/transactions/complete-sales/${userId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

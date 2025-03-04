@@ -132,7 +132,7 @@ const SellerHistory = ({
                 <ConfirmModal
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
-                    user={productToConfirm}
+                    product={productToConfirm}
                 />
             )}
         </div>

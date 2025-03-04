@@ -1,22 +1,32 @@
 "use client";
 
 
+import { completeTransaction } from "@/services/Transaction";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IPurchaseHistory, } from "@/types";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 
 interface MessageModalProps {
     isOpen: boolean;
     onClose: () => void;
-    user: Partial<IPurchaseHistory>;
+    product: Partial<IPurchaseHistory>;
 }
 
-const ConfirmModal = ({ isOpen, onClose, user }: MessageModalProps) => {
-    const router = useRouter()
+const ConfirmModal = ({ isOpen, onClose, product }: MessageModalProps) => {
+
     const confirmNow = async () => {
         try {
+            if (product && product._id) {
+                const res = await completeTransaction(product._id)
+                if (res.success) {
+                    onClose();
+                    toast.success('Transaction complete successfully!');
+                } else {
+                    onClose();
+                    toast.error(res.message);
+                }
+            }
 
 
         } catch (error) {
@@ -29,9 +39,9 @@ const ConfirmModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
-                <DialogTitle className="text-xl font-bold text-gray-800">Confirm Product</DialogTitle>
+                <DialogTitle className="text-xl font-bold text-gray-800">Complete transaction</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    Are you suer you want to confirm {user?.itemID?.title}.
+                    Are you suer you want to complete {product?.itemID?.title}.
                 </DialogDescription>
                 <div>
 
@@ -47,7 +57,7 @@ const ConfirmModal = ({ isOpen, onClose, user }: MessageModalProps) => {
                         onClick={confirmNow}
                         className="px-6 py-2 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white rounded-lg"
                     >
-                        Confirm Now
+                        Complete Now
                     </button>
                 </div>
             </DialogContent>
