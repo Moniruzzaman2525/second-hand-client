@@ -2,6 +2,7 @@ import CategorySection from "@/components/modules/home/HeroSection/CategorySecti
 import StatsCard from "@/components/modules/home/HeroSection/StatsCardSection";
 import HeroSection from "@/components/modules/home/HeroSection/HeroSection";
 import HowWorksSection from "@/components/modules/home/HeroSection/HowWorksSection";
+import TestHomePage from "@/components/modules/home/HeroSection/Testimonial";
 
 
 const HomePage = () => {
@@ -11,9 +12,7 @@ const HomePage = () => {
       <CategorySection />
       <HowWorksSection />
       <StatsCard />
-      <div>
-        Hello
-      </div>
+      <TestHomePage />
     </div>
   );
 };
