@@ -8,13 +8,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 
-interface TransactionModalProps {
+interface TModalProps {
     isOpen: boolean;
     onClose: () => void;
     user: Partial<ISingleProduct>;
 }
 
-const TransactionModal = ({ isOpen, onClose, user }: TransactionModalProps) => {
+const WishlistModal = ({ isOpen, onClose, user }: TModalProps) => {
     const router = useRouter()
     const wishlistNow = async () => {
         try {
@@ -67,4 +67,4 @@ const TransactionModal = ({ isOpen, onClose, user }: TransactionModalProps) => {
     );
 };
 
-export default TransactionModal;
+export default WishlistModal;

@@ -17,12 +17,17 @@ import TransactionModal from "./SHModel/TransactionModal";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import LoginModal from "./SHModel/LoginModal";
+import WishlistModal from "./SHModel/WishlistModal";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
-    const {user} = useUser()
+    const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
+    const { user } = useUser()
     const handlePurchaseProduct = () => {
         setIsPurchaseOpen(true);
+    };
+    const handleWishListProduct = () => {
+        setIsWishlistOpen(true);
     };
     return (
         <Card className="p-3">
@@ -91,6 +96,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                         <Button
                             disabled={product?.status === 'sold'}
                             variant="outline"
+                            onClick={handleWishListProduct}
                             size="sm"
                             title="whitelist"
                             className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
@@ -110,15 +116,24 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     </div>
                 </div>
             </CardFooter>
-            {user ?<TransactionModal
+            {user ? <TransactionModal
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
                 user={product}
             /> :
-            <LoginModal
-                isOpen={isPurchaseOpen}
-                onClose={() => setIsPurchaseOpen(false)}
-            />}
+                <LoginModal
+                    isOpen={isPurchaseOpen}
+                    onClose={() => setIsPurchaseOpen(false)}
+                />}
+            {user ? <WishlistModal
+                isOpen={isWishlistOpen}
+                onClose={() => setIsWishlistOpen(false)}
+                user={product}
+            /> :
+                <LoginModal
+                    isOpen={isWishlistOpen}
+                    onClose={() => setIsWishlistOpen(false)}
+                />}
         </Card>
     );
 };
