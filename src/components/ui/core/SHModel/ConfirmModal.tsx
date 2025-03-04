@@ -7,13 +7,13 @@ import { IPurchaseHistory, } from "@/types";
 import { toast } from "sonner";
 
 
-interface MessageModalProps {
+interface ConfirmModalProps {
     isOpen: boolean;
     onClose: () => void;
     product: Partial<IPurchaseHistory>;
 }
 
-const ConfirmModal = ({ isOpen, onClose, product }: MessageModalProps) => {
+const ConfirmModal = ({ isOpen, onClose, product }: ConfirmModalProps) => {
 
     const confirmNow = async () => {
         try {

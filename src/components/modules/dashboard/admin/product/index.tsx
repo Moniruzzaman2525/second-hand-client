@@ -11,6 +11,7 @@ import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
+import PermissionModal from "@/components/ui/core/SHModel/PermissionModal";
 
 const ManageProductsByAdmin = ({
     products,
@@ -23,6 +24,8 @@ const ManageProductsByAdmin = ({
     const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
+    const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
+    const [productToPermission, setProductToPermission] = useState<IProduct | null>(null);
 
     const handleView = (product: IProduct) => {
         router.push(`/dashboard/admin/listings/ads-details/${product._id}`);
@@ -31,6 +34,10 @@ const ManageProductsByAdmin = ({
     const handleDelete = (product: IProduct) => {
         setProductToDelete(product);
         setIsModalOpen(true);
+    };
+    const handlePermission = (product: IProduct) => {
+        setProductToPermission(product);
+        setIsPermissionModalOpen(true);
     };
 
 
@@ -141,7 +148,7 @@ const ManageProductsByAdmin = ({
                     <button
                         className="text-gray-500 hover:text-red-500"
                         title="Permission"
-                        // onClick={() => handleConfirm(row.original)}
+                        onClick={() => handlePermission(row.original)}
                     >
                         <CheckCircle className="w-5 h-5" />
                     </button>
@@ -170,6 +177,13 @@ const ManageProductsByAdmin = ({
                     isOpen={isModalOpen}
                     onOpenChange={setIsModalOpen}
                     onConfirm={confirmDelete}
+                />
+            )}
+            {productToPermission && (
+                <PermissionModal
+                    isOpen={isPermissionModalOpen}
+                    onClose={() => setIsPermissionModalOpen(false)}
+                    product={productToPermission}
                 />
             )}
         </div>

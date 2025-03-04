@@ -10,14 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { IAuthUser } from "@/types";
 
-interface DeleteModalProps {
+interface BanModalProps {
     user: IAuthUser;
     isOpen: boolean;
     onOpenChange: (isOpen: boolean) => void;
     onConfirm: () => void;
 }
 
-const BanConfirmationModal: React.FC<DeleteModalProps> = ({
+const BanConfirmationModal: React.FC<BanModalProps> = ({
     user,
     isOpen,
     onOpenChange,

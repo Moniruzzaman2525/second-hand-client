@@ -124,8 +124,22 @@ const ManageProducts = ({
         {
             accessorKey: "permission",
             header: "Permission",
-            cell: ({ row }) => <span>{row.original.permission}</span>,
-        },
+            cell: ({ row }) => {
+                const permission = row.original.permission;
+                let textColor;
+                if (permission === "pending") {
+                    textColor = "text-yellow-500";
+                } else if (permission === "reject") {
+                    textColor = "text-red-500";
+                } else if (permission === "accepted") {
+                    textColor = "text-green-500";
+                } else {
+                    textColor = "text-gray-500";
+                }
+                return <span className={textColor}>{permission}</span>;
+            },
+        }
+,
         {
             accessorKey: "action",
             header: "Action",
