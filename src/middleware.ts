@@ -9,7 +9,8 @@ const roleBasedPrivateRoutes = {
         "/dashboard/profile",
         "/dashboard/purchase-history",
         "/dashboard/listing",
-        "/dashboard/sales-history"
+        "/dashboard/sales-history",
+        "/messages"
     ],
     admin: ["/dashboard", "/dashboard/admin/user-management", "/dashboard/admin/listings"],
 };
@@ -57,5 +58,6 @@ export const config = {
         "/dashboard/sales-history",
         "/dashboard/admin/user-management",
         "/dashboard/admin/listings",
+        "/messages"
     ],
 };
