@@ -1,5 +1,6 @@
 import CategorySection from "@/components/modules/home/HeroSection/CategorySection";
 import HeroSection from "@/components/modules/home/HeroSection/HeroSection";
+import HowWorksSection from "@/components/modules/home/HeroSection/HowWorksSection";
 
 
 const HomePage = () => {
@@ -7,6 +8,7 @@ const HomePage = () => {
     <div className="">
       <HeroSection />
       <CategorySection />
+      <HowWorksSection />
     </div>
   );
 };
