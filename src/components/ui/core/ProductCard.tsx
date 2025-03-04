@@ -16,6 +16,7 @@ import Link from "next/link";
 import TransactionModal from "./SHModel/TransactionModal";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
+import LoginModal from "./SHModel/LoginModal";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
@@ -23,7 +24,6 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const handlePurchaseProduct = () => {
         setIsPurchaseOpen(true);
     };
-
     return (
         <Card className="p-3">
             <CardHeader className="relative p-0 h-48">
@@ -110,11 +110,15 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     </div>
                 </div>
             </CardFooter>
-            <TransactionModal
+            {user ?<TransactionModal
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
                 user={product}
-            />
+            /> :
+            <LoginModal
+                isOpen={isPurchaseOpen}
+                onClose={() => setIsPurchaseOpen(false)}
+            />}
         </Card>
     );
 };

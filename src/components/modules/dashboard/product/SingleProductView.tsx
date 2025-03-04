@@ -7,6 +7,7 @@ import { MessageSquare, ShoppingBagIcon } from "lucide-react";
 import MessageModal from "@/components/ui/core/SHModel/MessageModal";
 import { useUser } from "@/context/UserContext";
 import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal";
+import LoginModal from "@/components/ui/core/SHModel/LoginModal";
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
@@ -100,17 +101,25 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 </div>
             </div>
 
-
-            <MessageModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                user={product}
-            />
-            <PurchaseModal
+            {
+                user ? <MessageModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    user={product}
+                /> :
+                    <LoginModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />}
+            {user ? <PurchaseModal
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
                 user={product}
-            />
+            /> :
+                <LoginModal
+                    isOpen={isPurchaseOpen}
+                    onClose={() => setIsPurchaseOpen(false)}
+                />}
         </div>
     );
 };

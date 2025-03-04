@@ -1,7 +1,7 @@
 'use client'
 import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, Trash } from "lucide-react";
+import { Edit, Eye, SquareCheckBig, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -125,6 +125,15 @@ const ManageProducts = ({
                         }
                     >
                         <Edit className="w-5 h-5" />
+                    </button>
+                    <button
+                        className="text-gray-500 hover:text-green-500"
+                        title="Edit"
+                        onClick={() =>
+                            router.push(`/dashboard/listing/update-ads/${row.original._id}`)
+                        }
+                    >
+                        <SquareCheckBig className="w-5 h-5" />
                     </button>
 
                     <button

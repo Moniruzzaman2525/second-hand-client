@@ -6,7 +6,7 @@ import Link from "next/link";
 const SellersLoveUs = () => {
     return (
         <div className="w-full h-full md:h-[500px] md:bg-[#677785] mt-20 flex items-end justify-center">
-            <SHContainer>
+            <SHContainer className=" ">
                 <div className="w-full bg-[#f7f7f7] py-14 rounded-lg shadow-sm md:shadow-xl flex flex-col items-center justify-end text-center">
                     <button className="bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] px-6 py-2 rounded-lg text-[14px] font-semibold mb-6 sm:text-[16px]">
                         What our sellers say
