@@ -33,7 +33,7 @@ export const getAllPurchaseHistory = async (page?: string, limit?: string) => {
                     Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
                 },
                 next: {
-                    tags: ["PRODUCT"],
+                    tags: ["PURCHASE"],
                 },
             },
         );
@@ -54,7 +54,7 @@ export const getAllSellerHistory = async (page?: string, limit?: string) => {
                     Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
                 },
                 next: {
-                    tags: ["PRODUCT"],
+                    tags: ["PURCHASE"],
                 },
             },
         );
@@ -62,5 +62,22 @@ export const getAllSellerHistory = async (page?: string, limit?: string) => {
         return data;
     } catch (error: any) {
         return new Error(error.message);
+    }
+};
+
+
+export const completeTransaction = async (userId: string): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/transactions/${userId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+            },
+        });
+        revalidateTag("PURCHASE");
+        return res.json();
+    } catch (error: any) {
+        return Error(error);
     }
 };
