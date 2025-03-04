@@ -122,6 +122,11 @@ const ManageProducts = ({
             cell: ({ row }) => <span>{row.original.location}</span>,
         },
         {
+            accessorKey: "permission",
+            header: "Permission",
+            cell: ({ row }) => <span>{row.original.permission}</span>,
+        },
+        {
             accessorKey: "action",
             header: "Action",
             cell: ({ row }) => (

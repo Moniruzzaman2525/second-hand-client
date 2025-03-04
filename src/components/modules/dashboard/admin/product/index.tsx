@@ -1,7 +1,7 @@
 'use client'
 import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Trash } from "lucide-react";
+import { CheckCircle, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -138,7 +138,13 @@ const ManageProductsByAdmin = ({
                     >
                         <Eye className="w-5 h-5" />
                     </button>
-
+                    <button
+                        className="text-gray-500 hover:text-red-500"
+                        title="Permission"
+                        // onClick={() => handleConfirm(row.original)}
+                    >
+                        <CheckCircle className="w-5 h-5" />
+                    </button>
                     <button
                         className="text-gray-500 hover:text-red-500"
                         title="Delete"

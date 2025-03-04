@@ -28,7 +28,7 @@ const BanConfirmationModal: React.FC<DeleteModalProps> = ({
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{user.ban ? "Unban Item" : "Ban Item"}</DialogTitle>
+                    <DialogTitle>{user.ban ? "Unban User" : "Ban User"}</DialogTitle>
 
                     <DialogDescription>
                         Are you sure you want to {user.ban ? "Unban" : "Ban"} {" "}

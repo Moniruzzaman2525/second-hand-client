@@ -101,10 +101,10 @@ const ManageUser = ({
             cell: ({ row }) => (
                 <span
                     style={{
-                        color: row.original.ban ? 'red' : 'green', 
+                        color: row.original.ban ? 'red' : 'green',
                     }}
                 >
-                    {row.original.ban ? "Ban" : "Un Ban"}
+                    {row.original.ban ? "Ban" : "Active"}
                 </span>
             ),
         },

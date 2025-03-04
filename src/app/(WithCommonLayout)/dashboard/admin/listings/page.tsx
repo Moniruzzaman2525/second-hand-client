@@ -1,12 +1,12 @@
 import ManageProductsByAdmin from "@/components/modules/dashboard/admin/product";
 import Sidebar from "@/components/modules/dashboard/sidebar";
 import SHContainer from "@/components/ui/core/SHContainer";
-import { getAllProducts } from "@/services/Product";
+import { getAllProductsByAdmin } from "@/services/Admin";
 
 const ListingsPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
-    const { data, meta } = await getAllProducts(page, "5");
-
+    const { data, meta } = await getAllProductsByAdmin(page, "5");
+    console.log(data)
     return (
         <div>
             <Sidebar />
