@@ -3,12 +3,13 @@ import postAdsImg from '../../../../app/assets/postAdds.png';
 import shareImg from '../../../../app/assets/shareAds.png';
 import buyerCnImg from '../../../../app/assets/buyerCn.png';
 import SHContainer from '@/components/ui/core/SHContainer';
+import { ChevronRightCircle } from 'lucide-react';
 
 const HowWorksSection = () => {
     return (
         <SHContainer>
             <div className="flex justify-between items-center">
-                {/* First Layer: Images */}
+
                 <div className="flex justify-between w-full space-x-10">
                     <div className="flex flex-col justify-center w-full items-center">
                         <Image src={postAdsImg} alt="Post ad" className="w-16 h-16" />
@@ -22,17 +23,18 @@ const HowWorksSection = () => {
                 </div>
             </div>
 
-            {/* Second Layer: Dashed Lines */}
             <div className="flex items-center mt-4">
-                <div className="w-4 h-4 ml-[180px] rounded-full border-2 border-blue-500"></div>
-                <div className="w-[405px] h-0.5  border-t-2 border-dashed border-blue-500"></div>
-                <div className="w-4 h-4 rounded-full border-2 border-blue-500"></div>
-                <div className="w-[405px] h-0.5 border-t-2 border-dashed border-blue-500"></div>
-                <div className="w-4 h-4 rounded-full border-2 border-blue-500"></div>
-                {/* <div className="w-[250px] h-0.5 border-t-2 border-dashed border-blue-500"></div> */}
+                <div className="w-8 h-8 ml-[179px] rounded-full border-2 border-[#537cd9]"></div>
+                <div className="w-[179px] h-0.5  border-t-2 border-dashed border-[#537cd9]"></div>
+                <ChevronRightCircle className='text-[#537cd9]' />
+                <div className="w-[179px] h-0.5  border-t-2 border-dashed border-[#537cd9]"></div>
+                <div className="w-8 h-8 rounded-full border-2 border-[#537cd9]"></div>
+                <div className="w-[179px] h-0.5  border-t-2 border-dashed border-[#537cd9]"></div>
+                <ChevronRightCircle className='text-[#537cd9]' />
+                <div className="w-[179px] h-0.5  border-t-2 border-dashed border-[#537cd9]"></div>
+                <div className="w-8 h-8 rounded-full border-2 border-[#537cd9]"></div>
             </div>
 
-            {/* Third Layer: Content */}
             <div className="flex justify-between items-center mt-4 space-x-10 text-center">
                 <div className="flex flex-col items-center">
                     <h4 className="text-lg font-semibold">Click ‘Post ad’ add description and photo</h4>
