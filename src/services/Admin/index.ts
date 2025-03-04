@@ -13,7 +13,25 @@ export const banUnBanUser = async (userId: string): Promise<any> => {
       },
     });
     revalidateTag("USERS");
-    return res.json();
+    const result = await res.json()
+    return result
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+export const productPermission = async ({ productId, data }: { productId: string, data: object}): Promise<any> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}/permission`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+      },
+    });
+    revalidateTag("USERS");
+    const result = await res.json()
+    return result
   } catch (error: any) {
     return Error(error);
   }
@@ -84,7 +102,6 @@ export const getAllProductsByAdmin = async (
             }
         );
         const data = await res.json();
-        console.log(data)
         return data;
     } catch (error: any) {
         return Error(error.message);

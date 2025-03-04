@@ -6,7 +6,7 @@ import { getAllProductsByAdmin } from "@/services/Admin";
 const ListingsPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
     const { data, meta } = await getAllProductsByAdmin(page, "5");
-    console.log(data)
+
     return (
         <div>
             <Sidebar />

@@ -23,7 +23,6 @@ const BanConfirmationModal: React.FC<BanModalProps> = ({
     onOpenChange,
     onConfirm,
 }) => {
-    console.log(user)
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent>

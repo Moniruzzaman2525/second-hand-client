@@ -1,5 +1,6 @@
 "use client";
 
+import { productPermission } from "@/services/Admin";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IProduct, } from "@/types";
 import { toast } from "sonner";
@@ -13,26 +14,33 @@ interface PermissionModalProps {
 
 const PermissionModal = ({ isOpen, onClose, product }: PermissionModalProps) => {
 
+
     const confirmNow = async (permission: string) => {
         try {
-            let data
-            if (permission === 'reject') {
+            let data;
+            if (permission === 'reject' || permission === 'accepted') {
                 data = {
                     permission: permission
-                }
-            } else if (permission === 'accepted') {
-                data = {
-                    permission: permission
+                };
+            }
+            if (product && product._id && data) {
+                const res = await productPermission({ productId: product._id, data });
+                if (res.success) {
+                    if (permission === 'reject') {
+                        toast.error(`Product permission updated successfully to '${permission}'`);
+                    } else if (permission === 'accepted') {
+                        toast.success(`Product permission updated successfully to '${permission}'`);
+                    }
+
+                    onClose();
+                } else {
+                    toast.error(res.message || 'Failed to update product permission');
                 }
             }
-
-            console.log(data)
         } catch (error) {
             toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
-            onClose();
         }
     };
-
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
