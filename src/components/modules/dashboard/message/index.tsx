@@ -190,23 +190,30 @@ const MessageApp = ({ message }: MessageAppProps) => {
                 {activeUserDetails && (
                     <h1 className="text-xl hidden md:block font-semibold text-gray-800">{activeUserDetails?.name}</h1>
                 )}
-                <Button variant="default">View Profile</Button>
+               {activeUser && <Button variant="default">View Profile</Button>}
             </div>
             <div className="flex flex-col lg:flex-row shadow-sm w-full h-[55%]">
                 <div className={`lg:w-[35%] bg-[#ffffff] py-4 lg:block ${activeUser ? 'hidden' : 'block'}`}>
-                    {message.map((user) => (
-                        <div
-                            key={user.id}
-                            onClick={() => handleUserClick(user)}
-                            className={`flex items-center space-x-2 mb-4 py-5 px-10 cursor-pointer ${activeUser === user.id ? "bg-[#f7f9fc]" : ""}`}
-                        >
-                            <div>
-                                <p className="text-sm font-semibold text-gray-800">{user.name}</p>
-                                <p className="text-xs text-gray-600">{user.lastMessage}</p>
+                    {message && message.length > 0 ? (
+                        message.map((user) => (
+                            <div
+                                key={user.id}
+                                onClick={() => handleUserClick(user)}
+                                className={`flex items-center space-x-2 mb-4 py-5 px-10 cursor-pointer ${activeUser === user.id ? "bg-[#f7f9fc]" : ""}`}
+                            >
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-800">{user.name}</p>
+                                    <p className="text-xs text-gray-600">{user.lastMessage}</p>
+                                </div>
                             </div>
+                        ))
+                    ) : (
+                        <div className="text-center text-gray-600">
+                            <p>No conversations available</p>
                         </div>
-                    ))}
+                    )}
                 </div>
+
                 {
                     activeUser ?
                         <div className={`flex-1 h-[100%] flex flex-col shadow-sm ${activeUser ? "block" : "hidden"}`}>
