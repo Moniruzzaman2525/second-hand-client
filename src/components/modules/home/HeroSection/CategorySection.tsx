@@ -110,7 +110,7 @@ const CategorySection = () => {
                         <div className='mb-[-50px]'>
                             <h1 className='text-[24px] text-[#374b5c] font-bold mb-5'>Explore All Ads</h1>
                             <div className='w-full flex justify-center'>
-                                <Button className='bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all'>View All</Button>
+                                <Button onClick={() => router.push('/products')} className='bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all'>View All</Button>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ const CategorySection = () => {
                         <div className='mb-[-50px]'>
                             <h1 className='text-[24px] text-[#374b5c] font-bold mb-5'>Explore All Ads</h1>
                             <div className='w-full flex justify-center'>
-                                <Button className='bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all'>View All</Button>
+                                <Button onClick={() => router.push('/products')} className='bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all'>View All</Button>
                             </div>
                         </div>
                     </div>
