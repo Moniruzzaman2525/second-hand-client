@@ -5,7 +5,7 @@ export const categories = [
     { name: "Fashion", count: 30, value: "fashion", label: "Fashion" },
     { name: "For Kids", count: 8, value: "for kids", label: "For Kids" },
     { name: "Gadget Accessories", count: 12, value: "gadget accessories", label: "Gadget Accessories" },
-    { name: "Health & Beauty ", count: 55, value: "health & beauty", label: "Health & Beauty" },
+    { name: "Health & Beauty ", count: 55, value: "health and beauty", label: "Health and Beauty" },
     { name: "Home Appliance", count: 24, value: "home appliance", label: "Home Appliance" },
     { name: "Laptop PC", count: 46, value: "laptop pc", label: "Laptop PC" },
     { name: "Mobile", count: 68, value: "mobile", label: "Mobile" },

@@ -53,7 +53,7 @@ const FilterSidebar = () => {
             scroll: false,
         });
     };
-
+    console.log(selectCategory)
     return (
         <Card className="p-4 rounded-2xl shadow-md w-72">
             <CardContent>

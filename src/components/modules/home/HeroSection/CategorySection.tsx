@@ -16,24 +16,25 @@ import sports from '../../../../app/assets/sports.png';
 import healthAndBeauty from '../../../../app/assets/health-beauty.png';
 import SHContainer from '@/components/ui/core/SHContainer';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const CategorySection = () => {
     const categories = [
-        { img: laptop, label: "Laptop PC" },
-        { img: mobile, label: "Mobile" },
-        { img: electronic, label: "Electronics" },
-        { img: gadget, label: "Gadget Accessories" },
-        { img: homeApplication, label: "Home Appliance" },
-        { img: videoGames, label: "Video Game Consoles" },
-        { img: vehicles, label: "Vehicles" },
-        { img: fashion, label: "Fashion" },
-        { img: kids, label: "For Kids" },
-        { img: sports, label: "Hobbies Sports" },
-        { img: healthAndBeauty, label: "Health & Beauty" },
+        { img: laptop, label: "Laptop PC", value: "laptop pc" },
+        { img: mobile, label: "Mobile", value: "mobile" },
+        { img: electronic, label: "Electronics", value: "electronics" },
+        { img: gadget, label: "Gadget Accessories", value: "gadget accessories" },
+        { img: homeApplication, label: "Home Appliance", value: "home appliance" },
+        { img: videoGames, label: "Video Game Consoles", value: "video game consoles" },
+        { img: vehicles, label: "Vehicles", value: "vehicles" },
+        { img: fashion, label: "Fashion", value: "fashion" },
+        { img: kids, label: "For Kids", value: "for kids" },
+        { img: sports, label: "Hobbies Sports", value: "hobbies sports" },
+        { img: healthAndBeauty, label: "Health & Beauty", value: "health and beauty" },
     ];
 
     const [isMobile, setIsMobile] = useState(false);
-
+    const router = useRouter();
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 768) {
@@ -49,6 +50,18 @@ const CategorySection = () => {
         };
     }, []);
 
+    const handleSearch = (selectedCategory: string) => {
+        let url = "/products";
+        const queryParams: string[] = [];
+
+        if (selectedCategory !== "Category") queryParams.push(`category=${selectedCategory}`);
+
+        if (queryParams.length > 0) {
+            url += `?${queryParams.join("&")}`;
+        }
+
+        router.push(url);
+    };
     return (
         <SHContainer>
             <div className="py-20">
@@ -66,6 +79,7 @@ const CategorySection = () => {
                     {categories.slice(0, isMobile ? 10 : 11).map((category, index) => (
                         <div
                             key={index}
+                            onClick={() => handleSearch(category.value)}
                             className="relative !border-[0.1px] group cursor-pointer pb-9 bg-white rounded shadow-sm transition-all duration-300"
                         >
                             <div className="relative overflow-hidden rounded">
