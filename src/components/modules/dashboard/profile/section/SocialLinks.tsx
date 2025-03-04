@@ -6,8 +6,8 @@ import SHInput from '@/components/ui/core/form/SHInput';
 import { IAuthUser } from '@/types';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
-import { updateProfile } from '@/services/AuthService';
 import { toast } from 'sonner';
+import { updateProfile } from '@/services/Users';
 
 const SocialLinks = ({profile} : {profile: IAuthUser}) => {
     const router = useRouter();

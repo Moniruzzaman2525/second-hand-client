@@ -24,7 +24,6 @@ const DeleteConfirmationModal: React.FC<DeleteModalProps> = ({
     onConfirm,
     item
 }) => {
-    console.log(item)
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent>

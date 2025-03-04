@@ -41,7 +41,7 @@ const ConfirmModal = ({ isOpen, onClose, product }: MessageModalProps) => {
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
                 <DialogTitle className="text-xl font-bold text-gray-800">Complete transaction</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    Are you suer you want to complete {product?.itemID?.title}.
+                    Are you suer you want to complete <span className="font-semibold">{product?.itemID?.title}</span>.
                 </DialogDescription>
                 <div>
 

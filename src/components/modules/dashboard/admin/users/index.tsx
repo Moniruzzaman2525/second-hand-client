@@ -10,7 +10,7 @@ import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 import { useUser } from "@/context/UserContext";
-import { banUnBanUser, handleDeleteUser } from "@/services/Users";
+import { banUnBanUser, handleDeleteUser } from "@/services/Admin";
 
 const ManageUser = ({
     users,
@@ -82,7 +82,7 @@ const ManageUser = ({
         },
         {
             accessorKey: "email",
-            header: "Stock",
+            header: "Email",
             cell: ({ row }) => <span>{row.original.email}</span>,
         },
         {
@@ -94,6 +94,19 @@ const ManageUser = ({
             accessorKey: "location",
             header: "City",
             cell: ({ row }) => <span>{row.original.location}</span>,
+        },
+        {
+            accessorKey: "ban",
+            header: "Status",
+            cell: ({ row }) => (
+                <span
+                    style={{
+                        color: row.original.ban ? 'red' : 'green', 
+                    }}
+                >
+                    {row.original.ban ? "Ban" : "Un Ban"}
+                </span>
+            ),
         },
         {
             accessorKey: "action",

@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import SHTextarea from '@/components/ui/core/form/SHTextarea';
-import { updateProfile } from '@/services/AuthService';
+import { updateProfile } from '@/services/Users';
 import { IAuthUser } from '@/types';
 import { useRouter } from 'next/navigation';
 import React from 'react';

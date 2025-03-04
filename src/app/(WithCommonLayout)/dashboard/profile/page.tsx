@@ -1,7 +1,7 @@
 import ProfileSection from '@/components/modules/dashboard/profile';
 import Sidebar from '@/components/modules/dashboard/sidebar';
 import SHContainer from '@/components/ui/core/SHContainer';
-import { getUserDetails } from '@/services/AuthService';
+import { getUserDetails } from '@/services/Users';
 import React from 'react';
 
 const ProfilePage = async() => {
