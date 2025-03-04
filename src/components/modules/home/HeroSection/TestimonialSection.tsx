@@ -1,5 +1,4 @@
-// components/TestimonialCarousel.tsx
-import * as React from "react"
+
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
@@ -59,7 +58,7 @@ export function TestimonialCarousel() {
         <Carousel className="w-full">
             <CarouselContent className="-ml-1">
                 {testimonials.map((testimonial, index) => (
-                    <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className="pl-1 sm:basis-full md:basis-1/2 lg:basis-1/3">
                         <div className="p-1">
                             <Card>
                                 <CardContent className="flex aspect-square items-center justify-center p-6">
