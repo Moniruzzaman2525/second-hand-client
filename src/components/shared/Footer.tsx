@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useUser } from "@/context/UserContext";
 import Image from "next/image";
 import googleImg from '../../app/assets/google.png'
+import logo from '../../app/assets/footerLogo.png'
 const navbarItem = [
     {
         name: 'Home',
@@ -61,14 +62,23 @@ const Footer = () => {
         window.open(link, '_blank');
     }
 
-
     return (
         <div className="">
             <div className="bg-[#374b5c] text-white">
                 <SHContainer>
                     <div className="flex flex-col sm:flex-row justify-between py-8 items-start sm:items-center">
                         <div className="flex flex-col w-full items-center md:items-start mb-6 sm:mb-0">
-                            <div className="text-2xl font-bold">Second BD</div>
+                            <div className="text-2xl font-bold">
+                                <Link href='/' className="text-2xl font-bold text-black flex items-center">
+                                    <Image
+                                        src={logo}
+                                        alt="Logo"
+                                        width={200}
+                                        height={200}
+                                        className="mr-2 sm:w-auto sm:h-auto max-w-[150px] md:max-w-[200px]"
+                                    />
+                                </Link>
+                            </div>
                             <div className="mt-2 flex items-center">
                                 <Phone className="mr-2" />
                                 <span>+880 01925-716295</span>
@@ -121,7 +131,6 @@ const Footer = () => {
                     </div>
                 </SHContainer>
             </div>
-
             <div className="bg-[#314352] text-center py-5 text-sm">
                 <span className="text-white">Copyright © 2025 Second BD All Rights Reserved</span>
             </div>
