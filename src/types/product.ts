@@ -27,6 +27,7 @@ export interface ISingleProduct {
         name: string;
         _id: string
     };
+    permission?: string;
     status?: string;
     category: string
 }
