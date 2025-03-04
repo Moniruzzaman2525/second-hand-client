@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import SHContainer from "@/components/ui/core/SHContainer";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SellersLoveUs = () => {
     return (
@@ -38,9 +40,11 @@ const SellersLoveUs = () => {
                             <p className="text-[#537cd9] text-[16px] sm:text-[14px]">Registered Users</p>
                         </div>
                     </div>
-                    <button className="bg-yellow-500 text-[#374b5c] px-8 py-3 mt-5 rounded-lg font-semibold flex items-center mx-auto hover:bg-yellow-600 transition sm:px-6 sm:py-2 sm:text-[14px]">
-                        Explore listings <ArrowRight className="ml-2" size={20} />
-                    </button>
+                    <Link href='/dashboard/listing'>
+                        <Button className="bg-yellow-500 text-[#374b5c] px-8 py-3 mt-5 rounded-lg font-semibold flex items-center mx-auto hover:bg-yellow-600 transition sm:px-6 sm:py-2 sm:text-[14px]">
+                            Explore listings <ArrowRight className="ml-2" size={20} />
+                        </Button>
+                    </Link>
                 </div>
             </SHContainer>
         </div>

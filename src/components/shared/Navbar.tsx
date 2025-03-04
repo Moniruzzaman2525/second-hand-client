@@ -88,7 +88,7 @@ const Navbar = () => {
                 </div>
                 {user?.email ? (
                     <>
-                        <Link href='dashboard/listing'>
+                        <Link href='/dashboard/listing/add-ads'>
                             <Button className="hidden md:flex items-center gap-2  px-6 py-2 rounded-lg font-medium bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
                                 Post Your Ad <PlusIcon />
                             </Button>
