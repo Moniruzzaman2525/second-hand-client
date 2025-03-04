@@ -1,8 +1,32 @@
-import React from "react";
+"use client"
 import { Phone, MapPin, Mail, Facebook, Instagram, Twitter } from "lucide-react";
 import SHContainer from "../ui/core/SHContainer";
-
+import { useState } from "react";
+import Link from "next/link";
+const navbarItem = [
+    {
+        name: 'Home',
+        href: '/'
+    },
+    {
+        name: 'Products',
+        href: '/products'
+    },
+    {
+        name: 'About',
+        href: '/about-us'
+    },
+    {
+        name: 'Contact',
+        href: '/contact-us'
+    },
+    {
+        name: 'FAQ',
+        href: '/faq'
+    },
+]
 const Footer = () => {
+    const [active, setActive] = useState("");
     return (
         <div className="">
             <div className="bg-[#374b5c] text-white">
@@ -37,14 +61,22 @@ const Footer = () => {
                         <div className="flex justify-center w-full">
                             <div className="text-center sm:text-right mb-6 sm:mb-0">
                                 <div className="text-lg font-semibold">Useful Links</div>
-                                <ul className="mt-4 space-y-2">
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Register</a></li>
-                                </ul>
+                                {navbarItem.map((item) => (
+                                    <div key={item.name}>
+                                        <Link
+
+                                            href={item.href}
+                                            className={`relative text-white font-medium text-lg transition-colors ${active === item.name ? 'text-yellow-400' : ''}`}
+                                            onMouseEnter={() => setActive(item.name)}
+                                            onMouseLeave={() => setActive("")}
+                                        >
+                                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-yellow-400 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
+                                            {item.name}
+                                        </Link>
+                                   </div>
+                                ))}
                             </div>
-                       </div>
+                        </div>
 
                         <div className="w-full md:w-[50%] justify-end">
                             <div className="mt-6 sm:mt-0 text-center sm:text-left">
@@ -52,7 +84,7 @@ const Footer = () => {
                                     <span className="ml-2">Get it on Google Play</span>
                                 </a>
                             </div>
-                      </div>
+                        </div>
                     </div>
                 </SHContainer>
             </div>
