@@ -31,11 +31,16 @@ const CategorySection = () => {
     return (
         <SHContainer>
             <div className='py-20'>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <div className='flex justify-center '>
+                        <h1 className='bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] px-2 py-1 rounded text-[14px]'>Buy and Sell Easily</h1>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {categories.map((category, index) => (
                         <div
                             key={index}
-                            className="relative group cursor-pointer pb-4 bg-white rounded shadow-sm transition-all duration-300"
+                            className="relative !border-[0.1px] group cursor-pointer pb-9 bg-white rounded shadow-sm transition-all duration-300"
                         >
                             <div className="relative overflow-hidden rounded">
                                 <Image
