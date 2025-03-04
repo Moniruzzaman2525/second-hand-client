@@ -3,6 +3,9 @@ import { Phone, MapPin, Mail, Facebook, Instagram, Twitter } from "lucide-react"
 import SHContainer from "../ui/core/SHContainer";
 import { useState } from "react";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
+import Image from "next/image";
+import googleImg from '../../app/assets/google.png'
 const navbarItem = [
     {
         name: 'Home',
@@ -24,9 +27,41 @@ const navbarItem = [
         name: 'FAQ',
         href: '/faq'
     },
+    {
+        name: 'Register',
+        href: '/login'
+    },
 ]
 const Footer = () => {
     const [active, setActive] = useState("");
+    const { user } = useUser();
+    const redirectFunction = (item: string) => {
+        const google = 'https://play.google.com/store/games';
+        const facebook = "https://www.facebook.com/moniruzzaman255/";
+        const instagram = "https://www.instagram.com/monir_2525/?hl=en";
+        const twitter = "https://x.com/Monir8699";
+        let link = '';
+        switch (item.toLowerCase()) {
+            case 'google':
+                link = google;
+                break;
+            case 'facebook':
+                link = facebook;
+                break;
+            case 'instagram':
+                link = instagram;
+                break;
+            case 'twitter':
+                link = twitter;
+                break;
+            default:
+                console.log('Unknown platform');
+                return;
+        }
+        window.open(link, '_blank');
+    }
+
+
     return (
         <div className="">
             <div className="bg-[#374b5c] text-white">
@@ -47,15 +82,15 @@ const Footer = () => {
                                 <span>web.moniruzzaman1@gmail.com</span>
                             </div>
                             <div className="mt-2 flex">
-                                <a href="https://www.facebook.com/moniruzzaman255/" className="mr-4">
+                                <button onClick={() => redirectFunction('facebook')}  className="mr-4">
                                     <Facebook />
-                                </a>
-                                <a href="https://www.instagram.com/monir_2525/?hl=en" className="mr-4">
+                                </button>
+                                <button onClick={() => redirectFunction('instagram')}  className="mr-4">
                                     <Instagram />
-                                </a>
-                                <a href="https://x.com/Monir8699">
+                                </button>
+                                <button onClick={() => redirectFunction('Twitter')} >
                                     <Twitter />
-                                </a>
+                                </button>
                             </div>
                         </div>
                         <div className="flex justify-center w-full">
@@ -64,8 +99,7 @@ const Footer = () => {
                                 {navbarItem.map((item) => (
                                     <div key={item.name}>
                                         <Link
-
-                                            href={item.href}
+                                            href={item.href === '/login' ? user ? "/dashboard/listing" : '/login' : item.href}
                                             className={`relative text-white font-medium text-lg transition-colors ${active === item.name ? 'text-yellow-400' : ''}`}
                                             onMouseEnter={() => setActive(item.name)}
                                             onMouseLeave={() => setActive("")}
@@ -80,9 +114,8 @@ const Footer = () => {
 
                         <div className="w-full md:w-[50%] justify-end">
                             <div className="mt-6 sm:mt-0 text-center sm:text-left">
-                                <a href="https://play.google.com" className="inline-block">
-                                    <span className="ml-2">Get it on Google Play</span>
-                                </a>
+                                <span className="ml-2">Get it on Google Play</span>
+                                <Image className="cursor-pointer" onClick={() => redirectFunction('google')} src={googleImg} alt="No Ads" width={300} height={300} />
                             </div>
                         </div>
                     </div>
