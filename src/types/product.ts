@@ -9,6 +9,7 @@ export interface IProduct {
     images: string[];
     userID: string;
     status?: string;
+    permission?: string;
     category: string
 }
 export interface ISingleProduct {
