@@ -76,9 +76,23 @@ export const reCaptchaTokenVerification = async (token: string) => {
     return Error(err);
   }
 };
+
 export const logout = async () => {
-  ((await cookies()).delete('accessToken'))
-}
+  (await cookies()).delete('accessToken');
+  try {
+    return {
+      message: 'Logout successful',
+      next: {
+        tags: ['PRODUCT'],
+      },
+    };
+  } catch (error: any) {
+    return {
+      message: 'Logout failed',
+      error: error.message,
+    };
+  }
+};
 
 
 

@@ -10,6 +10,7 @@ import { toast } from "sonner";
 
 interface TModalProps {
     isOpen: boolean;
+    
     onClose: () => void;
     user: Partial<ISingleProduct>;
 }

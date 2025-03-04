@@ -31,7 +31,7 @@ const AllProducts = ({
                                 </div>
                             ))}
                         </div>
-                    ) : products.length > 0 ? (
+                    ) : products?.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                             {products?.map((product: IProduct, idx: number) => (
                                 <ProductCard key={idx} product={product} />

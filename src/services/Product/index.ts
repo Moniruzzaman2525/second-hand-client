@@ -47,15 +47,22 @@ export const getAllProducts = async (
         const condition = Array.isArray(query.condition) ? query.condition.join(',') : query.condition;
         params.append("condition", condition);
     }
+    const token = (await cookies()).get("accessToken")?.value;
 
+    const headers: HeadersInit = {};
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/listings?limit=${limit}&page=${page}&${params}`,
             {
+                method: 'GET',
+                headers: headers,
                 next: {
                     tags: ["PRODUCT"],
                 },
-            }
+            },
         );
         const data = await res.json();
         return data;
