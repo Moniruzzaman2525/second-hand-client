@@ -107,8 +107,8 @@ const Navbar = () => {
                                 <div className="py-2">
                                     <Link href={`/dashboard/listing/add-ads`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Post Your Ads</span></Link>
                                     <Link href={`/dashboard/listing`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>My Ads</span></Link>
-                                    {user.role === 'admin' && <Link href={`/dashboard/user-management`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>User Management</span></Link>}
-                                    {user.role === 'admin' && <Link href={`/dashboard/listings`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Listings Management</span></Link>}
+                                    {user.role === 'admin' && <Link href={`/dashboard/admin/user-management`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>User Management</span></Link>}
+                                    {user.role === 'admin' && <Link href={`/dashboard/admin/listings`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Listings Management</span></Link>}
                                     <Link href={`/messages`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Message</span></Link>
                                     <Link href={`/dashboard/favorites`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Favorite</span></Link>
                                     <Link href={`/dashboard/profile`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"><span>Profile</span></Link>
