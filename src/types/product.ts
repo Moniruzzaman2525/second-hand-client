@@ -19,6 +19,7 @@ export interface IProduct {
 }
 export interface ISingleProduct {
     _id?: string;
+    wishlist?: string;
     title: string;
     description: string;
     location: string;

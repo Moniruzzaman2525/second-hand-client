@@ -99,7 +99,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                             onClick={handleWishListProduct}
                             size="sm"
                             title="whitelist"
-                            className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                            className={`w-8 h-8 p-0 flex items-center justify-center ${product?.wishlist ? "bg-[#537cd9] text-white" : ''} rounded-full`}
                         >
                             <Heart />
                         </Button>
