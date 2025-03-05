@@ -28,11 +28,7 @@ const navbarItem = [
     {
         name: 'Contact',
         href: '/contact-us'
-    },
-    {
-        name: 'FAQ',
-        href: '/faq'
-    },
+    }
 ]
 
 const Navbar = () => {

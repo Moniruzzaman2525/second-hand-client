@@ -25,10 +25,6 @@ const navbarItem = [
         href: '/contact-us'
     },
     {
-        name: 'FAQ',
-        href: '/faq'
-    },
-    {
         name: 'Register',
         href: '/login'
     },
