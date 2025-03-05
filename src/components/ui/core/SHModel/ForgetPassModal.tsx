@@ -15,6 +15,7 @@ const ForgetPassModal = ({ isOpen, onClose }: TModalProps) => {
     const forgetNow = async () => {
         const res = await forgotPassword(forgotEmail)
         if (res.success) {
+            onClose()
             toast.success('Reset link is generated successfully please check your mail')
         } else {
             toast.error('Something went wrong')

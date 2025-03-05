@@ -2,15 +2,39 @@
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { resetPassword } from '@/services/AuthService';
+import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
-
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: string | undefined }) => {
-
+    const router = useRouter();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
     const handleSubmit = async (data: FieldValues) => {
-        const newPassword = data.newPassword
-        const res = await resetPassword(id ,token, newPassword)
-        console.log(res)
+        if (data.password !== data.confirmPassword) {
+            setPasswordMismatch(true);
+            return;
+        } else {
+            setPasswordMismatch(false);
+        }
+        if (isSubmitting) return;
+        setIsSubmitting(true);
+        try {
+            const newPassword = data.confirmPassword;
+            const res = await resetPassword(id, token, newPassword);
+
+            if (res.success) {
+                router.push('/login');
+                toast.success(res.message);
+            } else {
+                toast.error('Failed to reset password');
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -36,12 +60,19 @@ const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: stri
                             placeholder="Confirm your password"
                         />
                     </div>
+
+                    {/* Display error if passwords don't match */}
+                    {passwordMismatch && (
+                        <div className="text-red-500 text-sm mb-4">Passwords do not match.</div>
+                    )}
+
                     <div className="mt-4">
                         <button
-                            onClick={handleSubmit}
+                            type="submit"
+                            disabled={isSubmitting}
                             className="w-full py-3 bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all font-bold rounded-md duration-300"
                         >
-                            Change Password
+                            {isSubmitting ? 'Submitting...' : 'Change Password'}
                         </button>
                     </div>
                 </SHForm>
