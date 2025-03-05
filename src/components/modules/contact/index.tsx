@@ -1,12 +1,32 @@
 "use client"
 
 import SHContainer from "@/components/ui/core/SHContainer";
-import { MoveRight } from "lucide-react";
+import { Facebook, Instagram, MoveRight, Twitter } from "lucide-react";
 import React, { useState } from "react";
 
 const ContactForm = () => {
     const [isChecked, setIsChecked] = useState(false);
-
+    const redirectFunction = (item: string) => {
+        const facebook = "https://www.facebook.com/moniruzzaman255/";
+        const instagram = "https://www.instagram.com/monir_2525/?hl=en";
+        const twitter = "https://x.com/Monir8699";
+        let link = '';
+        switch (item.toLowerCase()) {
+            case 'facebook':
+                link = facebook;
+                break;
+            case 'instagram':
+                link = instagram;
+                break;
+            case 'twitter':
+                link = twitter;
+                break;
+            default:
+                console.log('Unknown platform');
+                return;
+        }
+        window.open(link, '_blank');
+    }
     return (
         <div className="bg-gray-200 min-h-screen p-6 md:p-10 flex items-center justify-center">
             <SHContainer className="flex flex-col md:flex-row w-full max-w-5xl">
@@ -24,15 +44,15 @@ const ContactForm = () => {
                         soon as possible.
                     </p>
                     <div className="mt-6 flex justify-center md:justify-start space-x-4">
-                        <span className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
-                            F
-                        </span>
-                        <span className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
-                            I
-                        </span>
-                        <span className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
-                            Y
-                        </span>
+                        <button onClick={() => redirectFunction('facebook')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
+                            <Facebook />
+                        </button>
+                        <button onClick={() => redirectFunction('instagram')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
+                            <Instagram />
+                        </button>
+                        <button onClick={() => redirectFunction('twitter')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
+                            <Twitter />
+                        </button>
                     </div>
                 </div>
 

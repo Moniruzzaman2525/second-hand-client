@@ -91,14 +91,14 @@ const Footer = () => {
                                 <Mail className="mr-2" />
                                 <span>web.moniruzzaman1@gmail.com</span>
                             </div>
-                            <div className="mt-2 flex">
-                                <button onClick={() => redirectFunction('facebook')}  className="mr-4">
+                            <div className="mt-6 flex justify-center md:justify-start space-x-4">
+                                <button onClick={() => redirectFunction('facebook')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
                                     <Facebook />
                                 </button>
-                                <button onClick={() => redirectFunction('instagram')}  className="mr-4">
+                                <button onClick={() => redirectFunction('instagram')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
                                     <Instagram />
                                 </button>
-                                <button onClick={() => redirectFunction('Twitter')} >
+                                <button onClick={() => redirectFunction('twitter')} className="w-8 h-8 md:w-10 md:h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">
                                     <Twitter />
                                 </button>
                             </div>
@@ -117,7 +117,7 @@ const Footer = () => {
                                             <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-yellow-400 transition-all duration-300 ease-in-out ${active === item.name ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
                                             {item.name}
                                         </Link>
-                                   </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
