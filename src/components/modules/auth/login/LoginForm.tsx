@@ -10,10 +10,13 @@ import { loginUser } from '@/services/AuthService';
 import { toast } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
+import { useState } from 'react';
+import ForgetPassModal from '@/components/ui/core/SHModel/ForgetPassModal';
 
 const LoginForm = () => {
     const router = useRouter()
     const { setIsLoading } = useUser();
+    const [isForgotPopupOpen, setIsForgotPopupOpen] = useState<boolean>(false);
     const searchParams = useSearchParams()
     const redirect = searchParams.get('redirectPath')
     const handleFormSubmit = async (data: FieldValues) => {
@@ -68,9 +71,9 @@ const LoginForm = () => {
                     </div>
 
                     <div className="flex justify-end items-center my-2">
-                        <a href="#" className="text-[#ffb300] text-[16px]">
+                        <button onClick={()=> setIsForgotPopupOpen(true)} className="text-[#ffb300] text-[16px]">
                             Forgot password?
-                        </a>
+                        </button>
                     </div>
 
                     <button type='submit' className="w-full py-2 text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] rounded-lg">
@@ -85,6 +88,10 @@ const LoginForm = () => {
                     </Link>
                 </p>
             </div>
+            <ForgetPassModal
+                isOpen={isForgotPopupOpen}
+                onClose={() => setIsForgotPopupOpen(false)}
+            />
         </div>
     );
 };
