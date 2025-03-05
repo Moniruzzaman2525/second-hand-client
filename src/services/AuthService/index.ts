@@ -60,8 +60,6 @@ export const forgotPassword = async(userEmail: string) => {
 };
 export const resetPassword = async (id: string | undefined, token: string | undefined, newPassword: string) => {
   try {
-    console.log(newPassword)
-    console.log(id)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/reset-password`, {
       method: "POST",
       headers: {

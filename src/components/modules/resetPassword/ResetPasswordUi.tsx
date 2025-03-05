@@ -61,7 +61,6 @@ const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: stri
                         />
                     </div>
 
-                    {/* Display error if passwords don't match */}
                     {passwordMismatch && (
                         <div className="text-red-500 text-sm mb-4">Passwords do not match.</div>
                     )}
