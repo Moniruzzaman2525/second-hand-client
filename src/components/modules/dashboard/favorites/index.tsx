@@ -2,7 +2,6 @@ import { IMeta, IProduct } from "@/types";
 import ProductCard from "@/components/ui/core/ProductCard";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import { Card, CardContent } from "@/components/ui/card";
-import SearchInput from "../../products/SearchInput";
 
 const ViewWishlist = ({
     products,
@@ -13,7 +12,6 @@ const ViewWishlist = ({
 }) => {
     return (
         <div className="flex flex-col justify-center gap-8 my-10">
-            <SearchInput />
             <div className="flex flex-col lg:flex-row justify-between gap-5 items-start mb-6">
                 <div className="flex-grow">
                     {products?.length > 0 ? (
@@ -26,7 +24,7 @@ const ViewWishlist = ({
                         <div className="flex justify-center items-center h-60">
                             <Card className="w-full max-w-xs mx-auto p-4">
                                 <CardContent className="text-center text-gray-500">
-                                    <p>No products found</p>
+                                    <p>You do not have favorite ads yet</p>
                                 </CardContent>
                             </Card>
                         </div>

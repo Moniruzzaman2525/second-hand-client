@@ -88,7 +88,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                                 variant="outline"
                                 size="sm"
                                 title="View"
-                                className="w-8 h-8 p-0 flex items-center justify-center rounded-full"
+                                className="w-8 h-8 p-0 flex hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white items-center justify-center rounded-full"
                             >
                                 <Eye />
                             </Button>
@@ -99,7 +99,8 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                             onClick={handleWishListProduct}
                             size="sm"
                             title="whitelist"
-                            className={`w-8 h-8 p-0 flex items-center justify-center ${product?.wishlist ? "bg-[#537cd9] text-white" : ''} rounded-full`}
+                            className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                            ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
                         >
                             <Heart />
                         </Button>
@@ -109,7 +110,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                             disabled={product.userID._id === user?.userId || product?.status === 'sold'}
                             onClick={handlePurchaseProduct}
                             size="sm"
-                            className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
+                            className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df]  hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
                         >
                             <ShoppingBagIcon size={20} /> Buy Now
                         </Button>
