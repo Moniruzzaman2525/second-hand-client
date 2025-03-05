@@ -12,7 +12,7 @@ type TTextareaProps = {
 const SHTextarea = ({ name, label, placeholder, required }: TTextareaProps) => {
     return (
         <div>
-            {label && <label htmlFor={name} className="block py-2 text-[#374b5c] text-[16px] font-bold">{label}</label>}
+            {label && <label htmlFor={name} className="block py-2 text-[#374b5c] text-[16px] font-bold">{label} {(label && required) && <span className='text-red-500'>*</span>}</label>}
             <FormField
                 name={name}
                 render={({ field }) => (

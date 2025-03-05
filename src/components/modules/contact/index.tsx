@@ -6,6 +6,7 @@ import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { Facebook, Instagram, MoveRight, Twitter } from "lucide-react";
 import React, { useState } from "react";
+import { FieldValues } from "react-hook-form";
 
 const ContactForm = () => {
     const [isChecked, setIsChecked] = useState(false);
@@ -31,8 +32,8 @@ const ContactForm = () => {
         window.open(link, '_blank');
     }
 
-    const onSubmit = () => {
-
+    const onSubmit = (data: FieldValues) => {
+        console.log(data)
     }
 
     return (
@@ -73,22 +74,25 @@ const ContactForm = () => {
                         <SHForm onSubmit={onSubmit}>
                             <div className="py-4">
                                 <SHInput
+                                    label="Name"
                                     required
                                     type="text"
                                     name="name"
-                                    placeholder="Name *"
+                                    placeholder="Name"
                                 />
                             </div>
                             <div className="py-4">
                                 <SHInput
+                                    label="Email"
                                     required
                                     type="email"
                                     name="email"
-                                    placeholder="Email *"
+                                    placeholder="Email"
                                 />
                             </div>
                             <div className="py-4">
                                 <SHInput
+                                    label="Phone"
                                     required
                                     type="tel"
                                     name="phone"
@@ -97,8 +101,9 @@ const ContactForm = () => {
                            </div>
                             <div className="py-4">
                                 <SHTextarea
+                                    label="Message"
                                     required
-                                    placeholder="Message *"
+                                    placeholder="Message"
                                     name="message"
                                 />
                            </div>
@@ -107,6 +112,7 @@ const ContactForm = () => {
                                     type="checkbox"
                                     id="privacy"
                                     className="mr-2"
+                                    required
                                     checked={isChecked}
                                     onChange={(e) => setIsChecked(e.target.checked)}
                                 />
