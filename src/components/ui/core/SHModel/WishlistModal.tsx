@@ -1,9 +1,7 @@
 "use client";
 
-
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { addWishlist } from "@/services/Wishlist";
 
@@ -16,14 +14,12 @@ interface TModalProps {
 }
 
 const WishlistModal = ({ isOpen, onClose, user }: TModalProps) => {
-    const router = useRouter()
     const wishlistNow = async () => {
         try {
             if (user && user.userID?._id && user._id) {
                 const res = await addWishlist({ itemID: user._id });
                 if (res.success) {
-                    toast.success('Purchase successfully!');
-                    router.push('/dashboard/purchase-history');
+                    toast.success('Add wishlist successfully!');
                     onClose();
                 } else {
                     toast.error(res.message);

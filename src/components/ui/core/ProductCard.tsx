@@ -87,7 +87,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                                 disabled={product?.status === 'sold'}
                                 variant="outline"
                                 size="sm"
-                                title="View"
+                                title="Quick View"
                                 className="w-8 h-8 p-0 flex hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white items-center justify-center rounded-full"
                             >
                                 <Eye />
@@ -98,7 +98,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                             variant="outline"
                             onClick={handleWishListProduct}
                             size="sm"
-                            title="whitelist"
+                            title="Add to favorite"
                             className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
                             ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
                         >
