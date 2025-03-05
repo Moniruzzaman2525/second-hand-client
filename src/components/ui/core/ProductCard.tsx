@@ -19,16 +19,22 @@ import { useUser } from "@/context/UserContext";
 import LoginModal from "./SHModel/LoginModal";
 import WishlistModal from "./SHModel/WishlistModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
+import RemoveWishlistModal from "./SHModel/RemoveWishlistModal";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
     const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
+    const [isRemoveWishlistOpen, setIsRemoveWishlistOpen] = useState<boolean>(false);
     const { user } = useUser()
     const handlePurchaseProduct = () => {
         setIsPurchaseOpen(true);
     };
     const handleWishListProduct = () => {
-        setIsWishlistOpen(true);
+        if (product.wishlist) {
+            setIsRemoveWishlistOpen(true)
+        } else {
+            setIsWishlistOpen(true);
+        }
     };
     return (
         <Card className="p-3">
@@ -152,6 +158,11 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     isOpen={isWishlistOpen}
                     onClose={() => setIsWishlistOpen(false)}
                 />}
+            <RemoveWishlistModal
+                isOpen={isRemoveWishlistOpen}
+                onClose={() => setIsRemoveWishlistOpen(false)}
+                user={product}
+            />
         </Card>
     );
 };

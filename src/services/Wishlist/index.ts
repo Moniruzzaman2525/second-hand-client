@@ -16,7 +16,28 @@ export const addWishlist = async ({ itemID }: { itemID: string}): Promise<any> =
                 tags: ["PRODUCT"],
             },
         });
-        revalidateTag("PURCHASE");
+        revalidateTag("PRODUCT");
+        const result = await res.json()
+        return result
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
+
+export const removeWishlist = async ({ itemID }: { itemID: string}): Promise<any> => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist/${itemID}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+            },
+            next: {
+                tags: ["PRODUCT"],
+            },
+        });
+        revalidateTag("PRODUCT");
         const result = await res.json()
         return result
     } catch (error: any) {

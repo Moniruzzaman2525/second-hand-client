@@ -116,7 +116,7 @@ const FilterSidebar = () => {
                         ))}
                     </RadioGroup>
                 </div>
-
+                
                 <h3 className="text-sm font-semibold mb-2">Location</h3>
                 <input
                     type="text"
