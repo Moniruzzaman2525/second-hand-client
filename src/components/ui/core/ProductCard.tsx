@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import LoginModal from "./SHModel/LoginModal";
 import WishlistModal from "./SHModel/WishlistModal";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
@@ -83,27 +84,43 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
 
                     <div className="flex gap-5">
                         <Link href={`/products/${product?._id}`} >
-                            <Button
-                                disabled={product?.status === 'sold'}
-                                variant="outline"
-                                size="sm"
-                                title="Quick View"
-                                className="w-8 h-8 p-0 flex hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white items-center justify-center rounded-full"
-                            >
-                                <Eye />
-                            </Button>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="w-8 h-8 p-0 flex hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white items-center justify-center rounded-full"
+                                        >
+                                            <Eye />
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Quick View</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
                         </Link>
-                        <Button
-                            disabled={product?.status === 'sold'}
-                            variant="outline"
-                            onClick={handleWishListProduct}
-                            size="sm"
-                            title="Add to favorite"
-                            className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
-                            ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
-                        >
-                            <Heart />
-                        </Button>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        disabled={product?.status === 'sold'}
+                                        variant="outline"
+                                        onClick={handleWishListProduct}
+                                        size="sm"
+                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                                        ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                    >
+                                        <Heart />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{product?.wishlist ? 'Remove to favorite' : 'Add to favorite'}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+
                     </div>
                     <div className="flex items-center justify-center gap-1">
                         <Button
