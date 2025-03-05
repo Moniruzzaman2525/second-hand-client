@@ -58,6 +58,22 @@ export const forgotPassword = async(userEmail: string) => {
     return Error(error);
   }
 };
+export const resetPassword = async (id: string | undefined, token: string | undefined, newPassword: string) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/forget-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify({ id, newPassword }),
+    });
+    const result = await res.json();
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
 
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
