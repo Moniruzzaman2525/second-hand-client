@@ -2,11 +2,11 @@
 
 import React, { useState, FormEvent } from 'react';
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: string | undefined }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords don't match!");
