@@ -20,7 +20,7 @@ const ProductsPage = async ({ searchParams }: {searchParams: SearchParams}) => {
     let meta = null;
 
     try {
-        const data = await getAllProducts(page, "5", query);
+        const data = await getAllProducts(page, "6", query);
         products = data.data;
         meta = data.meta;
         loading = false;
