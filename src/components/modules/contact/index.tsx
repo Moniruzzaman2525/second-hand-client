@@ -38,6 +38,7 @@ const ContactForm = () => {
         try {
             const res = await contactUs(data);
             if (res.success) {
+                setIsChecked(false)
                 toast.success("Your message has been sent successfully. We will get back to you soon!");
             } else {
                 toast.error("Failed to send your message. Please try again later.");

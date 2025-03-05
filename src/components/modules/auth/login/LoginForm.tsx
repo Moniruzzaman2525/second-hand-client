@@ -52,6 +52,7 @@ const LoginForm = () => {
                 <SHForm onSubmit={handleFormSubmit}>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="email"
                             name="email"
                             label="Email"
@@ -59,6 +60,7 @@ const LoginForm = () => {
                     </div>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="password"
                             name="password"
                             label="Password"

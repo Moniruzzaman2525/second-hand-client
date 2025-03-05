@@ -33,7 +33,7 @@ const RegisterForm = () => {
             }
         } catch (error: any) {
             toast.error(error.message || 'An unexpected error occurred. Please try again.');
-        } 
+        }
     };
 
     return (
@@ -53,6 +53,7 @@ const RegisterForm = () => {
 
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="text"
                             name="name"
                             label="Name"
@@ -60,6 +61,7 @@ const RegisterForm = () => {
                     </div>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="email"
                             name="email"
                             label="Email"
@@ -67,6 +69,7 @@ const RegisterForm = () => {
                     </div>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="text"
                             name="phoneNumber"
                             label="Phone"
@@ -75,6 +78,7 @@ const RegisterForm = () => {
 
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
+                            required
                             type="password"
                             name="password"
                             label="Password"

@@ -55,6 +55,7 @@ export default function AddProductsForm() {
                 <div className="flex flex-col gap-10">
                     <div className="flex flex-col sm:flex-row sm:gap-6">
                         <SHInput
+                            required
                             type="text"
                             name="title"
                             label="Product Title"
@@ -62,40 +63,46 @@ export default function AddProductsForm() {
                     </div>
                     <div className="flex flex-col sm:flex-row sm:gap-6 justify-between">
                         <SHSelect
+                            required
                             options={categories}
                             name="category"
                             label="Category"
-                            
+
                         />
                         <SHSelect
+                            required
                             options={conditionOptions}
                             name="condition"
                             label="Condition"
-                            
+
                         />
                         <SHInput
+                            required
                             type="number"
                             name="price"
                             label="Product Price"
-                            
+
                         />
                     </div>
                     <div className="flex flex-col sm:flex-row sm:gap-6 justify-between">
                         <SHInput
+                            required
                             type="text"
                             name="location"
                             label="City"
-                            
+
                         />
                         <SHInput
+                            required
                             type="text"
                             name="address"
                             label="Address"
-                            
+
                         />
                     </div>
                     <div>
                         <SHTextarea
+                            required
                             name="description"
                             label="Description"
                         />
