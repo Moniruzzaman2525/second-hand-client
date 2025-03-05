@@ -1,12 +1,15 @@
+"use client"
+
 import SHContainer from "@/components/ui/core/SHContainer";
 import { MoveRight } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const ContactForm = () => {
+    const [isChecked, setIsChecked] = useState(false);
+
     return (
         <div className="bg-gray-200 min-h-screen p-6 md:p-10 flex items-center justify-center">
             <SHContainer className="flex flex-col md:flex-row w-full max-w-5xl">
-                {/* Left Section */}
                 <div className="w-full md:w-1/2 p-6 md:p-10 text-center md:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold">
                         <span className="text-yellow-500">Contact</span> us
@@ -33,7 +36,6 @@ const ContactForm = () => {
                     </div>
                 </div>
 
-                {/* Right Section - Form */}
                 <div className="w-full md:w-1/2 bg-[#f2f4f8] p-6 md:p-10 rounded-lg shadow-lg">
                     <h3 className="text-center text-lg md:text-xl font-semibold text-[#374b5c]">
                         Did not find the answer? <br className="hidden md:block" />
@@ -42,25 +44,36 @@ const ContactForm = () => {
                     <form className="mt-6 space-y-4">
                         <input
                             type="text"
+                            required
                             placeholder="Name *"
                             className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
                         />
                         <input
                             type="email"
+                            required
                             placeholder="Email *"
                             className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
                         />
                         <input
                             type="tel"
+                            required
                             placeholder="Phone"
                             className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
                         />
                         <textarea
                             placeholder="Message *"
+                            required
                             className="w-full resize-none p-3 border border-[#e1e7f1] rounded-lg h-24 md:h-32 text-sm md:text-base"
                         ></textarea>
                         <div className="flex items-center text-xs md:text-sm">
-                            <input type="checkbox" id="privacy" className="mr-2" />
+                            <input
+                                type="checkbox"
+                                required
+                                id="privacy"
+                                className="mr-2"
+                                checked={isChecked}
+                                onChange={(e) => setIsChecked(e.target.checked)}
+                            />
                             <label htmlFor="privacy" className="text-gray-600">
                                 I accept the <span className="text-[#537cd9]">privacy</span> <span className="text-[#6d90df]">policy</span>
                             </label>
