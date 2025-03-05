@@ -4,9 +4,11 @@ import SHForm from "@/components/ui/core/form/SHForm";
 import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHContainer from "@/components/ui/core/SHContainer";
+import { contactUs } from "@/services/Contact";
 import { Facebook, Instagram, MoveRight, Twitter } from "lucide-react";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 const ContactForm = () => {
     const [isChecked, setIsChecked] = useState(false);
@@ -32,9 +34,19 @@ const ContactForm = () => {
         window.open(link, '_blank');
     }
 
-    const onSubmit = (data: FieldValues) => {
-        console.log(data)
-    }
+    const onSubmit = async (data: FieldValues) => {
+        try {
+            const res = await contactUs(data);
+            if (res.success) {
+                toast.success("Your message has been sent successfully. We will get back to you soon!");
+            } else {
+                toast.error("Failed to send your message. Please try again later.");
+            }
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+
 
     return (
         <div className="bg-gray-200 min-h-screen p-6 md:p-10 flex items-center justify-center">
