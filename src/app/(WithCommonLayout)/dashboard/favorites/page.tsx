@@ -1,22 +1,20 @@
-import SellerHistory from '@/components/modules/dashboard/seller';
-import Sidebar from '@/components/modules/dashboard/sidebar';
-import SHContainer from '@/components/ui/core/SHContainer';
-import { getAllSellerHistory } from '@/services/Transaction';
-import React from 'react';
+import ViewWishlist from "@/components/modules/dashboard/favorites";
+import SHContainer from "@/components/ui/core/SHContainer";
+import { getAllProducts } from "@/services/Product";
 
-const WishlistPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
-    const { page } = await searchParams;
-    const { data: products, meta } = await getAllSellerHistory(page, "5");
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+const ProductsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
+    const query = await searchParams;
+    const page = query.page as string | undefined;
+    const {data:products, meta} = await getAllProducts(page, "6", query);
+
+    console.log(products)
     return (
-        <div>
-            <Sidebar />
-            <div className='bg-[#f8fafd]'>
-                <SHContainer>
-                    <SellerHistory products={products?.result} meta={meta} />
-                </SHContainer>
-            </div>
-        </div>
+        <SHContainer>
+            <ViewWishlist  meta={meta} products={products} />
+        </SHContainer>
     );
 };
 
-export default WishlistPage;
+export default ProductsPage;
