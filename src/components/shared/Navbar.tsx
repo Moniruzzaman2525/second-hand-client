@@ -45,7 +45,6 @@ const Navbar = () => {
             router.push("/");
         }
     };
-    console.log(active)
     return (
         <nav className="bg-yellow-400 border-b w-full sticky top-0 z-50">
             <div className="md:container mx-auto px-3 md:px-40 py-3 flex justify-between items-center">
@@ -129,7 +128,7 @@ const Navbar = () => {
 
                             onMouseLeave={() => setActive("")} className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === 'login' ? 'text-red-600' : ''}`} href='/login'>
                             <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === 'login' ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
-                            Login 
+                            Login
                     </Link>
                 )}
             </div>

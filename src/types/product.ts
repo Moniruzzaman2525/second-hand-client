@@ -1,5 +1,5 @@
 export interface IProduct {
-    _id?: string;
+    _id: string;
     title: string;
     description: string;
     location: string;
@@ -7,7 +7,7 @@ export interface IProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userID: {
+    userId: {
         phoneNumber: string;
         email: string;
         name: string;
@@ -27,7 +27,7 @@ export interface ISingleProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userID: {
+    userId: {
         phoneNumber: string;
         email: string;
         name: string;

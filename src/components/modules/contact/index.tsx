@@ -28,7 +28,6 @@ const ContactForm = () => {
                 link = twitter;
                 break;
             default:
-                console.log('Unknown platform');
                 return;
         }
         window.open(link, '_blank');

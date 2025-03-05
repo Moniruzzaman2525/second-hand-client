@@ -16,8 +16,8 @@ interface TModalProps {
 const WishlistModal = ({ isOpen, onClose, user }: TModalProps) => {
     const wishlistNow = async () => {
         try {
-            if (user && user.userID?._id && user._id) {
-                const res = await addWishlist({ itemID: user._id });
+            if (user && user.userId?._id && user._id) {
+                const res = await addWishlist({ item: user._id });
                 if (res.success) {
                     toast.success('Add wishlist successfully!');
                     onClose();

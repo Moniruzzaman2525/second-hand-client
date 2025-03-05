@@ -1,7 +1,7 @@
 'use client'
 import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, SquareCheckBig, Trash } from "lucide-react";
+import { Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,13 +30,11 @@ const ManageProducts = ({
         setProductToDelete(product);
         setIsModalOpen(true);
     };
-
-
     const confirmDelete = async () => {
         try {
             if (productToDelete && productToDelete._id) {
                 const res = await handleDeleteProduct(productToDelete._id);
-                if (res) {
+                if (res.success) {
                     toast.success('Product deleted successfully!');
                 } else {
                     toast.error('Failed to delete the product. Please try again.');
@@ -52,7 +50,7 @@ const ManageProducts = ({
     const columns: ColumnDef<IProduct>[] = [
         {
             accessorKey: "name",
-            header: "Product Name",
+            header: "Product Title",
             cell: ({ row }) => (
                 <div className="flex items-center space-x-3">
                     <Image
@@ -127,16 +125,6 @@ const ManageProducts = ({
                         <Edit className="w-5 h-5" />
                     </button>
                     <button
-                        className="text-gray-500 hover:text-green-500"
-                        title="Edit"
-                        onClick={() =>
-                            router.push(`/dashboard/listing/update-ads/${row.original._id}`)
-                        }
-                    >
-                        <SquareCheckBig className="w-5 h-5" />
-                    </button>
-
-                    <button
                         className="text-gray-500 hover:text-red-500"
                         title="Delete"
                         onClick={() => handleDelete(row.original)}
@@ -163,6 +151,7 @@ const ManageProducts = ({
                     onConfirm={confirmDelete}
                 />
             )}
+
         </div>
     );
 };

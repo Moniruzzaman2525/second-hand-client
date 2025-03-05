@@ -19,9 +19,9 @@ const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const router = useRouter()
     const handleSend = async () => {
         try {
-            if (user && user.userID?._id) {
-                const res = await sendMessage({ message, receiverID: user?.userID?._id });
-                if (res) {
+            if (user && user.userId?._id) {
+                const res = await sendMessage({ message, receiverID: user?.userId?._id });
+                if (res.success) {
                     toast.success('Message sent successfully!');
                     router.push('/messages');
                     onClose();
@@ -43,7 +43,7 @@ const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
                 <DialogTitle className="text-xl font-bold text-gray-800">Send a Message</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    You are about to send a message to {user?.userID?.name}. Write your message below:
+                    You are about to send a message to {user?.userId?.name}. Write your message below:
                 </DialogDescription>
                 <textarea
                     ref={textareaRef}

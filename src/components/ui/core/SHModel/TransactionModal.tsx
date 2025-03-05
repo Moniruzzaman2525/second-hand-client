@@ -1,25 +1,26 @@
+
+
 "use client";
 
-
-import { createTransaction } from "@/services/Transaction";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { createTransaction } from "@/services/Transaction";
+import { useRouter } from "next/navigation";
 
 
 interface TransactionModalProps {
     isOpen: boolean;
     onClose: () => void;
-    user: Partial<ISingleProduct>;
+    product: Partial<ISingleProduct>;
 }
 
-const TransactionModal = ({ isOpen, onClose, user }: TransactionModalProps) => {
+const TransactionModal = ({ isOpen, onClose, product }: TransactionModalProps) => {
     const router = useRouter()
     const purchaseNow = async () => {
         try {
-            if (user && user.userID?._id && user._id) {
-                const res = await createTransaction({ sellerID: user.userID?._id, itemID: user._id });
+            if (product && product.userId?._id && product._id) {
+                const res = await createTransaction({ sellerID: product.userId?._id, item: product._id });
                 if (res.success) {
                     toast.success('Purchase successfully!');
                     router.push('/dashboard/purchase-history');
@@ -37,17 +38,16 @@ const TransactionModal = ({ isOpen, onClose, user }: TransactionModalProps) => {
         }
     };
 
-
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
                 <DialogTitle className="text-xl font-bold text-gray-800">Purchase Product</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    Are you suer you want to Purchase {user?.title}.
+                    Are you suer you want to Purchase {product?.title}.
                 </DialogDescription>
                 <div>
 
-              </div>
+                </div>
                 <div className="flex justify-end gap-4 mt-6">
                     <button
                         onClick={onClose}

@@ -146,6 +146,7 @@ export const handleDeleteProduct = async (productId: string) => {
         );
         revalidateTag("PRODUCT");
         const data = await res.json();
+
         return data;
     } catch (error: any) {
         return Error(error.message);

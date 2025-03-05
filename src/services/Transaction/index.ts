@@ -5,11 +5,11 @@ import { cookies } from "next/headers";
 
 
 
-export const createTransaction = async ({ itemID, sellerID }: { itemID: string, sellerID: string }): Promise<any> => {
+export const createTransaction = async ({ item, sellerID }: { item: string, sellerID: string }): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/transactions`, {
             method: "POST",
-            body: JSON.stringify({ itemID, sellerID }),
+            body: JSON.stringify({ item, sellerID }),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
@@ -26,7 +26,7 @@ export const createTransaction = async ({ itemID, sellerID }: { itemID: string, 
 export const getAllPurchaseHistory = async (page?: string, limit?: string) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_API}/transactions?limit=${limit}&page=${page}`,
+            `${process.env.NEXT_PUBLIC_BASE_API}/transactions/purchases?limit=${limit}&page=${page}`,
             {
                 method: 'GET',
                 headers: {
@@ -38,7 +38,6 @@ export const getAllPurchaseHistory = async (page?: string, limit?: string) => {
             },
         );
         const data = await res.json();
-        console.log(data)
         return data;
     } catch (error: any) {
         return new Error(error.message);
@@ -79,5 +78,25 @@ export const completeTransaction = async (userId: string): Promise<any> => {
         return res.json();
     } catch (error: any) {
         return Error(error);
+    }
+};
+
+
+export const handleDeletePurchaseProduct = async (productId: string) => {
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/transactions/${productId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+                },
+            },
+        );
+        revalidateTag("PURCHASE");
+        const data = await res.json();
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
     }
 };

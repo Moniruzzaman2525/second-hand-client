@@ -43,7 +43,7 @@ const ManageProductsByAdmin = ({
         try {
             if (productToDelete && productToDelete._id) {
                 const res = await handleDeleteProduct(productToDelete._id);
-                if (res) {
+                if (res.success) {
                     toast.success('Product deleted successfully!');
                 } else {
                     toast.error('Failed to delete the product. Please try again.');

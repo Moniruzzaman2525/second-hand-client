@@ -32,7 +32,7 @@ const MessageApp = ({ message }: MessageAppProps) => {
         if (!newMessage.trim()) return;
         if (newMessage && activeUser) {
             const res = await sendMessage({ message: newMessage, receiverID: activeUser });
-            if (res) {
+            if (res.success) {
                 setMessages(res.data);
             }
         }
@@ -45,9 +45,7 @@ const MessageApp = ({ message }: MessageAppProps) => {
         setMessages([]);
     };
 
-    // const handleViewProject = () => {
-    //     console.log(activeUser)
-    // }
+
 
     return (
         <div className="flex flex-col w-full h-screen bg-[#f8fafd]">

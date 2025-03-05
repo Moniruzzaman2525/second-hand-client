@@ -36,6 +36,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
             setIsWishlistOpen(true);
         }
     };
+
     return (
         <Card className="p-3">
             <CardHeader className="relative p-0 h-48">
@@ -130,7 +131,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     </div>
                     <div className="flex items-center justify-center gap-1">
                         <Button
-                            disabled={product.userID._id === user?.userId || product?.status === 'sold'}
+                            disabled={product?.userId?._id === user?.userId || product?.status === 'sold'}
                             onClick={handlePurchaseProduct}
                             size="sm"
                             className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df]  hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
@@ -143,7 +144,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
             {user ? <TransactionModal
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
-                user={product}
+                product={product}
             /> :
                 <LoginModal
                     isOpen={isPurchaseOpen}

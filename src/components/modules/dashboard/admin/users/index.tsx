@@ -45,7 +45,7 @@ const ManageUser = ({
         try {
             if (userToDelete && userToDelete._id) {
                 const res = await handleDeleteUser(userToDelete._id);
-                if (res) {
+                if (res.success) {
                     toast.success('User deleted successfully!');
                 } else {
                     toast.error('Failed to delete the User. Please try again.');
@@ -60,7 +60,7 @@ const ManageUser = ({
         try {
             if (banToUser && banToUser._id) {
                 const res = await banUnBanUser(banToUser._id);
-                if (res) {
+                if (res.success) {
                     toast.success(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
                 } else {
                     toast.error('Failed to update user. Please try again.');

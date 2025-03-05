@@ -3,11 +3,11 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 
-export const addWishlist = async ({ itemID }: { itemID: string}): Promise<any> => {
+export const addWishlist = async ({ item }: { item: string}): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist`, {
             method: "POST",
-            body: JSON.stringify({ itemID }),
+            body: JSON.stringify({ item }),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
@@ -25,9 +25,9 @@ export const addWishlist = async ({ itemID }: { itemID: string}): Promise<any> =
 };
 
 
-export const removeWishlist = async ({ itemID }: { itemID: string}): Promise<any> => {
+export const removeWishlist = async ({ item }: { item: string}): Promise<any> => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist/${itemID}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist/${item}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
