@@ -1,5 +1,8 @@
 "use client"
 
+import SHForm from "@/components/ui/core/form/SHForm";
+import SHInput from "@/components/ui/core/form/SHInput";
+import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { Facebook, Instagram, MoveRight, Twitter } from "lucide-react";
 import React, { useState } from "react";
@@ -27,6 +30,11 @@ const ContactForm = () => {
         }
         window.open(link, '_blank');
     }
+
+    const onSubmit = () => {
+
+    }
+
     return (
         <div className="bg-gray-200 min-h-screen p-6 md:p-10 flex items-center justify-center">
             <SHContainer className="flex flex-col md:flex-row w-full max-w-5xl">
@@ -61,52 +69,61 @@ const ContactForm = () => {
                         Did not find the answer? <br className="hidden md:block" />
                         Ask us questions directly
                     </h3>
-                    <form className="mt-6 space-y-4">
-                        <input
-                            type="text"
-                            required
-                            placeholder="Name *"
-                            className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
-                        />
-                        <input
-                            type="email"
-                            required
-                            placeholder="Email *"
-                            className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
-                        />
-                        <input
-                            type="tel"
-                            required
-                            placeholder="Phone"
-                            className="w-full p-3 border border-[#e1e7f1] rounded-lg text-sm md:text-base"
-                        />
-                        <textarea
-                            placeholder="Message *"
-                            required
-                            className="w-full resize-none p-3 border border-[#e1e7f1] rounded-lg h-24 md:h-32 text-sm md:text-base"
-                        ></textarea>
-                        <div className="flex items-center text-xs md:text-sm">
-                            <input
-                                type="checkbox"
-                                required
-                                id="privacy"
-                                className="mr-2"
-                                checked={isChecked}
-                                onChange={(e) => setIsChecked(e.target.checked)}
-                            />
-                            <label htmlFor="privacy" className="text-gray-600">
-                                I accept the <span className="text-[#537cd9]">privacy</span> <span className="text-[#6d90df]">policy</span>
-                            </label>
-                        </div>
-                        <div className="w-full flex justify-center">
-                            <button
-                                type="submit"
-                                className="w-full md:w-1/3 flex justify-center items-center gap-3 bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] py-3 rounded-lg text-lg"
-                            >
-                                <span>Send</span> <MoveRight />
-                            </button>
-                        </div>
-                    </form>
+                    <div className="mt-6 space-y-4">
+                        <SHForm onSubmit={onSubmit}>
+                            <div className="py-4">
+                                <SHInput
+                                    required
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name *"
+                                />
+                            </div>
+                            <div className="py-4">
+                                <SHInput
+                                    required
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email *"
+                                />
+                            </div>
+                            <div className="py-4">
+                                <SHInput
+                                    required
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="Phone"
+                                />
+                           </div>
+                            <div className="py-4">
+                                <SHTextarea
+                                    required
+                                    placeholder="Message *"
+                                    name="message"
+                                />
+                           </div>
+                            <div className="flex items-center pb-4 text-xs md:text-sm">
+                                <input
+                                    type="checkbox"
+                                    id="privacy"
+                                    className="mr-2"
+                                    checked={isChecked}
+                                    onChange={(e) => setIsChecked(e.target.checked)}
+                                />
+                                <label htmlFor="privacy" className="text-gray-600">
+                                    I accept the <span className="text-[#537cd9]">privacy</span> <span className="text-[#6d90df]">policy</span>
+                                </label>
+                            </div>
+                            <div className="w-full flex justify-center">
+                                <button
+                                    type="submit"
+                                    className="w-full md:w-1/3 flex justify-center items-center gap-3 bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] py-3 rounded-lg text-lg"
+                                >
+                                    <span>Send</span> <MoveRight />
+                                </button>
+                            </div>
+                        </SHForm>
+                    </div>
                 </div>
             </SHContainer>
         </div>
