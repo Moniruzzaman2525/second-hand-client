@@ -14,7 +14,7 @@ const ContactLocation = () => {
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Visit Us</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                        244/C Tejgaon I/A, Dhaka-1208, Bangladesh
+                        Sherpur - 2100, Mymonsingh - 22200, Bangladesh
                     </p>
                 </div>
 
@@ -24,7 +24,7 @@ const ContactLocation = () => {
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Call Us</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                        +880 1777-037916
+                        +880 1925-716395
                     </p>
                 </div>
 
@@ -34,7 +34,7 @@ const ContactLocation = () => {
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Write to Us</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                        hi@secondbd.com
+                        web.moniruzzaman1@gmail.com
                     </p>
                 </div>
             </SHContainer>
