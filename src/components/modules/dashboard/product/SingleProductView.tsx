@@ -8,12 +8,17 @@ import MessageModal from "@/components/ui/core/SHModel/MessageModal";
 import { useUser } from "@/context/UserContext";
 import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal";
 import LoginModal from "@/components/ui/core/SHModel/LoginModal";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
     const [selectedImage, setSelectedImage] = useState<string>(product.images[0]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
+    const [isConfirmOpenMessage, setIsConfirmOpenMessage] = useState(false);
+    const [isConfirmOpenPurchase, setIsConfirmOpenMessagePurchase] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const { user } = useUser()
     const handleMessageClick = () => {
         setIsModalOpen(true);
@@ -103,6 +108,9 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
             {
                 user ? <MessageModal
+                    setIsConfirmOpen={setIsConfirmOpenMessage}
+                    setModalContent={setModalContent}
+                    setModalState={setModalState}
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     user={product}
@@ -115,11 +123,27 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
                 product={product}
+                setIsConfirmOpen={setIsConfirmOpenMessagePurchase}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
             /> :
                 <LoginModal
                     isOpen={isPurchaseOpen}
                     onClose={() => setIsPurchaseOpen(false)}
                 />}
+
+            <SuccessModal
+                isOpen={isConfirmOpenMessage}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenMessage(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenPurchase}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenMessagePurchase(false)}
+            />
         </div>
     );
 };
