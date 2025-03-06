@@ -9,7 +9,6 @@ import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
-import { toast } from "sonner";
 import PermissionModal from "@/components/ui/core/SHModel/PermissionModal";
 import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
@@ -48,14 +47,20 @@ const ManageProductsByAdmin = ({
             if (productToDelete && productToDelete._id) {
                 const res = await handleDeleteProduct(productToDelete._id);
                 if (res.success) {
-                    toast.success('Product deleted successfully!');
+                    setIsConfirmOpen(true)
+                    setModalContent('Product deleted successfully!');
+                    setModalState('success')
                 } else {
-                    toast.error('Failed to delete the product. Please try again.');
+                    setIsConfirmOpen(true)
+                    setModalContent('Failed to delete the product. Please try again.');
+                    setModalState('failed')
                 }
                 setProductToDelete(null);
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
 

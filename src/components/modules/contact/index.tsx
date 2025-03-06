@@ -48,7 +48,7 @@ const ContactForm = () => {
             } else {
                 setIsConfirmOpen(true)
                 setModalContent('Failed to send your message. Please try again later.!');
-                setModalState('success')
+                setModalState('failed')
             }
         } catch (error: any) {
             toast.error(error.message);
