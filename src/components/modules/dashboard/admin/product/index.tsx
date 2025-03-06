@@ -25,8 +25,10 @@ const ManageProductsByAdmin = ({
     const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
     const [productToPermission, setProductToPermission] = useState<IProduct | null>(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isConfirmOpenPermission, setIsConfirmOpenPermission] = useState(false);
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
+
 
     const handleView = (product: IProduct) => {
         router.push(`/dashboard/admin/listings/ads-details/${product._id}`);
@@ -171,6 +173,9 @@ const ManageProductsByAdmin = ({
                     isOpen={isPermissionModalOpen}
                     onClose={() => setIsPermissionModalOpen(false)}
                     product={productToPermission}
+                    setIsConfirmOpen={setIsConfirmOpenPermission}
+                    setModalContent={setModalContent}
+                    setModalState={setModalState}
                 />
             )}
             <SuccessModal
@@ -178,6 +183,12 @@ const ManageProductsByAdmin = ({
                 status={modalState}
                 content={modalContent}
                 onOpenChange={() => setIsConfirmOpen(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenPermission}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenPermission(false)}
             />
         </div>
     );
