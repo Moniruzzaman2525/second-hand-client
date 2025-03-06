@@ -2,14 +2,11 @@
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { resetPassword } from '@/services/AuthService';
-import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
-import { toast } from 'sonner';
 import { useState } from 'react';
 import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
 const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: string | undefined }) => {
-    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [passwordMismatch, setPasswordMismatch] = useState(false);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -29,13 +26,18 @@ const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: stri
             const res = await resetPassword(id, token, newPassword);
 
             if (res.success) {
-                router.push('/login');
-                toast.success(res.message);
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('success')
             } else {
-                toast.error('Failed to reset password');
+                setIsConfirmOpen(true)
+                setModalContent('Failed to reset password');
+                setModalState('failed')
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         } finally {
             setIsSubmitting(false);
         }

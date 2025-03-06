@@ -8,7 +8,6 @@ import SHInput from '@/components/ui/core/form/SHInput';
 import { IAuthUser } from '@/types';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
-import { toast } from 'sonner';
 import { updateProfile } from '@/services/Users';
 import { useState } from 'react';
 import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
@@ -22,13 +21,19 @@ const SocialLinks = ({ profile }: { profile: IAuthUser }) => {
         try {
             const res = await updateProfile(data);
             if (res.success) {
-                toast.success("Profile updated successfully!");
+                setIsConfirmOpen(true)
+                setModalContent('Profile updated successfully!');
+                setModalState('success')
                 router.refresh();
             } else {
-                toast.error(res.message);
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('failed')
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
     return (
