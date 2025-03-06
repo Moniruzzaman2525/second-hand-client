@@ -14,14 +14,17 @@ import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHSelect from "@/components/ui/core/form/SHSelect";
 import { categories, conditionOptions } from "@/constant";
 import { addProduct } from "@/services/Product";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
+import { Loader } from "lucide-react";
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-    const router = useRouter();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [loading, setLoading] = useState(false);
+    const [modalState, setModalState] = useState("")
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
+        setLoading(true)
         const modifiedData = {
             ...data,
             price: parseFloat(data.price),
@@ -36,13 +39,22 @@ export default function AddProductsForm() {
         try {
             const res = await addProduct(formData);
             if (res.success) {
-                toast.success(res.message);
-                router.push("/dashboard/listing");
+                setImageFiles([])
+                setImagePreview([])
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('success')
             } else {
-                toast.error(res.message);
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('failed')
             }
         } catch (err: any) {
-            toast.error(err.message);
+            setIsConfirmOpen(true)
+            setModalContent(err.message);
+            setModalState('failed')
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -132,12 +144,18 @@ export default function AddProductsForm() {
                         </div>
                     </div>
                     <div className="flex justify-end mt-5">
-                        <Button type="submit" className="w-full sm:w-[20%]">
-                            Add Product
+                        <Button type="submit" className="w-full sm:w-[20%] bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
+                            {loading ? <Loader /> : 'Add Product'}
                         </Button>
                     </div>
                 </div>
             </SHForm>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 }

@@ -128,7 +128,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <Button type="submit" className="mt-5 w-[20%]">
+                        <Button type="submit" className="mt-5 w-[20%] bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
                             Update Product
                         </Button>
                     </div>
