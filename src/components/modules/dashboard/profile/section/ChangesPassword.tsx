@@ -23,12 +23,18 @@ const ChangesPassword = () => {
             }
             const res = await changesPassword(data);
             if (res.success) {
-                toast.success("Password changed successfully!");
+                setIsConfirmOpen(true)
+                setModalContent('Password changed successfully!');
+                setModalState('success')
             } else {
-                toast.error(res.message);
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('failed')
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
     return (
