@@ -4,36 +4,42 @@
 import { completeTransaction } from "@/services/Transaction";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IPurchaseHistory, } from "@/types";
-import { toast } from "sonner";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 
 interface ConfirmModalProps {
     isOpen: boolean;
     onClose: () => void;
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
     product: Partial<IPurchaseHistory>;
 }
 
-const ConfirmModal = ({ isOpen, onClose, product }: ConfirmModalProps) => {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+const ConfirmModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalContent, setModalState }: ConfirmModalProps) => {
+
     const confirmNow = async () => {
         try {
             if (product && product._id) {
                 const res = await completeTransaction(product._id)
                 if (res.success) {
                     onClose();
-                    toast.success('Transaction complete successfully!');
+                    setIsConfirmOpen(true)
+                    setModalContent('Transaction complete successfully!');
+                    setModalState('success')
                 } else {
                     onClose();
-                    toast.error(res.message);
+                    setIsConfirmOpen(true)
+                    setModalContent(res.message);
+                    setModalState('failed')
                 }
             }
 
 
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setIsConfirmOpen(true)
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalState('failed')
             onClose();
         }
     };

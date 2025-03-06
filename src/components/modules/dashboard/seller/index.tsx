@@ -26,6 +26,7 @@ const SellerHistory = ({
     const [productToDelete, setProductToDelete] = useState<IPurchaseHistory | null>(null);
     const [productToConfirm, setProductToConfirm] = useState<IPurchaseHistory | null>(null);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isConfirmOpenConfirm, setIsConfirmOpenConfirm] = useState(false);
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
     const handleView = (product: IProduct) => {
@@ -153,10 +154,19 @@ const SellerHistory = ({
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
                     product={productToConfirm}
+                    setIsConfirmOpen={setIsConfirmOpenConfirm}
+                    setModalContent={setModalContent}
+                    setModalState={setModalState}
                 />
             )}
             <SuccessModal
                 isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenConfirm}
                 status={modalState}
                 content={modalContent}
                 onOpenChange={() => setIsConfirmOpen(false)}
