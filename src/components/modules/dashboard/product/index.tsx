@@ -9,7 +9,7 @@ import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
-import { toast } from "sonner";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 const ManageProducts = ({
     products,
@@ -21,7 +21,10 @@ const ManageProducts = ({
 
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isConfirmOpen, setIsConfirmModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
 
     const handleView = (product: IProduct) => {
         router.push(`/dashboard/listing/ads-details/${product._id}`);
@@ -36,14 +39,20 @@ const ManageProducts = ({
             if (productToDelete && productToDelete._id) {
                 const res = await handleDeleteProduct(productToDelete._id);
                 if (res.success) {
-                    toast.success('Product deleted successfully!');
+                    setIsConfirmModalOpen(true)
+                    setModalContent('Product deleted successfully!');
+                    setModalState('success')
                 } else {
-                    toast.error('Failed to delete the product. Please try again.');
+                    setIsConfirmModalOpen(true)
+                    setModalContent('Failed to delete the product. Please try again.');
+                    setModalState('failed')
                 }
                 setProductToDelete(null);
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmModalOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
 
@@ -152,6 +161,12 @@ const ManageProducts = ({
                     onConfirm={confirmDelete}
                 />
             )}
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={()=> setIsConfirmModalOpen(false)}
+            />
 
         </div>
     );

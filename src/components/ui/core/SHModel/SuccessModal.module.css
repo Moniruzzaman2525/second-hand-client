@@ -1,0 +1,85 @@
+
+.tickContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: drawTick 2s ease forwards;
+}
+
+.borderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  animation: drawBorder 2s ease forwards;
+}
+
+@keyframes drawBorder {
+  0% {
+    border-color: transparent;
+    transform: scale(0);
+  }
+  50% {
+    border-color: #48bb78;
+    transform: scale(1.1);
+  }
+  100% {
+    border-color: #48bb78;
+    transform: scale(1);
+  }
+}
+
+.borderContainer.failed {
+  animation: drawBorderFailed 2s ease forwards;
+}
+
+@keyframes drawBorderFailed {
+  0% {
+    border-color: transparent;
+    transform: scale(0);
+  }
+  50% {
+    border-color: #f56565;
+    transform: scale(1.1);
+  }
+  100% {
+    border-color: #f56565;
+    transform: scale(1);
+  }
+}
+
+.checkmark {
+  stroke-dasharray: 0, 100;
+  stroke-dashoffset: 0;
+  animation: draw 2s ease forwards;
+}
+
+.crossmark {
+  stroke-dasharray: 0, 100;
+  stroke-dashoffset: 0;
+  animation: drawCross 2s ease forwards;
+}
+
+@keyframes draw {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+  }
+}
+
+@keyframes drawCross {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+  }
+}
+
+
