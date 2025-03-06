@@ -6,13 +6,13 @@ import React from 'react';
 
 const PurchaseHistoryPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
      const { page } = await searchParams;
-        const { data:products, meta } = await getAllPurchaseHistory(page, "5");
+        const { data:products } = await getAllPurchaseHistory(page, "5");
     return (
          <div>
             <Sidebar />
             <div className='bg-[#f8fafd]'>
                 <SHContainer>
-                    <GetUserPurchaseHistory products={products?.result} meta={meta} />
+                    <GetUserPurchaseHistory products={products?.result} meta={products.meta} />
                 </SHContainer>
             </div>
         </div>

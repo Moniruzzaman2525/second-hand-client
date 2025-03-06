@@ -17,7 +17,8 @@ const ManageProducts = ({
 }: {
     products: IProduct[];
     meta: IMeta;
-}) => {
+    }) => {
+
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
