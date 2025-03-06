@@ -5,15 +5,16 @@ import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
 import { registerUser } from '@/services/AuthService';
-// import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { useUser } from '@/context/UserContext';
+import { useRouter } from 'next/navigation';
+interface RegisterFormProps {
+    query: { [key: string]: string | string[] | undefined };
+}
 
-
-const RegisterForm = () => {
-    // const router = useRouter()
-    // const searchParams = useSearchParams()
-    // const redirect = searchParams.get('redirectPath')
+const RegisterForm = ({ query }: RegisterFormProps) => {
+    const router = useRouter()
+    const redirect = Array.isArray(query?.redirectPath) ? query?.redirectPath[0] : query?.redirectPath;
     const { setIsLoading } = useUser();
     const handleFormSubmit = async (data: FieldValues) => {
         try {
@@ -22,11 +23,11 @@ const RegisterForm = () => {
                 setIsLoading(true);
                 toast.success(res?.message);
 
-                // if (redirect) {
-                //     router.push(redirect);
-                // } else {
-                //     router.push('/');
-                // }
+                if (redirect) {
+                    router.push(redirect);
+                } else {
+                    router.push('/');
+                }
             } else {
                 toast.error(res?.message || 'Registration failed. Please try again.');
             }
