@@ -6,10 +6,9 @@ interface SuccessModalProps {
     onOpenChange: (isOpen: boolean) => void;
     content: string;
     status: string;
-    onClose?: () => void;
 }
 
-const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, content, status, onClose }) => {
+const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, content, status }) => {
     const [animationKey, setAnimationKey] = useState(0);
 
     useEffect(() => {
@@ -18,12 +17,10 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, conte
         }
     }, [isOpen]);
     const handleClose = () => {
-        if (onClose) {
-            onClose();
-        }
+
         onOpenChange(false);
 
-        
+
     };
     return (
         <div

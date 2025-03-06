@@ -9,31 +9,22 @@ import { IAuthUser } from '@/types';
 import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { updateProfile } from '@/services/Users';
-import { useState } from 'react';
-import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
+import { toast } from 'sonner';
 
 const SocialLinks = ({ profile }: { profile: IAuthUser }) => {
     const router = useRouter();
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await updateProfile(data);
             if (res.success) {
-                setIsConfirmOpen(true)
-                setModalContent('Profile updated successfully!');
-                setModalState('success')
+                toast.success('Profile updated successfully!');
                 router.refresh();
             } else {
-                setIsConfirmOpen(true)
-                setModalContent(res.message);
-                setModalState('failed')
+                toast.error(res.message);
             }
         } catch (error: any) {
-            setIsConfirmOpen(true)
-            setModalContent(error.message);
-            setModalState('failed')
+            toast.error(error.message);
         }
     };
     return (
@@ -65,12 +56,6 @@ const SocialLinks = ({ profile }: { profile: IAuthUser }) => {
                     </Card>
                 </AccordionContent>
             </AccordionItem>
-            <SuccessModal
-                isOpen={isConfirmOpen}
-                status={modalState}
-                content={modalContent}
-                onOpenChange={() => setIsConfirmOpen(false)}
-            />
         </SHForm>
     );
 };

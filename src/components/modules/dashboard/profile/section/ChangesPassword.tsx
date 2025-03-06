@@ -5,36 +5,23 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
-import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 import { changesPassword } from '@/services/AuthService';
-import React, { useState } from 'react';
+import React from 'react';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
 const ChangesPassword = () => {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+
     const handleFormSubmit = async (data: FieldValues) => {
         try {
-            if (data.newPassword === data.oldPassword) {
-                toast.error('Old and new password is same');
-                return
-            }
             const res = await changesPassword(data);
             if (res.success) {
-                setIsConfirmOpen(true)
-                setModalContent('Password changed successfully!');
-                setModalState('success')
+                toast.success('Password changed successfully!');
             } else {
-                setIsConfirmOpen(true)
-                setModalContent(res.message);
-                setModalState('failed')
+                toast.error(res.message);
             }
         } catch (error: any) {
-            setIsConfirmOpen(true)
-            setModalContent(error.message);
-            setModalState('failed')
+            toast.error(error.message);
         }
     };
     return (
@@ -65,12 +52,6 @@ const ChangesPassword = () => {
                     </Card>
                 </AccordionContent>
             </AccordionItem>
-            <SuccessModal
-                isOpen={isConfirmOpen}
-                status={modalState}
-                content={modalContent}
-                onOpenChange={() => setIsConfirmOpen(false)}
-            />
         </SHForm>
     );
 };
