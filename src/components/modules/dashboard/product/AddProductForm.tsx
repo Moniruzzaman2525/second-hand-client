@@ -16,14 +16,10 @@ import { categories, conditionOptions } from "@/constant";
 import { addProduct } from "@/services/Product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 export default function AddProductsForm() {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
     const router = useRouter();
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
         const modifiedData = {
@@ -142,12 +138,6 @@ export default function AddProductsForm() {
                     </div>
                 </div>
             </SHForm>
-            <SuccessModal
-                isOpen={isConfirmOpen}
-                status={modalState}
-                content={modalContent}
-                onOpenChange={() => setIsConfirmOpen(false)}
-            />
         </div>
     );
 }
