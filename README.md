@@ -1,7 +1,7 @@
 # Second BD - Project Overview
 
-## Frontend Live Link:
-## Backend Live Link: 
+## Frontend Live Link: https://second-hand-client-dc3y.vercel.app
+## Backend Live Link: https://second-hand-server-six.vercel.app
 
 ## Introduction
 
