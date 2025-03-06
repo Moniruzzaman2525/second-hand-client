@@ -1,11 +1,10 @@
 import RegisterForm from "@/components/modules/auth/register/RegisterForm";
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-const RegisterPage = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const query = await searchParams;
+const RegisterPage = async () => {
+
   return (
     <div>
-      <RegisterForm query={query} />
+      <RegisterForm />
     </div>
   );
 };
