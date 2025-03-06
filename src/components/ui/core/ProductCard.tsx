@@ -20,11 +20,17 @@ import LoginModal from "./SHModel/LoginModal";
 import WishlistModal from "./SHModel/WishlistModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
 import RemoveWishlistModal from "./SHModel/RemoveWishlistModal";
+import SuccessModal from "./SHModel/SuccessMessage";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
     const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
     const [isRemoveWishlistOpen, setIsRemoveWishlistOpen] = useState<boolean>(false);
+    const [isConfirmOpenWishlist, setIsConfirmOpenWishlist] = useState(false);
+    const [isConfirmOpenRemoveWishlist, setIsConfirmOpenRemoveWishlist] = useState(false);
+    const [isConfirmOpenTransaction, setIsConfirmOpenTransaction] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const { user } = useUser()
     const handlePurchaseProduct = () => {
         setIsPurchaseOpen(true);
@@ -145,6 +151,9 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                 isOpen={isPurchaseOpen}
                 onClose={() => setIsPurchaseOpen(false)}
                 product={product}
+                setIsConfirmOpen={setIsConfirmOpenTransaction}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
             /> :
                 <LoginModal
                     isOpen={isPurchaseOpen}
@@ -154,6 +163,9 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                 isOpen={isWishlistOpen}
                 onClose={() => setIsWishlistOpen(false)}
                 user={product}
+                setIsConfirmOpen={setIsConfirmOpenWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
             /> :
                 <LoginModal
                     isOpen={isWishlistOpen}
@@ -163,6 +175,27 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                 isOpen={isRemoveWishlistOpen}
                 onClose={() => setIsRemoveWishlistOpen(false)}
                 user={product}
+                setIsConfirmOpen={setIsConfirmOpenRemoveWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenRemoveWishlist}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenRemoveWishlist(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenWishlist}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenWishlist(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenTransaction}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenTransaction(false)}
             />
         </Card>
     );

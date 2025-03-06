@@ -1,9 +1,13 @@
-import LoginForm from "@/components/modules/auth/login/LoginForm";
 
-const LoginPage = () => {
+
+import LoginForm from "@/components/modules/auth/login/LoginForm";
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const LoginPage = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const query = await searchParams;
+  console.log(query)
   return (
     <div>
-      <LoginForm />
+      <LoginForm query={query} />
     </div>
   );
 };

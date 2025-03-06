@@ -1,6 +1,5 @@
 "use client"
 
-import { } from 'lucide-react';
 import styles from '../login/LoginForm.module.css';
 import Link from 'next/link';
 import SHForm from '@/components/ui/core/form/SHForm';
@@ -8,28 +7,32 @@ import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
 import { loginUser } from '@/services/AuthService';
 import { toast } from 'sonner';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 import { useState } from 'react';
+interface LoginFormProps {
+    query: { [key: string]: string | string[] | undefined };
+}
+
 import ForgetPassModal from '@/components/ui/core/SHModel/ForgetPassModal';
 import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
-const LoginForm = () => {
+const LoginForm = ({ query }: LoginFormProps) => {
     const router = useRouter()
     const { setIsLoading } = useUser();
     const [isForgotPopupOpen, setIsForgotPopupOpen] = useState<boolean>(false);
-    const searchParams = useSearchParams()
+
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
-    const redirect = searchParams.get('redirectPath')
+    const redirect = Array.isArray(query?.redirectPath) ? query?.redirectPath[0] : query?.redirectPath;
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await loginUser(data);
             if (res.success) {
                 setIsLoading(true);
                 toast.success(res?.message);
-
+                router.push('/')
                 if (redirect) {
                     router.push(redirect);
                 } else {

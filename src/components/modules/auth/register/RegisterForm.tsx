@@ -1,20 +1,19 @@
 "use client"
-
-import { } from 'lucide-react';
 import styles from '../login/LoginForm.module.css';
 import Link from 'next/link';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
 import { registerUser } from '@/services/AuthService';
-import { useRouter, useSearchParams } from 'next/navigation';
+// import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { useUser } from '@/context/UserContext';
 
+
 const RegisterForm = () => {
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const redirect = searchParams.get('redirectPath')
+    // const router = useRouter()
+    // const searchParams = useSearchParams()
+    // const redirect = searchParams.get('redirectPath')
     const { setIsLoading } = useUser();
     const handleFormSubmit = async (data: FieldValues) => {
         try {
@@ -23,11 +22,11 @@ const RegisterForm = () => {
                 setIsLoading(true);
                 toast.success(res?.message);
 
-                if (redirect) {
-                    router.push(redirect);
-                } else {
-                    router.push('/');
-                }
+                // if (redirect) {
+                //     router.push(redirect);
+                // } else {
+                //     router.push('/');
+                // }
             } else {
                 toast.error(res?.message || 'Registration failed. Please try again.');
             }
