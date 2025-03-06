@@ -12,12 +12,16 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser } from '@/context/UserContext';
 import { useState } from 'react';
 import ForgetPassModal from '@/components/ui/core/SHModel/ForgetPassModal';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
 const LoginForm = () => {
     const router = useRouter()
     const { setIsLoading } = useUser();
     const [isForgotPopupOpen, setIsForgotPopupOpen] = useState<boolean>(false);
     const searchParams = useSearchParams()
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const redirect = searchParams.get('redirectPath')
     const handleFormSubmit = async (data: FieldValues) => {
         try {
@@ -89,8 +93,17 @@ const LoginForm = () => {
                 </p>
             </div>
             <ForgetPassModal
+                setIsConfirmOpen={setIsConfirmOpen}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
                 isOpen={isForgotPopupOpen}
                 onClose={() => setIsForgotPopupOpen(false)}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
             />
         </div>
     );

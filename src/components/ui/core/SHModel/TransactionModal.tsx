@@ -4,40 +4,40 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
-import { toast } from "sonner";
 import { createTransaction } from "@/services/Transaction";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 
 interface TransactionModalProps {
     isOpen: boolean;
     onClose: () => void;
     product: Partial<ISingleProduct>;
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const TransactionModal = ({ isOpen, onClose, product }: TransactionModalProps) => {
-    const router = useRouter()
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+const TransactionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalContent, setModalState }: TransactionModalProps) => {
     const purchaseNow = async () => {
         try {
             if (product && product.userId?._id && product._id) {
                 const res = await createTransaction({ sellerID: product.userId?._id, item: product._id });
                 if (res.success) {
-                    toast.success('Purchase successfully!');
-                    router.push('/dashboard/purchase-history');
+                    setModalContent('Purchase successfully!');
+                    setIsConfirmOpen(true)
+                    setModalState('success')
                     onClose();
                 } else {
-                    toast.error(res.message);
+                    setIsConfirmOpen(true)
+                    setModalState('failed')
+                    setModalContent(res.message);
                     onClose();
                 }
-            } else {
-                throw new Error('User or required ID is missing');
             }
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setIsConfirmOpen(true)
+            setModalState('failed')
             onClose();
         }
     };

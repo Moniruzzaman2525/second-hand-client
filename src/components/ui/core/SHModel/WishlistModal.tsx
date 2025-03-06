@@ -2,38 +2,42 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
-import { toast } from "sonner";
 import { addWishlist } from "@/services/Wishlist";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 
 interface TModalProps {
     isOpen: boolean;
-
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
     onClose: () => void;
     user: Partial<ISingleProduct>;
 }
 
-const WishlistModal = ({ isOpen, onClose, user }: TModalProps) => {
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+const WishlistModal = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent, setModalState }: TModalProps) => {
     const wishlistNow = async () => {
         try {
             if (user && user.userId?._id && user._id) {
                 const res = await addWishlist({ item: user._id });
                 if (res.success) {
-                    toast.success('Add wishlist successfully!');
+                    setModalContent('Add wishlist successfully!');
+                    setIsConfirmOpen(true)
+                    setModalState('success')
                     onClose();
                 } else {
-                    toast.error(res.message);
+                    setModalContent(res.message);
+                    setIsConfirmOpen(true)
+                    setModalState('failed')
                     onClose();
                 }
             } else {
                 throw new Error('User or required ID is missing');
             }
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setIsConfirmOpen(true)
+            setModalState('failed')
             onClose();
         }
     };

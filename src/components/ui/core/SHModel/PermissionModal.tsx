@@ -3,7 +3,6 @@
 import { productPermission } from "@/services/Admin";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IProduct, } from "@/types";
-import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
 
 
@@ -33,7 +32,7 @@ const PermissionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalC
                     if (permission === 'reject') {
                         setIsConfirmOpen(true)
                         setModalState('failed')
-                        toast.error(`Product permission updated successfully to '${permission}'`);
+                        setModalContent(`Product permission updated successfully to '${permission}'`);
                     } else if (permission === 'accepted') {
                         setIsConfirmOpen(true)
                         setModalContent(`Product permission updated successfully to '${permission}'`);
@@ -43,7 +42,7 @@ const PermissionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalC
                 } else {
                     setIsConfirmOpen(true)
                     setModalContent(res.message || 'Failed to update product permission');
-                    setModalState('success')
+                    setModalState('failed')
                     onClose();
                 }
             }
@@ -51,7 +50,7 @@ const PermissionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalC
             onClose();
             setIsConfirmOpen(true)
             setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
-            setModalState('success')
+            setModalState('failed')
         }
     };
 
