@@ -7,7 +7,6 @@ import { useState } from "react";
 import { NMTable } from "@/components/ui/core/SHTable";
 import TablePagination from "@/components/ui/core/SHTable/TablePagination";
 import DeleteConfirmationModal from "@/components/ui/core/SHModel";
-import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 import { useUser } from "@/context/UserContext";
 import { banUnBanUser, handleDeleteUser } from "@/services/Admin";
@@ -50,14 +49,20 @@ const ManageUser = ({
             if (userToDelete && userToDelete._id) {
                 const res = await handleDeleteUser(userToDelete._id);
                 if (res.success) {
-                    toast.success('User deleted successfully!');
+                    setIsConfirmOpen(true)
+                    setModalContent('User deleted successfully!');
+                    setModalState('success')
                 } else {
-                    toast.error('Failed to delete the User. Please try again.');
+                    setIsConfirmOpen(true)
+                    setModalContent(`Failed to delete the User. Please try again.`);
+                    setModalState('failed')
                 }
                 setUserToDelete(null);
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
     const confirmBan = async () => {
@@ -65,14 +70,20 @@ const ManageUser = ({
             if (banToUser && banToUser._id) {
                 const res = await banUnBanUser(banToUser._id);
                 if (res.success) {
-                    toast.success(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
+                    setIsConfirmOpen(true)
+                    setModalContent(`User ${banToUser.ban ? "Unban" : "Ban"} successfully!`);
+                    setModalState('success')
                 } else {
-                    toast.error('Failed to update user. Please try again.');
+                    setIsConfirmOpen(true)
+                    setModalContent(`Failed to update user. Please try again.`);
+                    setModalState('failed')
                 }
                 setBanToUser(null);
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
 
