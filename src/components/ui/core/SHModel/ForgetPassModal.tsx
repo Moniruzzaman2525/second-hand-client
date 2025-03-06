@@ -1,22 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { forgotPassword } from "@/services/AuthService";
-import { toast } from "sonner";
+
 
 interface TModalProps {
     isOpen: boolean;
     onClose: () => void;
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const ForgetPassModal = ({ isOpen, onClose }: TModalProps) => {
+const ForgetPassModal = ({ isOpen, onClose, setIsConfirmOpen, setModalContent, setModalState }: TModalProps) => {
     const [forgotEmail, setForgotEmail] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string | null>(null);
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
     const validateEmail = (email: string) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
@@ -35,13 +35,21 @@ const ForgetPassModal = ({ isOpen, onClose }: TModalProps) => {
         try {
             const res = await forgotPassword(forgotEmail);
             if (res.success) {
+                setIsConfirmOpen(true)
+                setModalContent('Reset link is generated successfully, please check your mail');
+                setModalState('success')
                 onClose();
-                toast.success("Reset link is generated successfully, please check your mail");
             } else {
-                toast.error("Something went wrong");
+                setIsConfirmOpen(true)
+                setModalContent(res.message || "Something went wrong");
+                setModalState('failed')
+                onClose();
             }
         } catch (error: any) {
-            toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalState('failed')
+            onClose();
         } finally {
             setIsSubmitting(false);
         }
