@@ -16,7 +16,8 @@ export const createTransaction = async ({ item, sellerID }: { item: string, sell
             },
         });
         revalidateTag("PURCHASE");
-        return res.json();
+        const result = await res.json();
+        return result
     } catch (error: any) {
         return Error(error);
     }

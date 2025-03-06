@@ -18,7 +18,7 @@ interface TModalProps {
 const RemoveWishlistModal = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent, setModalState }: TModalProps) => {
     const wishlistNow = async () => {
         try {
-            if (user && user.userId?._id && user._id) {
+            if (user && user._id) {
                 const res = await removeWishlist({ item: user._id });
                 if (res.success) {
                     setModalContent('Remove wishlist successfully!');

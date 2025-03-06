@@ -9,7 +9,7 @@ import { getAllProducts } from "@/services/Product";
 
 const HomePage =async () => {
   const {data: products } = await getAllProducts();
-  console.log(products)
+
   return (
     <div className="">
       <HeroSection />

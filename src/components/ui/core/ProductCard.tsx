@@ -137,7 +137,6 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     </div>
                     <div className="flex items-center justify-center gap-1">
                         <Button
-                            disabled={product?.userId?._id === user?.userId || product?.status === 'sold'}
                             onClick={handlePurchaseProduct}
                             size="sm"
                             className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df]  hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
