@@ -4,20 +4,21 @@ import { productPermission } from "@/services/Admin";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IProduct, } from "@/types";
 import { toast } from "sonner";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 
 interface PermissionModalProps {
     isOpen: boolean;
     onClose: () => void;
     product: Partial<IProduct>;
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const PermissionModal = ({ isOpen, onClose, product }: PermissionModalProps) => {
+const PermissionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalContent, setModalState }: PermissionModalProps) => {
 
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
+
     const confirmNow = async (permission: string) => {
         try {
             let data;
@@ -30,20 +31,27 @@ const PermissionModal = ({ isOpen, onClose, product }: PermissionModalProps) => 
                 const res = await productPermission({ productId: product._id, data });
                 if (res.success) {
                     if (permission === 'reject') {
+                        setIsConfirmOpen(true)
+                        setModalState('failed')
                         toast.error(`Product permission updated successfully to '${permission}'`);
                     } else if (permission === 'accepted') {
-                        toast.success(`Product permission updated successfully to '${permission}'`);
+                        setIsConfirmOpen(true)
+                        setModalContent(`Product permission updated successfully to '${permission}'`);
+                        setModalState('success')
                     }
-
                     onClose();
                 } else {
+                    setIsConfirmOpen(true)
+                    setModalContent(res.message || 'Failed to update product permission');
+                    setModalState('success')
                     onClose();
-                    toast.error(res.message || 'Failed to update product permission');
                 }
             }
-        } catch (error) {
+        } catch (error: any) {
             onClose();
-            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setIsConfirmOpen(true)
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalState('success')
         }
     };
 

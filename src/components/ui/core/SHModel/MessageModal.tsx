@@ -1,41 +1,42 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
 import { sendMessage } from "@/services/Message";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 interface MessageModalProps {
     isOpen: boolean;
     onClose: () => void;
     user: Partial<ISingleProduct>;
+    setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
+    setModalContent: Dispatch<SetStateAction<string>>;
+    setModalState: Dispatch<SetStateAction<string>>;
 }
 
-const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
+const MessageModal = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent, setModalState }: MessageModalProps) => {
     const [message, setMessage] = useState<string>(`I'm interested in ${user.title}`);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const router = useRouter()
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [modalContent, setModalContent] = useState("")
-    const [modalState, setModalState] = useState("")
     const handleSend = async () => {
         try {
             if (user && user.userId?._id) {
                 const res = await sendMessage({ message, receiverID: user?.userId?._id });
                 if (res.success) {
-                    toast.success('Message sent successfully!');
-                    router.push('/messages');
+                    setIsConfirmOpen(true)
+                    setModalContent('Message sent successfully!');
+                    setModalState('success')
                     onClose();
                 } else {
-                    toast.error(res.message || 'Failed to send message');
+                    setIsConfirmOpen(true)
+                    setModalContent(res.message || 'Failed to send message');
+                    setModalState('failed')
+                    onClose();
                 }
-            } else {
-                throw new Error('User or required ID is missing');
             }
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setIsConfirmOpen(true)
+            setModalContent(error instanceof Error ? error.message : 'An unexpected error occurred');
+            setModalState('failed')
             onClose();
         }
     };
