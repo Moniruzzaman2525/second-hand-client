@@ -19,7 +19,7 @@ const GetUserPurchaseHistory = ({
     products: IPurchaseHistory[];
     meta: IMeta;
     }) => {
-
+        console.log(products)
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IPurchaseHistory | null>(null);

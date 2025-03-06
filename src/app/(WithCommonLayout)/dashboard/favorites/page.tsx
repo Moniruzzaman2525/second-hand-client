@@ -1,4 +1,5 @@
 import ViewWishlist from "@/components/modules/dashboard/favorites";
+import Sidebar from "@/components/modules/dashboard/sidebar";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { getUserWishlist } from "@/services/Wishlist";
 
@@ -10,9 +11,15 @@ const ProductsPage = async ({ searchParams }: { searchParams: SearchParams }) =>
     const { data: products } = await getUserWishlist(page, "6",);
 
     return (
-        <SHContainer>
-            <ViewWishlist  meta={products.meta} products={products?.result} />
-        </SHContainer>
+        <div>
+            <Sidebar />
+            <div className='bg-[#f8fafd]'>
+                <SHContainer>
+                    <ViewWishlist meta={products.meta} products={products?.result} />
+                </SHContainer>
+            </div>
+        </div>
+
     );
 };
 

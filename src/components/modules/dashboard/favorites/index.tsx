@@ -13,8 +13,8 @@ const ViewWishlist = ({
     return (
         <div>
             <div className="">
-                <h2 className="text-[24px] font-bold md:text-[36px] text-[#374b5c] py-10">Favorites</h2>
-                <h2 className="text-[24px] font-semibold text-[#374b5c] py-5">{meta.total} Results</h2>
+                <h2 className="text-[24px] font-bold md:text-[36px] text-[#374b5c] my-10">Favorites</h2>
+                <h2 className="text-[24px] font-semibold text-[#374b5c] my-5">{meta.total} Results</h2>
             </div>
             <div className="flex flex-col justify-center gap-8 my-10">
                 <div className="flex flex-col lg:flex-row justify-between gap-5 items-start mb-6">
