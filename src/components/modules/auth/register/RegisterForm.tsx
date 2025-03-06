@@ -5,23 +5,33 @@ import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import { FieldValues } from 'react-hook-form';
 import { registerUser } from '@/services/AuthService';
-import { toast } from 'sonner';
 import { useUser } from '@/context/UserContext';
+import { useState } from 'react';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
 
 const RegisterForm = () => {
     const { setIsLoading } = useUser();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await registerUser(data);
             if (res.success) {
                 setIsLoading(true);
-                toast.success(res?.message);
+                setIsConfirmOpen(true)
+                setModalContent(res.message);
+                setModalState('You have successfully register, Please check your mail and verify your account.')
             } else {
-                toast.error(res?.message || 'Registration failed. Please try again.');
+                setIsConfirmOpen(true)
+                setModalContent(res?.message || 'Registration failed. Please try again.');
+                setModalState('failed')
             }
         } catch (error: any) {
-            toast.error(error.message || 'An unexpected error occurred. Please try again.');
+            setModalContent(error.message || 'An unexpected error occurred. Please try again.');
+            setIsConfirmOpen(true)
+            setModalState('failed')
         }
     };
 
@@ -92,6 +102,12 @@ const RegisterForm = () => {
                     </Link>
                 </p>
             </div>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 };

@@ -6,9 +6,10 @@ interface SuccessModalProps {
     onOpenChange: (isOpen: boolean) => void;
     content: string;
     status: string;
+    onClose?: () => void;
 }
 
-const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, content, status }) => {
+const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, content, status, onClose }) => {
     const [animationKey, setAnimationKey] = useState(0);
 
     useEffect(() => {
@@ -16,7 +17,14 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, conte
             setAnimationKey(prevKey => prevKey + 1);
         }
     }, [isOpen]);
+    const handleClose = () => {
+        if (onClose) {
+            onClose();
+        }
+        onOpenChange(false);
 
+        
+    };
     return (
         <div
             className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
@@ -73,7 +81,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onOpenChange, conte
                     <p className="text-sm text-gray-600 mb-4">{content}</p>
                     <button
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-                        onClick={() => onOpenChange(false)}
+                        onClick={handleClose}
                     >
                         Close
                     </button>

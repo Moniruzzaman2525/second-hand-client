@@ -21,8 +21,8 @@ export default function AddProductsForm() {
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [modalContent, setModalContent] = useState("")
-    const [loading, setLoading] = useState(false);
     const [modalState, setModalState] = useState("")
+    const [loading, setLoading] = useState(false);
     const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
         setLoading(true)
         const modifiedData = {

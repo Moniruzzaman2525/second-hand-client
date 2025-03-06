@@ -3,12 +3,17 @@
 import { Button } from "@/components/ui/button";
 import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 import { verifyEmail } from "@/services/AuthService";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const VerifyEmail = ({ id, token }: { id: string | undefined, token: string | undefined }) => {
     const [isConfirmOpen, setIsConfirmModalOpen] = useState(false);
+    const router = useRouter()
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
+    const redirectLogin = () => {
+        router.push('/login')
+    }
 
     const verifyEmailFn = async () => {
         try {
@@ -48,6 +53,7 @@ const VerifyEmail = ({ id, token }: { id: string | undefined, token: string | un
                 status={modalState}
                 content={modalContent}
                 onOpenChange={() => setIsConfirmModalOpen(false)}
+                onClose={redirectLogin}
             />
         </div>
     );

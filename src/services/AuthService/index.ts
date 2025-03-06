@@ -14,10 +14,6 @@ export const registerUser = async (userData: FieldValues) => {
       body: JSON.stringify(userData),
     });
     const result = await res.json();
-    if (result.success) {
-      (await cookies()).set("accessToken", result.data.token);
-    }
-
     return result;
   } catch (error: any) {
     return Error(error);
@@ -76,7 +72,7 @@ export const resetPassword = async (id: string | undefined, token: string | unde
 };
 export const verifyEmail = async (id: string | undefined, token: string | undefined) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/reset-password`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/verify-email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
