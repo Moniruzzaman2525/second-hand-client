@@ -21,8 +21,8 @@ const ManageProducts = ({
 
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isConfirmOpen, setIsConfirmModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
+    const [isConfirmOpen, setIsConfirmModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
 

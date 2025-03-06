@@ -4,6 +4,7 @@ import SHForm from "@/components/ui/core/form/SHForm";
 import SHInput from "@/components/ui/core/form/SHInput";
 import SHTextarea from "@/components/ui/core/form/SHTextarea";
 import SHContainer from "@/components/ui/core/SHContainer";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 import { contactUs } from "@/services/Contact";
 import { Facebook, Instagram, MoveRight, Twitter } from "lucide-react";
 import React, { useState } from "react";
@@ -12,6 +13,9 @@ import { toast } from "sonner";
 
 const ContactForm = () => {
     const [isChecked, setIsChecked] = useState(false);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const redirectFunction = (item: string) => {
         const facebook = "https://www.facebook.com/moniruzzaman255/";
         const instagram = "https://www.instagram.com/monir_2525/?hl=en";
@@ -38,12 +42,19 @@ const ContactForm = () => {
             const res = await contactUs(data);
             if (res.success) {
                 setIsChecked(false)
-                toast.success("Your message has been sent successfully. We will get back to you soon!");
+                setIsConfirmOpen(true)
+                setModalContent('Your message has been sent successfully. We will get back to you soon!');
+                setModalState('success')
             } else {
-                toast.error("Failed to send your message. Please try again later.");
+                setIsConfirmOpen(true)
+                setModalContent('Failed to send your message. Please try again later.!');
+                setModalState('success')
             }
         } catch (error: any) {
             toast.error(error.message);
+            setIsConfirmOpen(true)
+            setModalContent(error.message);
+            setModalState('failed')
         }
     };
 
@@ -144,6 +155,12 @@ const ContactForm = () => {
                     </div>
                 </div>
             </SHContainer>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 };

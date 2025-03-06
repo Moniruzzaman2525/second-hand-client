@@ -14,7 +14,9 @@ const ForgetPassModal = ({ isOpen, onClose }: TModalProps) => {
     const [forgotEmail, setForgotEmail] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string | null>(null);
-
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const validateEmail = (email: string) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);

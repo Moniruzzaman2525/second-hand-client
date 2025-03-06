@@ -17,6 +17,9 @@ const MessageModal = ({ isOpen, onClose, user }: MessageModalProps) => {
     const [message, setMessage] = useState<string>(`I'm interested in ${user.title}`);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const router = useRouter()
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleSend = async () => {
         try {
             if (user && user.userId?._id) {

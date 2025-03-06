@@ -17,10 +17,14 @@ import { updateProduct } from "@/services/Product";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { IProduct } from "@/types";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 
 export default function UpdateProductForm({ product }: { product: IProduct }) {
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const [imagePreview, setImagePreview] = useState<string[] | []>(
         product?.images || []
     );
@@ -134,6 +138,12 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                     </div>
                 </div>
             </SHForm>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 }

@@ -6,11 +6,15 @@ import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
 const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: string | undefined }) => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [passwordMismatch, setPasswordMismatch] = useState(false);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleSubmit = async (data: FieldValues) => {
         if (data.password !== data.confirmPassword) {
             setPasswordMismatch(true);
@@ -75,6 +79,12 @@ const ChangePasswordForm = ({ id, token }: { id: string | undefined, token: stri
                         </button>
                     </div>
                 </SHForm>
+                <SuccessModal
+                    isOpen={isConfirmOpen}
+                    status={modalState}
+                    content={modalContent}
+                    onOpenChange={() => setIsConfirmOpen(false)}
+                />
             </div>
         </div>
     );

@@ -1,19 +1,25 @@
+'use client'
+
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
 import SHTextarea from '@/components/ui/core/form/SHTextarea';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 import { updateProfile } from '@/services/Users';
 import { IAuthUser } from '@/types';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
 const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
     const router = useRouter();
 
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await updateProfile(data);
@@ -89,6 +95,12 @@ const AccountDetails = ({ profile }: { profile: IAuthUser }) => {
                     </Card>
                 </AccordionContent>
             </AccordionItem>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </SHForm>
     );
 };

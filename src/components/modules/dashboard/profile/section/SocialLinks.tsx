@@ -1,3 +1,5 @@
+'use client'
+
 import SHForm from '@/components/ui/core/form/SHForm';
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
@@ -8,10 +10,14 @@ import { useRouter } from 'next/navigation';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 import { updateProfile } from '@/services/Users';
+import { useState } from 'react';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 
-const SocialLinks = ({profile} : {profile: IAuthUser}) => {
+const SocialLinks = ({ profile }: { profile: IAuthUser }) => {
     const router = useRouter();
-
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             const res = await updateProfile(data);
@@ -54,6 +60,12 @@ const SocialLinks = ({profile} : {profile: IAuthUser}) => {
                     </Card>
                 </AccordionContent>
             </AccordionItem>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </SHForm>
     );
 };

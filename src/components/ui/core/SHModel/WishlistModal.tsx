@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dia
 import { ISingleProduct } from "@/types";
 import { toast } from "sonner";
 import { addWishlist } from "@/services/Wishlist";
+import { useState } from "react";
 
 
 interface TModalProps {
@@ -14,6 +15,9 @@ interface TModalProps {
 }
 
 const WishlistModal = ({ isOpen, onClose, user }: TModalProps) => {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const wishlistNow = async () => {
         try {
             if (user && user.userId?._id && user._id) {

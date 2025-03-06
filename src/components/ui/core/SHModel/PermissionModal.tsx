@@ -4,6 +4,7 @@ import { productPermission } from "@/services/Admin";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IProduct, } from "@/types";
 import { toast } from "sonner";
+import { useState } from "react";
 
 
 interface PermissionModalProps {
@@ -14,7 +15,9 @@ interface PermissionModalProps {
 
 const PermissionModal = ({ isOpen, onClose, product }: PermissionModalProps) => {
 
-
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const confirmNow = async (permission: string) => {
         try {
             let data;

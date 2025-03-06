@@ -1,14 +1,20 @@
+"use client"
+
 import { AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SHForm from '@/components/ui/core/form/SHForm';
 import SHInput from '@/components/ui/core/form/SHInput';
+import SuccessModal from '@/components/ui/core/SHModel/SuccessMessage';
 import { changesPassword } from '@/services/AuthService';
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { toast } from 'sonner';
 
 const ChangesPassword = () => {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleFormSubmit = async (data: FieldValues) => {
         try {
             if (data.newPassword === data.oldPassword) {
@@ -53,6 +59,12 @@ const ChangesPassword = () => {
                     </Card>
                 </AccordionContent>
             </AccordionItem>
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </SHForm>
     );
 };

@@ -5,6 +5,7 @@ import { completeTransaction } from "@/services/Transaction";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { IPurchaseHistory, } from "@/types";
 import { toast } from "sonner";
+import { useState } from "react";
 
 
 interface ConfirmModalProps {
@@ -14,7 +15,9 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModal = ({ isOpen, onClose, product }: ConfirmModalProps) => {
-
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const confirmNow = async () => {
         try {
             if (product && product._id) {

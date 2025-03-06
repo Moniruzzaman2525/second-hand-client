@@ -11,6 +11,7 @@ import DeleteConfirmationModal from "@/components/ui/core/SHModel";
 import { handleDeleteProduct } from "@/services/Product";
 import { toast } from "sonner";
 import PermissionModal from "@/components/ui/core/SHModel/PermissionModal";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 const ManageProductsByAdmin = ({
     products,
@@ -24,6 +25,9 @@ const ManageProductsByAdmin = ({
     const [productToDelete, setProductToDelete] = useState<IProduct | null>(null);
     const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
     const [productToPermission, setProductToPermission] = useState<IProduct | null>(null);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
 
     const handleView = (product: IProduct) => {
         router.push(`/dashboard/admin/listings/ads-details/${product._id}`);
@@ -164,6 +168,12 @@ const ManageProductsByAdmin = ({
                     product={productToPermission}
                 />
             )}
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 };

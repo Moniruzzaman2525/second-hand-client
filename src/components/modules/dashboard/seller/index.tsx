@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import ConfirmModal from "@/components/ui/core/SHModel/ConfirmModal";
 import Image from "next/image";
 import { handleDeletePurchaseProduct } from "@/services/Transaction";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 
 const SellerHistory = ({
@@ -25,7 +26,9 @@ const SellerHistory = ({
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<IPurchaseHistory | null>(null);
     const [productToConfirm, setProductToConfirm] = useState<IPurchaseHistory | null>(null);
-
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const handleView = (product: IProduct) => {
         router.push(`/dashboard/listing/ads-details/${product._id}`);
     };
@@ -147,6 +150,12 @@ const SellerHistory = ({
                     product={productToConfirm}
                 />
             )}
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 };

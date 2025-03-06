@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import BanConfirmationModal from "@/components/ui/core/SHModel/BanConfirmationModal";
 import { useUser } from "@/context/UserContext";
 import { banUnBanUser, handleDeleteUser } from "@/services/Admin";
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
 
 const ManageUser = ({
     users,
@@ -24,6 +25,9 @@ const ManageUser = ({
     const [userToDelete, setUserToDelete] = useState<IAuthUser | null>(null);
     const [isBanModalOpen, setIsBanModalOpen] = useState(false);
     const [banToUser, setBanToUser] = useState<IAuthUser | null>(null);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const { user } = useUser();
     const filteredUsers = users?.filter(u => u._id !== user?.userId);
 
@@ -164,6 +168,12 @@ const ManageUser = ({
                     onConfirm={confirmBan}
                 />
             )}
+            <SuccessModal
+                isOpen={isConfirmOpen}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpen(false)}
+            />
         </div>
     );
 };

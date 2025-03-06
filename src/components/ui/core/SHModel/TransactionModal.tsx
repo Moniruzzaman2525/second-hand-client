@@ -7,6 +7,7 @@ import { ISingleProduct } from "@/types";
 import { toast } from "sonner";
 import { createTransaction } from "@/services/Transaction";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 
 interface TransactionModalProps {
@@ -17,6 +18,9 @@ interface TransactionModalProps {
 
 const TransactionModal = ({ isOpen, onClose, product }: TransactionModalProps) => {
     const router = useRouter()
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("")
+    const [modalState, setModalState] = useState("")
     const purchaseNow = async () => {
         try {
             if (product && product.userId?._id && product._id) {
