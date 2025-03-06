@@ -16,13 +16,15 @@ const RegisterForm = () => {
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
     const handleFormSubmit = async (data: FieldValues) => {
+        console.log(data)
         try {
             const res = await registerUser(data);
+            console.log(res)
             if (res.success) {
                 setIsLoading(true);
                 setIsConfirmOpen(true)
-                setModalContent(res.message);
-                setModalState('You have successfully register, Please check your mail and verify your account.')
+                setModalState('success');
+                setModalContent('You have successfully register, Please check your mail and verify your account.')
             } else {
                 setIsConfirmOpen(true)
                 setModalContent(res?.message || 'Registration failed. Please try again.');
