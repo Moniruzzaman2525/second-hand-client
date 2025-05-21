@@ -25,6 +25,11 @@ import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage"
 import { formatDistanceToNow } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
+import RemoveWishlistModal from "@/components/ui/core/SHModel/RemoveWishlistModal"
+import WishlistModal from "@/components/ui/core/SHModel/WishlistModal"
+import CompareMode from "@/components/ui/core/SHModel/CompareMode"
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -33,11 +38,15 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     const [isConfirmOpenMessage, setIsConfirmOpenMessage] = useState(false)
     const [isConfirmOpenPurchase, setIsConfirmOpenMessagePurchase] = useState(false)
     const [modalContent, setModalContent] = useState("")
+    const [shareUrl, setShareUrl] = useState("")
+    const [isRemoveWishlistOpen, setIsRemoveWishlistOpen] = useState<boolean>(false);
     const [modalState, setModalState] = useState("")
     const { user } = useUser()
     const [showFullPhone, setShowFullPhone] = useState(false)
-
-
+    const [isConfirmOpenRemoveWishlist, setIsConfirmOpenRemoveWishlist] = useState(false);
+    const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
+    const [isConfirmOpenWishlist, setIsConfirmOpenWishlist] = useState(false);
+    const [isCompareOpen, setIsCompareOpen] = useState<boolean>(false);
     const handleMessageClick = () => {
         setIsModalOpen(true)
     }
@@ -57,13 +66,28 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
             img.requestFullscreen()
         }
     }
-    const [shareUrl, setShareUrl] = useState("")
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             setShareUrl('https://second-hand-client-dc3y.vercel.app')
         }
     }, [])
+
+    const handleWishListProduct = () => {
+        if (product.wishlist) {
+            setIsRemoveWishlistOpen(true)
+        } else {
+            setIsWishlistOpen(true);
+        }
+    };
+
+    const handleCompareProduct = () => {
+        if (product.wishlist) {
+            setIsRemoveWishlistOpen(true)
+        } else {
+            setIsCompareOpen(true);
+        }
+    };
     return (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
             <div className="flex flex-col lg:flex-row gap-6">
@@ -263,12 +287,44 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         >
                             <Twitter size={18} className="text-gray-600" />
                         </a>
-                        <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50">
-                            <GitCompareArrows size={18} className="text-gray-600" />
-                        </button>
-                        <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50">
-                            <Heart size={18} className="text-gray-600" />
-                        </button>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        disabled={product?.status === 'sold'}
+                                        variant="outline"
+                                        onClick={handleCompareProduct}
+                                        size="sm"
+                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                                        ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                    >
+                                        <GitCompareArrows />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{product?.wishlist ? 'Remove to compare' : 'Add to compare'}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        disabled={product?.status === 'sold'}
+                                        variant="outline"
+                                        onClick={handleWishListProduct}
+                                        size="sm"
+                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                                        ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                    >
+                                        <Heart />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{product?.wishlist ? 'Remove to favorite' : 'Add to favorite'}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                         <div className="ml-auto">
                             <button className="flex items-center gap-1 text-red-500 hover:text-red-600">
                                 <Flag size={16} />
@@ -318,6 +374,50 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 content={modalContent}
                 onOpenChange={() => setIsConfirmOpenMessagePurchase(false)}
             />
+            <RemoveWishlistModal
+                isOpen={isRemoveWishlistOpen}
+                onClose={() => setIsRemoveWishlistOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenRemoveWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            />
+            <SuccessModal
+                isOpen={isConfirmOpenRemoveWishlist}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenRemoveWishlist(false)}
+            />
+            {user ? <WishlistModal
+                isOpen={isWishlistOpen}
+                onClose={() => setIsWishlistOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            /> :
+                <LoginModal
+                    isOpen={isWishlistOpen}
+                    onClose={() => setIsWishlistOpen(false)}
+                />}
+            <SuccessModal
+                isOpen={isConfirmOpenWishlist}
+                status={modalState}
+                content={modalContent}
+                onOpenChange={() => setIsConfirmOpenWishlist(false)}
+            />
+            {user ? <CompareMode
+                isOpen={isCompareOpen}
+                onClose={() => setIsCompareOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            /> :
+                <LoginModal
+                    isOpen={isCompareOpen}
+                    onClose={() => setIsCompareOpen(false)}
+                />}
         </div>
     )
 }
