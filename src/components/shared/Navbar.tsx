@@ -68,7 +68,7 @@ const Navbar = () => {
 
     return (
         <div className="relative">
-            <nav className="bg-yellow-400 border-b w-full sticky top-0 z-50">
+            <nav className="bg-yellow-400 border-b w-full fixed top-0 left-0 z-50">
                 <div className="md:container mx-auto px-3 md:px-40 py-3 flex justify-between items-center">
                     <div className="md:hidden border rounded-full p-2 flex items-center">
                         <button onClick={() => setIsOpen(!isOpen)} className="text-black text-2xl">
@@ -284,7 +284,6 @@ const Navbar = () => {
                 )}
             </nav>
 
-            {/* Mega Menu */}
             {megaMenuOpen && active === "Products" && (
                 <div
                     className="hidden md:block absolute w-full left-0 top-[60px] z-40 bg-white shadow-lg"
