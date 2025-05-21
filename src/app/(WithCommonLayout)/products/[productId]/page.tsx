@@ -1,4 +1,5 @@
 import SingleProductView from "@/components/modules/dashboard/product/SingleProductView";
+import SuggestProjects from "@/components/modules/products/suggestProduct";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { getSingleProduct } from "@/services/Product";
 
@@ -13,6 +14,7 @@ const SingleProductPage = async ({
     return (
         <SHContainer>
             <SingleProductView product={product.product} />
+            <SuggestProjects />
         </SHContainer>
     );
 };
