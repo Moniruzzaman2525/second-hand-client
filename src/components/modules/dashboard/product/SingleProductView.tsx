@@ -1,144 +1,309 @@
+"use client"
 
-"use client";
-import { ISingleProduct } from "@/types";
-import Image from "next/image";
-import { useState } from "react";
-import { Clock4, MessageSquare, ShoppingBagIcon } from "lucide-react";
-import MessageModal from "@/components/ui/core/SHModel/MessageModal";
-import { useUser } from "@/context/UserContext";
-import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal";
-import LoginModal from "@/components/ui/core/SHModel/LoginModal";
-import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
-import { formatDistanceToNow } from "date-fns";
+import type { ISingleProduct } from "@/types"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+import {
+    ArrowLeft,
+    ArrowRight,
+    Clock,
+    Eye,
+    Facebook,
+    Flag,
+    GitCompareArrows,
+    Heart,
+    Maximize2,
+    MessageSquare,
+    Phone,
+    Twitter,
+} from "lucide-react"
+import MessageModal from "@/components/ui/core/SHModel/MessageModal"
+import { useUser } from "@/context/UserContext"
+import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal"
+import LoginModal from "@/components/ui/core/SHModel/LoginModal"
+import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage"
+import { formatDistanceToNow } from "date-fns"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
-
-    const [selectedImage, setSelectedImage] = useState<string>(product.images[0]);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
-    const [isConfirmOpenMessage, setIsConfirmOpenMessage] = useState(false);
-    const [isConfirmOpenPurchase, setIsConfirmOpenMessagePurchase] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false)
+    const [isConfirmOpenMessage, setIsConfirmOpenMessage] = useState(false)
+    const [isConfirmOpenPurchase, setIsConfirmOpenMessagePurchase] = useState(false)
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
     const { user } = useUser()
+    const [showFullPhone, setShowFullPhone] = useState(false)
+
+
     const handleMessageClick = () => {
-        setIsModalOpen(true);
-    };
-    const handlePurchaseProduct = () => {
-        setIsPurchaseOpen(true);
-    };
-
-    const handleImageClick = (image: string) => {
-        setSelectedImage(image);
-    };
+        setIsModalOpen(true)
+    }
 
 
+    const nextImage = () => {
+        setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))
+    }
+
+    const prevImage = () => {
+        setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
+    }
+
+    const openFullscreen = () => {
+        const img = document.getElementById("main-product-image")
+        if (img && img.requestFullscreen) {
+            img.requestFullscreen()
+        }
+    }
+    const [shareUrl, setShareUrl] = useState("")
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setShareUrl('https://second-hand-client-dc3y.vercel.app')
+        }
+    }, [])
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col lg:flex-row gap-8">
-                <div className="w-full lg:w-1/2 flex flex-col items-center">
-                    <div className="relative w-full h-96 mb-4">
-                        <Image
-                            src={selectedImage}
-                            alt="Product Image"
-                            layout="fill"
-                            objectFit="cover"
-                            className="rounded-lg border-2 border-gray-300"
-                        />
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
+            <div className="flex flex-col lg:flex-row gap-6">
+
+                <div className="w-full lg:w-2/3">
+                    <div className="relative bg-white rounded-lg overflow-hidden mb-4">
+                        <div className="relative w-full aspect-[4/3] overflow-hidden">
+                            <Image
+                                id="main-product-image"
+                                src={product.images[currentImageIndex] || "/placeholder.svg"}
+                                alt={product.title}
+                                layout="fill"
+                                objectFit="contain"
+                                className="rounded-lg"
+                            />
+                            <button
+                                onClick={prevImage}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center z-10 hover:bg-gray-100"
+                            >
+                                <ArrowLeft size={20} />
+                            </button>
+
+                            <button
+                                onClick={nextImage}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center z-10 hover:bg-gray-100"
+                            >
+                                <ArrowRight size={20} />
+                            </button>
+                            <div className="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium">
+                                {currentImageIndex + 1} / {product.images.length}
+                            </div>
+                            <button
+                                onClick={openFullscreen}
+                                className="absolute bottom-4 right-4 w-8 h-8 rounded-md bg-white shadow-md flex items-center justify-center z-10 hover:bg-gray-100"
+                            >
+                                <Maximize2 size={16} />
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="flex w-full gap-2 flex justify-between overflow-x-auto">
-                        {product.images.map((image, index) => (
-                            <div
-                                key={index}
-                                className="w-24 h-24 relative rounded-lg overflow-hidden cursor-pointer"
-                                onClick={() => handleImageClick(image)}
-                            >
-                                <Image
-                                    src={image}
-                                    alt={`Product Image ${index + 1}`}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg border-2 border-gray-300"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                    <div className="flex w-full items-center pt-3 justify-between gap-1">
-                        <div className="flex items-center gap-2 text-[#978E7B] ">
-                            <Clock4 />
-                            <h3 >{formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}</h3>
+                    <div className="flex items-center justify-between mb-4 text-gray-500 text-sm">
+                        <div className="flex items-center gap-1">
+                            <Clock size={16} />
+                            <span>{formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}</span>
                         </div>
-                        <h3 className="text-[#978E7B] text-[12px]">{product.views ?? 0} Views</h3>
+                        <div className="flex items-center gap-1">
+                            <Eye size={16} />
+                            <span>{product.views ?? 0} Views</span>
+                        </div>
                     </div>
+
+                    <h1 className="text-2xl font-bold text-gray-800 mb-4">{product.title}</h1>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        <Badge variant="outline" className="rounded-md px-3 py-1 text-sm">
+                            {product.category}
+                        </Badge>
+                        <Badge variant="outline" className="rounded-md px-3 py-1 text-sm">
+                            {product.condition}
+                        </Badge>
+                    </div>
+
+                    <div className="text-3xl font-bold text-gray-800 mb-6">৳{product.price}</div>
+
+                    <div className="space-y-2 mb-6">
+                        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-md">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Location: {product.location}</span>
+                        </div>
+
+                        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-md">
+                            <Phone size={16} />
+                            <span>Phone Number: {product.userId?.phoneNumber}</span>
+                        </div>
+                    </div>
+
+                    {product.description && (
+                        <div className="bg-white rounded-lg p-4 mb-6">
+                            <h2 className="text-lg font-semibold mb-2">Description</h2>
+                            <p className="text-gray-600 whitespace-pre-line">{product.description}</p>
+                        </div>
+                    )}
+
+
                 </div>
 
-                <div className="w-full lg:w-1/2 flex flex-col justify-between">
-                    <div className="mb-4">
-                        <h1 className="text-2xl font-bold text-gray-800">{product.title}</h1>
-                        <p className="text-xl text-gray-600 mt-2">${product?.price}</p>
-                    </div>
-
-                    <div className="space-y-2 mb-4">
-                        <p className="text-lg text-gray-600">{product?.category} | {product?.condition}</p>
-                        <p className="text-lg text-gray-600">{product?.location}</p>
-                        <p className="text-lg text-gray-600">Phone: {product?.userId?.phoneNumber}</p>
-                    </div>
-
-                    <div className="bg-gray-100 p-4 rounded-lg mt-6">
-                        <h3 className="text-xl font-semibold text-gray-800">Seller Information</h3>
-                        <div className="space-y-2 mt-2">
-                            <p className="text-gray-600">Name: {product?.userId?.name}</p>
-                            <p className="text-gray-600">Email: {product?.userId?.email}</p>
+                <div className="w-full lg:w-1/3">
+                    <div className="bg-white rounded-lg shadow-sm p-6 mb-4">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 className="font-medium">{product.userId?.name}</h3>
+                                <p className="text-sm text-gray-500">Member since: 1 year</p>
+                                <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                                    <span className="w-2 h-2 rounded-full bg-gray-400"></span>
+                                    <span>User is offline</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="mt-4 justify-between flex gap-4">
+                        <div className="flex items-center gap-1 text-sm text-gray-600 mb-3">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>{product.location}</span>
+                        </div>
+
+                        <a href="#" className="text-blue-500 hover:underline text-sm">
+                            See all ads
+                        </a>
+
+                        <div className="mt-4 p-3 bg-gray-50 rounded-md flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Phone size={18} className="text-gray-500" />
+                                <span className="font-medium">
+                                    {showFullPhone
+                                        ? product.userId?.phoneNumber
+                                        : `${product.userId?.phoneNumber?.substring(0, 3)}${"*".repeat(product.userId?.phoneNumber?.length - 3 || 8)}`
+                                    }
+                                </span>
+                            </div>
+                            <button
+                                onClick={() => setShowFullPhone(!showFullPhone)}
+                                className="w-8 h-8 bg-[#537cd9] rounded-full flex items-center justify-center text-white"
+                            >
+                                <Eye size={16} />
+                            </button>
+                        </div>
+
                         <button
-                            disabled={product.userId?._id === user?.userId || product?.status === 'sold'}
-                            onClick={handlePurchaseProduct}
-                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
-                        >
-                            <ShoppingBagIcon size={20} />
-                            BuyNow
-                        </button>
-                        <button
-                            disabled={product.userId?._id === user?.userId}
                             onClick={handleMessageClick}
-                            className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
+                            disabled={product.userId?._id === user?.userId}
+                            className={cn(
+                                "w-full mt-4 py-3 bg-[#537cd9] text-white font-medium rounded-md flex items-center justify-center gap-2",
+                                product.userId?._id === user?.userId ? "opacity-50 cursor-not-allowed" : "hover:bg-[#3a5eb4]",
+                            )}
                         >
-                            <MessageSquare size={20} />
+                            <MessageSquare size={18} />
                             Chat
                         </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 mt-6">
+                        <a
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
+                        >
+                            <Facebook size={18} className="text-gray-600" />
+                        </a>
+
+                        <a
+                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(product.title)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
+                        >
+                            <Twitter size={18} className="text-gray-600" />
+                        </a>
+                        <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                            <GitCompareArrows size={18} className="text-gray-600" />
+                        </button>
+                        <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                            <Heart size={18} className="text-gray-600" />
+                        </button>
+                        <div className="ml-auto">
+                            <button className="flex items-center gap-1 text-red-500 hover:text-red-600">
+                                <Flag size={16} />
+                                <span>Report abuse</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {
-                user ? <MessageModal
+            {user ? (
+                <MessageModal
                     setIsConfirmOpen={setIsConfirmOpenMessage}
                     setModalContent={setModalContent}
                     setModalState={setModalState}
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     user={product}
-                /> :
-                    <LoginModal
-                        isOpen={isModalOpen}
-                        onClose={() => setIsModalOpen(false)}
-                    />}
-            {user ? <PurchaseModal
-                isOpen={isPurchaseOpen}
-                onClose={() => setIsPurchaseOpen(false)}
-                product={product}
-                setIsConfirmOpen={setIsConfirmOpenMessagePurchase}
-                setModalContent={setModalContent}
-                setModalState={setModalState}
-            /> :
-                <LoginModal
+                />
+            ) : (
+                <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            )}
+
+            {user ? (
+                <PurchaseModal
                     isOpen={isPurchaseOpen}
                     onClose={() => setIsPurchaseOpen(false)}
-                />}
+                    product={product}
+                    setIsConfirmOpen={setIsConfirmOpenMessagePurchase}
+                    setModalContent={setModalContent}
+                    setModalState={setModalState}
+                />
+            ) : (
+                <LoginModal isOpen={isPurchaseOpen} onClose={() => setIsPurchaseOpen(false)} />
+            )}
 
             <SuccessModal
                 isOpen={isConfirmOpenMessage}
@@ -146,6 +311,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 content={modalContent}
                 onOpenChange={() => setIsConfirmOpenMessage(false)}
             />
+
             <SuccessModal
                 isOpen={isConfirmOpenPurchase}
                 status={modalState}
@@ -153,7 +319,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 onOpenChange={() => setIsConfirmOpenMessagePurchase(false)}
             />
         </div>
-    );
-};
+    )
+}
 
-export default SingleProductView;
+export default SingleProductView
