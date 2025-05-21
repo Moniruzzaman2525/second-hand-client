@@ -24,6 +24,10 @@ const navbarItem = [
         hasMegaMenu: true,
     },
     {
+        name: "Favorite",
+        href: "/favorites",
+    },
+    {
         name: "About",
         href: "/about-us",
     },

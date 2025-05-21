@@ -16,7 +16,7 @@ const MegaMenu = () => {
     ]
 
     return (
-        <div className="container mx-auto py-6 px-4 md:px-40">
+        <div className="container mx-auto py-6 px-4 md:px-40 fixed top-[9%] left-0 z-50 bg-white">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[0, 1, 2].map((columnIndex) => (
                     <div key={columnIndex}>
