@@ -1,7 +1,9 @@
+import FAQAccordion from "@/components/modules/faq";
+
 const FaqPage = () => {
     return (
-        <div>
-            Faq Page
+        <div className="my-10">
+            <FAQAccordion />
         </div>
     );
 };
