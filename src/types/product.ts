@@ -15,13 +15,16 @@ export interface IProduct {
         _id: string
     };
     permission?: string;
+    compare?: boolean;
+    wishlist?: boolean;
     status?: string;
     category: string
     createdAt: string;
 }
 export interface ISingleProduct {
     _id?: string;
-    wishlist?: string;
+    wishlist?: boolean;
+    compare?: boolean;
     views?: string;
     title: string;
     description: string;

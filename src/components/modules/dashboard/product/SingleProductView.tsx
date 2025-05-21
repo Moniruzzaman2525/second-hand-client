@@ -88,6 +88,9 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
             setIsCompareOpen(true);
         }
     };
+
+
+
     return (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
             <div className="flex flex-col lg:flex-row gap-6">
@@ -296,13 +299,13 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                         onClick={handleCompareProduct}
                                         size="sm"
                                         className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
-                                        ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                        ${product?.compare ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
                                     >
                                         <GitCompareArrows />
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>{product?.wishlist ? 'Remove to compare' : 'Add to compare'}</p>
+                                    <p>{product?.compare ? 'Remove to compare' : 'Add to compare'}</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>

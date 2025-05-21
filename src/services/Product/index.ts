@@ -97,7 +97,11 @@ export const getSingleProduct = async (productId: string) => {
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
+
             {
+                headers: {
+                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
+                },
                 next: {
                     tags: ["PRODUCT"],
                 },

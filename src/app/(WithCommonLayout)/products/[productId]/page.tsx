@@ -11,7 +11,7 @@ const SingleProductPage = async ({
     const { productId } = await params;
 
     const { data: product } = await getSingleProduct(productId);
-
+    console.log(product)
     return (
         <SHContainer>
             <SingleProductView product={product?.product} />
