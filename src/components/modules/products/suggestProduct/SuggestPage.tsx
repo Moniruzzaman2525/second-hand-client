@@ -3,7 +3,7 @@ import ProductCard from '@/components/ui/core/ProductCard';
 import { IProduct } from '@/types';
 import React from 'react';
 
-const suggestProduct = ({ products }: { products: IProduct[] }) => {
+const SuggestPage = ({ products }: { products: IProduct[] }) => {
     return (
         <div>
             <div className="text-[2px] md:text-[35px] py-10">Feature Product</div>
@@ -32,4 +32,4 @@ const suggestProduct = ({ products }: { products: IProduct[] }) => {
     );
 };
 
-export default suggestProduct;
+export default SuggestPage;

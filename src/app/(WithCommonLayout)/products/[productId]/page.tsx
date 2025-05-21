@@ -11,10 +11,11 @@ const SingleProductPage = async ({
     const { productId } = await params;
 
     const { data: product } = await getSingleProduct(productId);
+
     return (
         <SHContainer>
-            <SingleProductView product={product.product} />
-            <SuggestProjects />
+            <SingleProductView product={product?.product} />
+            <SuggestProjects product={product?.product._id} />
         </SHContainer>
     );
 };

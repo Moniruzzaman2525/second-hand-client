@@ -110,6 +110,25 @@ export const getSingleProduct = async (productId: string) => {
     }
 };
 
+export const getSuggestProduct = async (product: string) => {
+
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_API}/listings/suggestions/${product}`,
+            {
+                next: {
+                    tags: ["PRODUCT"],
+                },
+            }
+        );
+        const data = await res.json();
+
+        return data;
+    } catch (error: any) {
+        return Error(error.message);
+    }
+};
+
 
 export const updateProduct = async (
     productData: FormData,

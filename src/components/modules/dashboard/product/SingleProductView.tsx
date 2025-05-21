@@ -68,26 +68,26 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 <div className="w-full lg:w-1/2 flex flex-col justify-between">
                     <div className="mb-4">
                         <h1 className="text-2xl font-bold text-gray-800">{product.title}</h1>
-                        <p className="text-xl text-gray-600 mt-2">${product.price}</p>
+                        <p className="text-xl text-gray-600 mt-2">${product?.price}</p>
                     </div>
 
                     <div className="space-y-2 mb-4">
-                        <p className="text-lg text-gray-600">{product.category} | {product.condition}</p>
-                        <p className="text-lg text-gray-600">{product.location}</p>
-                        <p className="text-lg text-gray-600">Phone: {product.userId.phoneNumber}</p>
+                        <p className="text-lg text-gray-600">{product?.category} | {product?.condition}</p>
+                        <p className="text-lg text-gray-600">{product?.location}</p>
+                        <p className="text-lg text-gray-600">Phone: {product?.userId?.phoneNumber}</p>
                     </div>
 
                     <div className="bg-gray-100 p-4 rounded-lg mt-6">
                         <h3 className="text-xl font-semibold text-gray-800">Seller Information</h3>
                         <div className="space-y-2 mt-2">
-                            <p className="text-gray-600">Name: {product.userId.name}</p>
-                            <p className="text-gray-600">Email: {product.userId.email}</p>
+                            <p className="text-gray-600">Name: {product?.userId?.name}</p>
+                            <p className="text-gray-600">Email: {product?.userId?.email}</p>
                         </div>
                     </div>
 
                     <div className="mt-4 justify-between flex gap-4">
                         <button
-                            disabled={product.userId._id === user?.userId || product?.status === 'sold'}
+                            disabled={product.userId?._id === user?.userId || product?.status === 'sold'}
                             onClick={handlePurchaseProduct}
                             className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
                         >
@@ -95,7 +95,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                             BuyNow
                         </button>
                         <button
-                            disabled={product.userId._id === user?.userId}
+                            disabled={product.userId?._id === user?.userId}
                             onClick={handleMessageClick}
                             className="w-[40%] py-2 px-4 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white font-semibold rounded-lg flex items-center justify-center gap-2"
                         >
