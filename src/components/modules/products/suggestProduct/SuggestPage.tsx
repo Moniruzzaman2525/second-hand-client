@@ -6,7 +6,7 @@ import React from 'react';
 const SuggestPage = ({ products }: { products: IProduct[] }) => {
     return (
         <div>
-            <div className="text-[2px] md:text-[35px] py-10">Feature Product</div>
+            <div className="text-[2px] md:text-[35px] py-10">You may also like...</div>
             <div className="flex flex-col justify-center gap-8 my-10">
                 <div className="flex flex-col lg:flex-row justify-between gap-5 items-start mb-6">
                     <div className="flex-grow">

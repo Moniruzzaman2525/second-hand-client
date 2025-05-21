@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 
 import { ISingleProduct } from "@/types";
-import { Eye, Heart, ShoppingBagIcon } from "lucide-react";
+import { Eye, GitCompareArrows, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import TransactionModal from "./SHModel/TransactionModal";
@@ -21,10 +21,13 @@ import WishlistModal from "./SHModel/WishlistModal";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
 import RemoveWishlistModal from "./SHModel/RemoveWishlistModal";
 import SuccessModal from "./SHModel/SuccessMessage";
+import CompareMode from "./SHModel/CompareMode";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
+
     const [isPurchaseOpen, setIsPurchaseOpen] = useState<boolean>(false);
     const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
+    const [isCompareOpen, setIsCompareOpen] = useState<boolean>(false);
     const [isRemoveWishlistOpen, setIsRemoveWishlistOpen] = useState<boolean>(false);
     const [isConfirmOpenWishlist, setIsConfirmOpenWishlist] = useState(false);
     const [isConfirmOpenRemoveWishlist, setIsConfirmOpenRemoveWishlist] = useState(false);
@@ -32,14 +35,19 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [modalContent, setModalContent] = useState("")
     const [modalState, setModalState] = useState("")
     const { user } = useUser()
-    const handlePurchaseProduct = () => {
-        setIsPurchaseOpen(true);
-    };
+
     const handleWishListProduct = () => {
         if (product.wishlist) {
             setIsRemoveWishlistOpen(true)
         } else {
             setIsWishlistOpen(true);
+        }
+    };
+    const handleCompareProduct = () => {
+        if (product.wishlist) {
+            setIsRemoveWishlistOpen(true)
+        } else {
+            setIsCompareOpen(true);
         }
     };
 
@@ -63,7 +71,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                 )}
             </CardHeader>
 
-            <CardContent className=" p-0 mt-2">
+            <CardContent className=" p-0 my-5">
                 <Link href={`/products/${product?._id}`} passHref>
                     <CardTitle
                         title={product?.title}
@@ -79,15 +87,6 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                     <p className="text-sm text-gray-600">
                         <span className="font-semibold">$ {product?.price}</span>
                     </p>
-
-                    <div className="flex flex-col items-center justify-center gap-1">
-                        <span className="text-sm font-medium text-gray-700">
-                            {product?.category}
-                        </span>
-                        <span className="text-sm font-medium text-gray-700">
-                            <span className="font-bold">condition:</span> {product?.condition}
-                        </span>
-                    </div>
                 </div>
             </CardContent>
 
@@ -120,6 +119,25 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                                     <Button
                                         disabled={product?.status === 'sold'}
                                         variant="outline"
+                                        onClick={handleCompareProduct}
+                                        size="sm"
+                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                                        ${product?.wishlist ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                    >
+                                        <GitCompareArrows />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{product?.wishlist ? 'Remove to compare' : 'Add to compare'}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        disabled={product?.status === 'sold'}
+                                        variant="outline"
                                         onClick={handleWishListProduct}
                                         size="sm"
                                         className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
@@ -136,13 +154,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
 
                     </div>
                     <div className="flex items-center justify-center gap-1">
-                        <Button
-                            onClick={handlePurchaseProduct}
-                            size="sm"
-                            className="w-32 bg-gradient-to-r from-[#537cd9] to-[#6d90df]  hover:from-[#3a5eb4] hover:to-[#537cd9] text-white hover:text-white"
-                        >
-                            <ShoppingBagIcon size={20} /> Buy Now
-                        </Button>
+                        <h3 className="text-[#978E7B] text-[12px]">{product.views ?? 0} Views</h3>
                     </div>
                 </div>
             </CardFooter>
@@ -169,6 +181,18 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
                 <LoginModal
                     isOpen={isWishlistOpen}
                     onClose={() => setIsWishlistOpen(false)}
+                />}
+            {user ? <CompareMode
+                isOpen={isCompareOpen}
+                onClose={() => setIsCompareOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            /> :
+                <LoginModal
+                    isOpen={isCompareOpen}
+                    onClose={() => setIsCompareOpen(false)}
                 />}
             <RemoveWishlistModal
                 isOpen={isRemoveWishlistOpen}

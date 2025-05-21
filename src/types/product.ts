@@ -1,5 +1,6 @@
 export interface IProduct {
     _id: string;
+    views: string;
     title: string;
     description: string;
     location: string;
@@ -16,10 +17,12 @@ export interface IProduct {
     permission?: string;
     status?: string;
     category: string
+    createdAt: string;
 }
 export interface ISingleProduct {
     _id?: string;
     wishlist?: string;
+    views?: string;
     title: string;
     description: string;
     location: string;
@@ -36,4 +39,5 @@ export interface ISingleProduct {
     permission?: string;
     status?: string;
     category: string
+    createdAt: string;
 }

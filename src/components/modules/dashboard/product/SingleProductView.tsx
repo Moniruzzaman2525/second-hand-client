@@ -3,12 +3,13 @@
 import { ISingleProduct } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
-import { MessageSquare, ShoppingBagIcon } from "lucide-react";
+import { Clock4, MessageSquare, ShoppingBagIcon } from "lucide-react";
 import MessageModal from "@/components/ui/core/SHModel/MessageModal";
 import { useUser } from "@/context/UserContext";
 import PurchaseModal from "@/components/ui/core/SHModel/TransactionModal";
 import LoginModal from "@/components/ui/core/SHModel/LoginModal";
 import SuccessModal from "@/components/ui/core/SHModel/SuccessMessage";
+import { formatDistanceToNow } from "date-fns";
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
@@ -46,7 +47,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         />
                     </div>
 
-                    <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex w-full gap-2 flex justify-between overflow-x-auto">
                         {product.images.map((image, index) => (
                             <div
                                 key={index}
@@ -62,6 +63,13 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 />
                             </div>
                         ))}
+                    </div>
+                    <div className="flex w-full items-center pt-3 justify-between gap-1">
+                        <div className="flex items-center gap-2 text-[#978E7B] ">
+                            <Clock4 />
+                            <h3 >{formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}</h3>
+                        </div>
+                        <h3 className="text-[#978E7B] text-[12px]">{product.views ?? 0} Views</h3>
                     </div>
                 </div>
 
