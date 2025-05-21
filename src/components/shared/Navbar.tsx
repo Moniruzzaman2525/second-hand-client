@@ -81,14 +81,13 @@ const Navbar = () => {
                         </Link>
                     ))}
                 </div>
+                <Link href='/dashboard/listing/add-ads'>
+                    <Button className="hidden md:flex items-center gap-2  px-6 py-2 rounded-lg font-medium bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
+                        Post Your Ad <PlusIcon />
+                    </Button>
+                </Link>
                 {user?.email ? (
                     <>
-                        <Link href='/dashboard/listing/add-ads'>
-                            <Button className="hidden md:flex items-center gap-2  px-6 py-2 rounded-lg font-medium bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
-                                Post Your Ad <PlusIcon />
-                            </Button>
-                        </Link>
-
                         <div className="relative group">
                             <Avatar>
                                 <AvatarImage>
@@ -124,11 +123,11 @@ const Navbar = () => {
 
                     </>
                 ) : (
-                        <Link onMouseEnter={() => setActive('login')}
+                    <Link onMouseEnter={() => setActive('login')}
 
-                            onMouseLeave={() => setActive("")} className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === 'login' ? 'text-red-600' : ''}`} href='/login'>
-                            <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === 'login' ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
-                            Login
+                        onMouseLeave={() => setActive("")} className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === 'login' ? 'text-red-600' : ''}`} href='/login'>
+                        <span className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === 'login' ? 'opacity-100 -translate-x-0' : 'opacity-0 -translate-x-2'}`}>•</span>
+                        Login
                     </Link>
                 )}
             </div>
