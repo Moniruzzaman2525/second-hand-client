@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button"
 import RemoveWishlistModal from "@/components/ui/core/SHModel/RemoveWishlistModal"
 import WishlistModal from "@/components/ui/core/SHModel/WishlistModal"
 import CompareMode from "@/components/ui/core/SHModel/CompareMode"
+import RemoveCompare from "@/components/ui/core/SHModel/RemoveCompare"
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -47,6 +48,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
     const [isConfirmOpenWishlist, setIsConfirmOpenWishlist] = useState(false);
     const [isCompareOpen, setIsCompareOpen] = useState<boolean>(false);
+    const [isRemoveCompareOpen, setIsRemoveCompareOpen] = useState<boolean>(false);
     const handleMessageClick = () => {
         setIsModalOpen(true)
     }
@@ -82,8 +84,8 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     };
 
     const handleCompareProduct = () => {
-        if (product.wishlist) {
-            setIsRemoveWishlistOpen(true)
+        if (product.compare) {
+            setIsRemoveCompareOpen(true)
         } else {
             setIsCompareOpen(true);
         }
@@ -370,7 +372,14 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                 content={modalContent}
                 onOpenChange={() => setIsConfirmOpenMessage(false)}
             />
-
+            <RemoveCompare
+                isOpen={isRemoveCompareOpen}
+                onClose={() => setIsRemoveCompareOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenRemoveWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            />
             <SuccessModal
                 isOpen={isConfirmOpenPurchase}
                 status={modalState}
