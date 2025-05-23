@@ -48,6 +48,7 @@ const ManageProductsByAdmin = ({
         try {
             if (productToDelete && productToDelete._id) {
                 const res = await handleDeleteProduct(productToDelete._id);
+
                 if (res.success) {
                     setIsConfirmOpen(true)
                     setModalContent('Product deleted successfully!');

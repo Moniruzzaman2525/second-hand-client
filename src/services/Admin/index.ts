@@ -29,7 +29,7 @@ export const productPermission = async ({ productId, data }: { productId: string
         Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
       },
     });
-    revalidateTag("USERS");
+    revalidateTag("PRODUCT");
     const result = await res.json()
     return result
   } catch (error: any) {

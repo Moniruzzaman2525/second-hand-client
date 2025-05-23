@@ -28,10 +28,11 @@ const PermissionModal = ({ isOpen, onClose, product, setIsConfirmOpen, setModalC
             }
             if (product && product._id && data) {
                 const res = await productPermission({ productId: product._id, data });
+          
                 if (res.success) {
                     if (permission === 'reject') {
                         setIsConfirmOpen(true)
-                        setModalState('failed')
+                        setModalState('success')
                         setModalContent(`Product permission updated successfully to '${permission}'`);
                     } else if (permission === 'accepted') {
                         setIsConfirmOpen(true)
