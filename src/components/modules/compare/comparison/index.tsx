@@ -5,7 +5,7 @@ import { getUserCompare } from '@/services/Compare';
 const ComparePage = async () => {
 
     const { data: result } = await getUserCompare()
-    console.log(result)
+    
 
     return (
         <div>

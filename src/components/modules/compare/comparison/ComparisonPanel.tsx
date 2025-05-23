@@ -5,6 +5,7 @@ import Image from "next/image"
 import { X, ArrowRight, BarChart2 } from "lucide-react"
 import { IMeta, ISingleProduct } from "@/types"
 import { removeCompare } from "@/services/Compare"
+import Link from "next/link"
 
 
 export default function ComparisonPanel({ products, meta }: { products: ISingleProduct[]; meta: IMeta; }) {
@@ -99,10 +100,11 @@ export default function ComparisonPanel({ products, meta }: { products: ISingleP
                     </button>}
 
                     {isExpanded && (
-                        <button className="bg-yellow-400 text-black px-6 py-2 rounded-md flex items-center">
-                            Compare
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                        </button>
+                        <Link href="/compare">
+                            <button className="bg-yellow-400 text-black px-6 py-2 rounded-md flex items-center">
+                                Compare
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </button></Link>
                     )}
                 </div>
                 {isExpanded && <div className="absolute p-2 bg-white top-[-56px] right-0">

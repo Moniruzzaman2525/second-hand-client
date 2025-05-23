@@ -5,7 +5,7 @@ import HowWorksSection from "@/components/modules/home/HeroSection/HowWorksSecti
 import TestHomePage from "@/components/modules/home/HeroSection/Testimonial";
 import FeatureProduct from "@/components/modules/home/HeroSection/FeatureProduct";
 import { getAllProducts } from "@/services/Product";
-import ComparePage from "@/components/modules/comparison";
+import ComparePage from "@/components/modules/compare/comparison";
 
 
 const HomePage = async () => {
