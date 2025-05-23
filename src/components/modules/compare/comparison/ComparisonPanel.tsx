@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { X, ArrowRight, BarChart2 } from "lucide-react"
-import { IMeta, ISingleProduct } from "@/types"
+import { ISingleProduct } from "@/types"
 import { removeCompare } from "@/services/Compare"
 import Link from "next/link"
 import { useUser } from "@/context/UserContext"
 
 
-export default function ComparisonPanel({ products, meta }: { products: ISingleProduct[]; meta: IMeta; }) {
+export default function ComparisonPanel({ products }: { products: ISingleProduct[] }) {
 
     const { user } = useUser();
 

@@ -9,7 +9,7 @@ const ComparePage = async () => {
 
     return (
         <div>
-            <ComparisonPanel meta={result?.meta} products={result?.result} />
+            <ComparisonPanel products={result?.result} />
         </div>
     );
 };

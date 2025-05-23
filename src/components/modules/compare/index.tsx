@@ -9,7 +9,7 @@ const ViewCompare = ({
 }: {
     products: IProduct[];
     meta: IMeta;
-    }) => {
+}) => {
 
 
     return (
