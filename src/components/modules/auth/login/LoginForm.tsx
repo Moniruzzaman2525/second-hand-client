@@ -59,7 +59,7 @@ const LoginForm = ({ query }: LoginFormProps) => {
                         Welcome back!
                     </p>
                 </div>
-                <SHForm onSubmit={handleFormSubmit}>
+                <SHForm defaultValues={{ email: 'web.moniruzzaman1@gmail.com', password: '123456' }} onSubmit={handleFormSubmit}>
                     <div className="w-full border border-gray-300 rounded-lg p-2 my-3">
                         <SHInput
                             required
@@ -78,7 +78,7 @@ const LoginForm = ({ query }: LoginFormProps) => {
                     </div>
 
                     <div className="flex justify-end items-center my-2">
-                        <button onClick={()=> setIsForgotPopupOpen(true)} className="text-[#ffb300] text-[16px]">
+                        <button onClick={() => setIsForgotPopupOpen(true)} className="text-[#ffb300] text-[16px]">
                             Forgot password?
                         </button>
                     </div>

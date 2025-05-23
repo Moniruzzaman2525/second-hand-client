@@ -99,6 +99,7 @@ const HeroSectionFilter = () => {
                         onClick={handleSearch}
                         className="text-white bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] flex items-center justify-between gap-10 px-8 md:px-4 py-4 rounded-sm shadow-md"
                     >
+                        {/* bg-gradient-to-r from-[#537cd9] to-[#6d90df] */}
                         <span className="block md:hidden">Search</span> <Search size={20} />
                     </button>
                 </div>

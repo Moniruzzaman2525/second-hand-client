@@ -62,6 +62,7 @@ export const getAllProducts = async (
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();
@@ -84,6 +85,7 @@ export const getAllUserProducts = async (page?: string, limit?: string) => {
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();
@@ -109,6 +111,7 @@ export const getSingleProduct = async (productId: string) => {
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             }
         );
         const data = await res.json();
@@ -128,6 +131,7 @@ export const getSuggestProduct = async (product: string) => {
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             }
         );
         const data = await res.json();
@@ -195,6 +199,7 @@ export const getUserProducts = async (userId: string) => {
             {
                 method: 'GET',
                 headers: headers,
+                cache: "force-cache",
             },
         );
         const data = await res.json();

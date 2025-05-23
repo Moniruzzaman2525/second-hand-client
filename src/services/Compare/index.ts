@@ -64,6 +64,7 @@ export const getUserCompare = async (page?: string, limit?: string) => {
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();

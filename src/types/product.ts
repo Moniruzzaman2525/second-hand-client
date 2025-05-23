@@ -8,7 +8,7 @@ export interface IProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userId: IUser
+    userId: TUser
     permission?: string;
     compare?: boolean;
     wishlist?: boolean;
@@ -17,7 +17,7 @@ export interface IProduct {
     createdAt: string;
 }
 
-export interface IUser {
+export interface TUser {
     name: string;
     email: string;
     phoneNumber: string;
@@ -35,7 +35,7 @@ export interface ISingleProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userId: IUser
+    userId: TUser
     permission?: string;
     status?: string;
     category: string

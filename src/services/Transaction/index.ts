@@ -36,6 +36,7 @@ export const getAllPurchaseHistory = async (page?: string, limit?: string) => {
                 next: {
                     tags: ["PURCHASE"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();
@@ -56,6 +57,7 @@ export const getAllSellerHistory = async (page?: string, limit?: string) => {
                 next: {
                     tags: ["PURCHASE"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();

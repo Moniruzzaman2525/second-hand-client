@@ -3,7 +3,7 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 
-export const addWishlist = async ({ item }: { item: string}): Promise<any> => {
+export const addWishlist = async ({ item }: { item: string }): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist`, {
             method: "POST",
@@ -25,7 +25,7 @@ export const addWishlist = async ({ item }: { item: string}): Promise<any> => {
 };
 
 
-export const removeWishlist = async ({ item }: { item: string}): Promise<any> => {
+export const removeWishlist = async ({ item }: { item: string }): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/wishlist/${item}`, {
             method: "DELETE",
@@ -58,6 +58,7 @@ export const getUserWishlist = async (page?: string, limit?: string) => {
                 next: {
                     tags: ["PRODUCT"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();

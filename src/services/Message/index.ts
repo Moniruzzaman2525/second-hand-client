@@ -3,7 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export const getAllMessage =async () => {
+export const getAllMessage = async () => {
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/message`,
@@ -15,6 +15,7 @@ export const getAllMessage =async () => {
                 next: {
                     tags: ["MESSAGE"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();
@@ -35,6 +36,7 @@ export const getUserMessage = async (targetUserId: string) => {
                 next: {
                     tags: ["MESSAGE"],
                 },
+                cache: "force-cache",
             },
         );
         const data = await res.json();
@@ -44,11 +46,11 @@ export const getUserMessage = async (targetUserId: string) => {
     }
 }
 
-export const sendMessage = async ({message, receiverID} : { message: string, receiverID: string }): Promise<any> => {
+export const sendMessage = async ({ message, receiverID }: { message: string, receiverID: string }): Promise<any> => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/message`, {
             method: "POST",
-            body: JSON.stringify({message, receiverID}),
+            body: JSON.stringify({ message, receiverID }),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
