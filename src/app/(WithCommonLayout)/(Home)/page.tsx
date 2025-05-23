@@ -5,10 +5,11 @@ import HowWorksSection from "@/components/modules/home/HeroSection/HowWorksSecti
 import TestHomePage from "@/components/modules/home/HeroSection/Testimonial";
 import FeatureProduct from "@/components/modules/home/HeroSection/FeatureProduct";
 import { getAllProducts } from "@/services/Product";
+import ComparePage from "@/components/modules/comparison";
 
 
-const HomePage =async () => {
-  const {data: products } = await getAllProducts();
+const HomePage = async () => {
+  const { data: products } = await getAllProducts();
 
   return (
     <div className="">
@@ -18,6 +19,7 @@ const HomePage =async () => {
       <HowWorksSection />
       <StatsCard />
       <TestHomePage />
+      <ComparePage />
     </div>
   );
 };
