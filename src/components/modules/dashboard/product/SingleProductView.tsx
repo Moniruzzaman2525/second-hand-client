@@ -9,7 +9,6 @@ import {
     Clock,
     Eye,
     Facebook,
-    Flag,
     GitCompareArrows,
     Heart,
     Maximize2,
@@ -31,6 +30,7 @@ import RemoveWishlistModal from "@/components/ui/core/SHModel/RemoveWishlistModa
 import WishlistModal from "@/components/ui/core/SHModel/WishlistModal"
 import CompareMode from "@/components/ui/core/SHModel/CompareMode"
 import RemoveCompare from "@/components/ui/core/SHModel/RemoveCompare"
+import Link from "next/link"
 
 const SingleProductView = ({ product }: { product: ISingleProduct }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
@@ -240,8 +240,11 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         </div>
 
                         <a href="#" className="text-blue-500 hover:underline text-sm">
-                            See all ads
+
                         </a>
+                        <Link href={`/author/${product.userId?._id}`} className="text-blue-500 hover:underline text-sm">
+                            View Profile
+                        </Link>
 
                         <div className="mt-4 p-3 bg-gray-50 rounded-md flex items-center justify-between">
                             <div className="flex items-center gap-2">
@@ -274,43 +277,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-6">
-                        <a
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
-                        >
-                            <Facebook size={18} className="text-gray-600" />
-                        </a>
-
-                        <a
-                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(product.title)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
-                        >
-                            <Twitter size={18} className="text-gray-600" />
-                        </a>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button
-                                        disabled={product?.status === 'sold'}
-                                        variant="outline"
-                                        onClick={handleCompareProduct}
-                                        size="sm"
-                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
-                                        ${product?.compare ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
-                                    >
-                                        <GitCompareArrows />
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>{product?.compare ? 'Remove to compare' : 'Add to compare'}</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
+                    <div className="flex items-center gap-10 mt-6 justify-center w-full">
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -330,12 +297,50 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
-                        <div className="ml-auto">
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        disabled={product?.status === 'sold'}
+                                        variant="outline"
+                                        onClick={handleCompareProduct}
+                                        size="sm"
+                                        className={`w-8 h-8 p-0 flex items-center justify-center rounded-full
+                                        ${product?.compare ? "bg-[#537cd9] text-white hover:bg-[#537cd9] hover:text-white" : "hover:text-[#537cd9] hover:border-[#537cd9] hover:bg-white"} `}
+                                    >
+                                        <GitCompareArrows />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{product?.compare ? 'Remove to compare' : 'Add to compare'}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <a
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
+                        >
+                            <Facebook size={18} className="text-gray-600" />
+                        </a>
+
+                        <a
+                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(product.title)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"
+                        >
+                            <Twitter size={18} className="text-gray-600" />
+                        </a>
+
+
+                        {/* <div className="ml-auto">
                             <button className="flex items-center gap-1 text-red-500 hover:text-red-600">
                                 <Flag size={16} />
                                 <span>Report abuse</span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
