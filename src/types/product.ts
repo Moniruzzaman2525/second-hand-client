@@ -8,18 +8,20 @@ export interface IProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userId: {
-        phoneNumber: string;
-        email: string;
-        name: string;
-        _id: string
-    };
+    userId: IUser
     permission?: string;
     compare?: boolean;
     wishlist?: boolean;
     status?: string;
     category: string
     createdAt: string;
+}
+
+export interface IUser {
+    name: string;
+    email: string;
+    phoneNumber: string;
+    _id: string
 }
 export interface ISingleProduct {
     _id?: string;
@@ -33,12 +35,7 @@ export interface ISingleProduct {
     price: number;
     condition: 'new' | 'used';
     images: string[];
-    userId: {
-        phoneNumber: string;
-        email: string;
-        name: string;
-        _id: string
-    };
+    userId: IUser
     permission?: string;
     status?: string;
     category: string

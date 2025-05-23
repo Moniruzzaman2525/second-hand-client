@@ -1,11 +1,13 @@
+
+import { IUser } from "@/types"
 import { Send } from "lucide-react"
 
-export default function ProfileSection() {
+export default function ProfileSection({ user }: { user: IUser }) {
     return (
         <div className="w-full">
-            {/* Banner */}
+
             <div className="w-full h-60 bg-[#697885] relative">
-                {/* Profile Image */}
+
                 <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-16">
                     <div className="rounded-full h-32 w-32 overflow-hidden border-4 border-white bg-slate-200 flex items-center justify-center">
                         <svg
@@ -25,9 +27,8 @@ export default function ProfileSection() {
                 </div>
             </div>
 
-            {/* Profile Info */}
             <div className="mt-20 text-center">
-                <h1 className="text-2xl font-semibold text-slate-700">Rx Ice</h1>
+                <h1 className="text-2xl font-semibold text-slate-700">{user.name}</h1>
                 <div className="flex justify-center items-center mt-2">
                     <div className="bg-amber-400 rounded-full w-5 h-5 flex items-center justify-center mr-2">
                         <span className="text-white text-xs">✓</span>
@@ -36,7 +37,6 @@ export default function ProfileSection() {
                 </div>
             </div>
 
-            {/* Message Form */}
             <div className="max-w-3xl mx-auto mt-20 bg-[#f2f4f8] p-4 md:p-10 rounded-lg shadow-sm mx-4 md:mx-auto">
                 <h2 className="text-center text-xl font-medium text-slate-700 mb-6">Send a message</h2>
                 <div className="relative">
