@@ -1,3 +1,4 @@
+import ComparePage from "@/components/modules/compare/comparison";
 import MessageApp from "@/components/modules/dashboard/message";
 import Sidebar from "@/components/modules/dashboard/sidebar";
 import SHContainer from "@/components/ui/core/SHContainer";
@@ -13,6 +14,7 @@ const MessagePage = async () => {
                     <MessageApp message={message} />
                 </SHContainer>
             </div>
+            <ComparePage />
         </div>
     );
 };

@@ -1,10 +1,13 @@
+"use server"
+
+import ComparePage from "@/components/modules/compare/comparison";
 import AllProducts from "@/components/modules/products";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { getAllProducts } from "@/services/Product";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-const ProductsPage = async ({ searchParams }: {searchParams: SearchParams}) => {
+const ProductsPage = async ({ searchParams }: { searchParams: SearchParams }) => {
     const query = await searchParams;
     const page = query.page as string | undefined;
 
@@ -30,9 +33,12 @@ const ProductsPage = async ({ searchParams }: {searchParams: SearchParams}) => {
     }
 
     return (
-        <SHContainer>
-           <AllProducts isLoading={loading} meta={meta} products={products} />
-        </SHContainer>
+        <div>
+            <SHContainer>
+                <AllProducts isLoading={loading} meta={meta} products={products} />
+            </SHContainer>
+            <ComparePage />
+        </div>
     );
 };
 

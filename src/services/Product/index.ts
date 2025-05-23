@@ -94,14 +94,18 @@ export const getAllUserProducts = async (page?: string, limit?: string) => {
 };
 
 export const getSingleProduct = async (productId: string) => {
+    const token = (await cookies()).get("accessToken")?.value;
+    const headers: HeadersInit = {};
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
 
             {
-                headers: {
-                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
-                },
+                method: 'GET',
+                headers: headers,
                 next: {
                     tags: ["PRODUCT"],
                 },
@@ -120,6 +124,7 @@ export const getSuggestProduct = async (product: string) => {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/listings/suggestions/${product}`,
             {
+                method: 'GET',
                 next: {
                     tags: ["PRODUCT"],
                 },
@@ -179,14 +184,17 @@ export const handleDeleteProduct = async (productId: string) => {
 
 
 export const getUserProducts = async (userId: string) => {
+    const token = (await cookies()).get("accessToken")?.value;
+    const headers: HeadersInit = {};
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/users/${userId}`,
             {
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
-                },
+                headers: headers,
             },
         );
         const data = await res.json();

@@ -47,14 +47,20 @@ export const removeCompare = async ({ item }: { item: string }): Promise<any> =>
 
 
 export const getUserCompare = async (page?: string, limit?: string) => {
+
+
+    const token = (await cookies()).get("accessToken")?.value;
+    const headers: HeadersInit = {};
+    if (token) {
+        headers.Authorization = `Bearer ${token}`;
+    }
+
     try {
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_API}/compare?limit=${limit}&page=${page}`,
             {
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
-                },
+                headers: headers,
                 next: {
                     tags: ["PRODUCT"],
                 },

@@ -6,15 +6,22 @@ import { X, ArrowRight, BarChart2 } from "lucide-react"
 import { IMeta, ISingleProduct } from "@/types"
 import { removeCompare } from "@/services/Compare"
 import Link from "next/link"
+import { useUser } from "@/context/UserContext"
 
 
 export default function ComparisonPanel({ products, meta }: { products: ISingleProduct[]; meta: IMeta; }) {
 
-
-    console.log(meta)
+    const { user } = useUser();
 
     const [items, setItems] = useState<ISingleProduct[]>(products)
     const [isExpanded, setIsExpanded] = useState(false)
+
+    useEffect(() => {
+        if (user === null) {
+            setItems([])
+            return
+        }
+    }, [user])
 
     useEffect(() => {
         if (products) {
@@ -50,7 +57,7 @@ export default function ComparisonPanel({ products, meta }: { products: ISingleP
         }
     }
 
-    if (items.length === 0) return null
+    if (items?.length === 0) return null
 
     return (
         <div
@@ -59,10 +66,10 @@ export default function ComparisonPanel({ products, meta }: { products: ISingleP
             <div className="container relative h-[270px] bg-white mx-auto px-4">
                 {isExpanded && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
-                        {items.map((item) => (
-                            <div key={item._id} className="relative w-24 border rounded-lg">
+                        {items?.map((item) => (
+                            <div key={item?._id} className="relative w-24 border rounded-lg">
                                 <button
-                                    onClick={() => removeItem(item._id as string)}
+                                    onClick={() => removeItem(item?._id as string)}
                                     className="absolute top-0 right-0 bg-white rounded-full p-1 z-[1] shadow-md"
                                 >
                                     <X className="h-4 w-4" />
@@ -95,7 +102,7 @@ export default function ComparisonPanel({ products, meta }: { products: ISingleP
                         <BarChart2 className="h-5 w-5" />
                         Compare{" "}
                         <span className="inline-flex items-center justify-center bg-white text-blue-500 rounded-full w-5 h-5 text-xs font-bold">
-                            {items.length}
+                            {items?.length}
                         </span>
                     </button>}
 
@@ -115,7 +122,7 @@ export default function ComparisonPanel({ products, meta }: { products: ISingleP
                         <BarChart2 className="h-5 w-5" />
                         Compare{" "}
                         <span className="inline-flex items-center justify-center bg-white text-blue-500 rounded-full w-5 h-5 text-xs font-bold">
-                            {items.length}
+                            {items?.length}
                         </span>
                     </button>
                 </div>}

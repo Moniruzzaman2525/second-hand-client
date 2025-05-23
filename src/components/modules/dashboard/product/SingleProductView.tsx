@@ -55,11 +55,11 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
 
     const nextImage = () => {
-        setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))
+        setCurrentImageIndex((prev) => (prev === product?.images.length - 1 ? 0 : prev + 1))
     }
 
     const prevImage = () => {
-        setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
+        setCurrentImageIndex((prev) => (prev === 0 ? product?.images.length - 1 : prev - 1))
     }
 
     const openFullscreen = () => {
@@ -102,8 +102,8 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         <div className="relative w-full aspect-[4/3] overflow-hidden">
                             <Image
                                 id="main-product-image"
-                                src={product.images[currentImageIndex] || "/placeholder.svg"}
-                                alt={product.title}
+                                src={product?.images[currentImageIndex] || "/placeholder.svg"}
+                                alt={product?.title}
                                 layout="fill"
                                 objectFit="contain"
                                 className="rounded-lg"
@@ -122,7 +122,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 <ArrowRight size={20} />
                             </button>
                             <div className="absolute bottom-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium">
-                                {currentImageIndex + 1} / {product.images.length}
+                                {currentImageIndex + 1} / {product?.images?.length}
                             </div>
                             <button
                                 onClick={openFullscreen}
@@ -136,26 +136,26 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                     <div className="flex items-center justify-between mb-4 text-gray-500 text-sm">
                         <div className="flex items-center gap-1">
                             <Clock size={16} />
-                            <span>{formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}</span>
+                            <span>{product?.createdAt ? formatDistanceToNow(new Date(product?.createdAt), { addSuffix: true }) : ""}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <Eye size={16} />
-                            <span>{product.views ?? 0} Views</span>
+                            <span>{product?.views ?? 0} Views</span>
                         </div>
                     </div>
 
-                    <h1 className="text-2xl font-bold text-gray-800 mb-4">{product.title}</h1>
+                    <h1 className="text-2xl font-bold text-gray-800 mb-4">{product?.title}</h1>
 
                     <div className="flex flex-wrap gap-2 mb-4">
                         <Badge variant="outline" className="rounded-md px-3 py-1 text-sm">
-                            {product.category}
+                            {product?.category}
                         </Badge>
                         <Badge variant="outline" className="rounded-md px-3 py-1 text-sm">
-                            {product.condition}
+                            {product?.condition}
                         </Badge>
                     </div>
 
-                    <div className="text-3xl font-bold text-gray-800 mb-6">৳{product.price}</div>
+                    <div className="text-3xl font-bold text-gray-800 mb-6">৳{product?.price}</div>
 
                     <div className="space-y-2 mb-6">
                         <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-md">
@@ -173,19 +173,19 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
-                            <span>Location: {product.location}</span>
+                            <span>Location: {product?.location}</span>
                         </div>
 
                         <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-md">
                             <Phone size={16} />
-                            <span>Phone Number: {product.userId?.phoneNumber}</span>
+                            <span>Phone Number: {product?.userId?.phoneNumber}</span>
                         </div>
                     </div>
 
-                    {product.description && (
+                    {product?.description && (
                         <div className="bg-white rounded-lg p-4 mb-6">
                             <h2 className="text-lg font-semibold mb-2">Description</h2>
-                            <p className="text-gray-600 whitespace-pre-line">{product.description}</p>
+                            <p className="text-gray-600 whitespace-pre-line">{product?.description}</p>
                         </div>
                     )}
 
@@ -212,7 +212,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="font-medium">{product.userId?.name}</h3>
+                                <h3 className="font-medium">{product?.userId?.name}</h3>
                                 <p className="text-sm text-gray-500">Member since: 1 year</p>
                                 <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
                                     <span className="w-2 h-2 rounded-full bg-gray-400"></span>
@@ -236,13 +236,13 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
-                            <span>{product.location}</span>
+                            <span>{product?.location}</span>
                         </div>
 
                         <a href="#" className="text-blue-500 hover:underline text-sm">
 
                         </a>
-                        <Link href={`/author/${product.userId?._id}`} className="text-blue-500 hover:underline text-sm">
+                        <Link href={`/author/${product?.userId?._id}`} className="text-blue-500 hover:underline text-sm">
                             View Profile
                         </Link>
 
@@ -251,8 +251,8 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                                 <Phone size={18} className="text-gray-500" />
                                 <span className="font-medium">
                                     {showFullPhone
-                                        ? product.userId?.phoneNumber
-                                        : `${product.userId?.phoneNumber?.substring(0, 3)}${"*".repeat(product.userId?.phoneNumber?.length - 3 || 8)}`
+                                        ? product?.userId?.phoneNumber
+                                        : `${product?.userId?.phoneNumber?.substring(0, 3)}${"*".repeat(product?.userId?.phoneNumber?.length - 3 || 8)}`
                                     }
                                 </span>
                             </div>
@@ -266,10 +266,10 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
 
                         <button
                             onClick={handleMessageClick}
-                            disabled={product.userId?._id === user?.userId}
+                            disabled={product?.userId?._id === user?.userId}
                             className={cn(
                                 "w-full mt-4 py-3 bg-[#537cd9] text-white font-medium rounded-md flex items-center justify-center gap-2",
-                                product.userId?._id === user?.userId ? "opacity-50 cursor-not-allowed" : "hover:bg-[#3a5eb4]",
+                                product?.userId?._id === user?.userId ? "opacity-50 cursor-not-allowed" : "hover:bg-[#3a5eb4]",
                             )}
                         >
                             <MessageSquare size={18} />
@@ -326,7 +326,7 @@ const SingleProductView = ({ product }: { product: ISingleProduct }) => {
                         </a>
 
                         <a
-                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(product.title)}`}
+                            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(product?.title)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"

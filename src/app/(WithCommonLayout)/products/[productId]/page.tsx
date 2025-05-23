@@ -1,3 +1,4 @@
+import ComparePage from "@/components/modules/compare/comparison";
 import SingleProductView from "@/components/modules/dashboard/product/SingleProductView";
 import SuggestProjects from "@/components/modules/products/suggestProduct";
 import SHContainer from "@/components/ui/core/SHContainer";
@@ -12,11 +13,16 @@ const SingleProductPage = async ({
 
     const { data: product } = await getSingleProduct(productId);
 
+
+
     return (
-        <SHContainer>
-            <SingleProductView product={product?.product} />
-            <SuggestProjects product={product?.product._id} />
-        </SHContainer>
+        <div>
+            <SHContainer>
+                <SingleProductView product={product?.product} />
+                <SuggestProjects product={product?.product._id} />
+            </SHContainer>
+            <ComparePage />
+        </div>
     );
 };
 

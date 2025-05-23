@@ -1,3 +1,4 @@
+import ComparePage from "@/components/modules/compare/comparison";
 import ViewWishlist from "@/components/modules/dashboard/favorites";
 import SHContainer from "@/components/ui/core/SHContainer";
 import { getUserWishlist } from "@/services/Wishlist";
@@ -16,6 +17,7 @@ const ProductsPage = async ({ searchParams }: { searchParams: SearchParams }) =>
                     <ViewWishlist meta={products.meta} products={products?.result} />
                 </SHContainer>
             </div>
+            <ComparePage />
         </div>
 
     );
