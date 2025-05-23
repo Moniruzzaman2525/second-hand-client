@@ -12,8 +12,6 @@ const SingleProductPage = async ({
     const { userId } = await params;
     const { data: product } = await getUserProducts(userId);
 
-    console.log(product)
-
     return (
         <main className="min-h-screen">
             <ProfileSection user={product.user} />

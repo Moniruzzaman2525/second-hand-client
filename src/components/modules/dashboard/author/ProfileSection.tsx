@@ -1,8 +1,35 @@
-
+"use client"
+import { sendMessage } from "@/services/Message";
 import { IUser } from "@/types"
 import { Send } from "lucide-react"
+import { useState } from "react"
+import { toast } from "sonner";
 
 export default function ProfileSection({ user }: { user: IUser }) {
+    const [message, setMessage] = useState<string>("");
+
+    const handleSend = async () => {
+        try {
+            if (!message.trim()) {
+                toast.error('Please write a message before sending.');
+                return;
+            }
+
+            if (user && user?._id) {
+                const res = await sendMessage({ message, receiverID: user?._id });
+                if (res.success) {
+                    toast.success('Message sent successfully!');
+                    setMessage("");
+                } else {
+                    toast.error(res.message || 'Failed to send message');
+                }
+            }
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
+        }
+    };
+
+
     return (
         <div className="w-full">
 
@@ -41,13 +68,15 @@ export default function ProfileSection({ user }: { user: IUser }) {
                 <h2 className="text-center text-xl font-medium text-slate-700 mb-6">Send a message</h2>
                 <div className="relative">
                     <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
                         rows={6}
                         className="w-full min-h-24 md:min-h-32 resize-none p-3 md:p-4 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                         placeholder="Write your message here"
                     ></textarea>
                 </div>
                 <div className="flex justify-center mt-4">
-                    <button className="px-4 md:px-6 py-2 rounded-md flex items-center bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all text-sm md:text-base">
+                    <button onClick={handleSend} className="px-4 md:px-6 py-2 rounded-md flex items-center bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all text-sm md:text-base">
                         Send a message
                         <Send className="ml-2 h-3 w-3 md:h-4 md:w-4" />
                     </button>
