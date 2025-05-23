@@ -22,6 +22,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../too
 import RemoveWishlistModal from "./SHModel/RemoveWishlistModal";
 import SuccessModal from "./SHModel/SuccessMessage";
 import CompareMode from "./SHModel/CompareMode";
+import RemoveCompare from "./SHModel/RemoveCompare";
 
 const ProductCard = ({ product }: { product: ISingleProduct }) => {
 
@@ -29,6 +30,7 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
     const [isWishlistOpen, setIsWishlistOpen] = useState<boolean>(false);
     const [isCompareOpen, setIsCompareOpen] = useState<boolean>(false);
     const [isRemoveWishlistOpen, setIsRemoveWishlistOpen] = useState<boolean>(false);
+    const [isRemoveCompareOpen, setIsRemoveCompareOpen] = useState<boolean>(false);
     const [isConfirmOpenWishlist, setIsConfirmOpenWishlist] = useState(false);
     const [isConfirmOpenRemoveWishlist, setIsConfirmOpenRemoveWishlist] = useState(false);
     const [isConfirmOpenTransaction, setIsConfirmOpenTransaction] = useState(false);
@@ -44,8 +46,8 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
         }
     };
     const handleCompareProduct = () => {
-        if (product.wishlist) {
-            setIsRemoveWishlistOpen(true)
+        if (product.compare) {
+            setIsRemoveCompareOpen(true)
         } else {
             setIsCompareOpen(true);
         }
@@ -197,6 +199,14 @@ const ProductCard = ({ product }: { product: ISingleProduct }) => {
             <RemoveWishlistModal
                 isOpen={isRemoveWishlistOpen}
                 onClose={() => setIsRemoveWishlistOpen(false)}
+                user={product}
+                setIsConfirmOpen={setIsConfirmOpenRemoveWishlist}
+                setModalContent={setModalContent}
+                setModalState={setModalState}
+            />
+            <RemoveCompare
+                isOpen={isRemoveCompareOpen}
+                onClose={() => setIsRemoveCompareOpen(false)}
                 user={product}
                 setIsConfirmOpen={setIsConfirmOpenRemoveWishlist}
                 setModalContent={setModalContent}

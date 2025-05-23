@@ -3,25 +3,25 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../../dialog";
 import { ISingleProduct } from "@/types";
 import { Dispatch, SetStateAction } from "react";
-import { addCompare } from "@/services/Compare";
+import { removeCompare } from "@/services/Compare";
 
 
 interface TModalProps {
     isOpen: boolean;
+    onClose: () => void;
+    user: Partial<ISingleProduct>;
     setIsConfirmOpen: Dispatch<SetStateAction<boolean>>;
     setModalContent: Dispatch<SetStateAction<string>>;
     setModalState: Dispatch<SetStateAction<string>>;
-    onClose: () => void;
-    user: Partial<ISingleProduct>;
 }
 
-const CompareMode = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent, setModalState }: TModalProps) => {
+const RemoveCompare = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent, setModalState }: TModalProps) => {
     const wishlistNow = async () => {
         try {
-            if (user && user.userId?._id && user._id) {
-                const res = await addCompare({ item: user._id });
+            if (user && user._id) {
+                const res = await removeCompare({ item: user._id });
                 if (res.success) {
-                    setModalContent('Add Compare successfully!');
+                    setModalContent('Remove Compare successfully!');
                     setIsConfirmOpen(true)
                     setModalState('success')
                     onClose();
@@ -46,9 +46,9 @@ const CompareMode = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent,
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="p-8 bg-white shadow-xl rounded-lg">
-                <DialogTitle className="text-xl font-bold text-gray-800">Compare Product</DialogTitle>
+                <DialogTitle className="text-xl font-bold text-gray-800">Remove Compare Product</DialogTitle>
                 <DialogDescription className="mt-2 text-lg text-gray-600">
-                    Are you suer you want to add compare {user?.title}.
+                    Are you suer you want to remove Compare {user?.title}.
                 </DialogDescription>
                 <div>
 
@@ -64,7 +64,7 @@ const CompareMode = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent,
                         onClick={wishlistNow}
                         className="px-6 py-2 bg-gradient-to-r from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] text-white rounded-lg"
                     >
-                        Compare Now
+                        Remove Compare Now
                     </button>
                 </div>
             </DialogContent>
@@ -72,4 +72,4 @@ const CompareMode = ({ isOpen, onClose, user, setIsConfirmOpen, setModalContent,
     );
 };
 
-export default CompareMode;
+export default RemoveCompare;
