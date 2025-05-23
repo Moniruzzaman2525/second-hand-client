@@ -17,7 +17,7 @@ const ManageProducts = ({
 }: {
     products: IProduct[];
     meta: IMeta;
-    }) => {
+}) => {
 
     const router = useRouter();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -165,7 +165,7 @@ const ManageProducts = ({
                 isOpen={isConfirmOpen}
                 status={modalState}
                 content={modalContent}
-                onOpenChange={()=> setIsConfirmModalOpen(false)}
+                onOpenChange={() => setIsConfirmModalOpen(false)}
             />
 
         </div>
