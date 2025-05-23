@@ -23,10 +23,10 @@ const navbarItem = [
         href: "/products",
         hasMegaMenu: true,
     },
-    {
-        name: "Favorite",
-        href: "/favorites",
-    },
+    // {
+    //     name: "Favorite",
+    //     href: "/favorites",
+    // },
     {
         name: "About",
         href: "/about-us",
@@ -115,6 +115,19 @@ const Navbar = () => {
                             </div>
                         ))}
                     </div>
+                    <Link
+                        onMouseEnter={() => setActive("favorite")}
+                        onMouseLeave={() => setActive("")}
+                        className={`relative text-[#374B5C] font-medium text-lg transition-colors ${active === "favorite" ? "text-red-600" : ""}`}
+                        href="/favorites"
+                    >
+                        <span
+                            className={`absolute -left-5 top-1/2 transform -translate-y-1/2 text-blue-500 transition-all duration-300 ease-in-out ${active === "favorite" ? "opacity-100 -translate-x-0" : "opacity-0 -translate-x-2"}`}
+                        >
+                            •
+                        </span>
+                        Favorites
+                    </Link>
                     <Link href="/dashboard/listing/add-ads">
                         <Button className="hidden md:flex items-center gap-2 px-6 py-2 rounded-lg font-medium bg-gradient-to-r text-white from-[#537cd9] to-[#6d90df] hover:from-[#3a5eb4] hover:to-[#537cd9] transition-all">
                             Post Your Ad <PlusIcon />
