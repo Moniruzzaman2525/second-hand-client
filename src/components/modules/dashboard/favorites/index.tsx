@@ -10,6 +10,11 @@ const ViewWishlist = ({
     products: IProduct[];
     meta: IMeta;
     }) => {
+
+
+    console.log(products)
+
+
     return (
         <div>
             <div className="">

@@ -10,6 +10,8 @@ const ProductsPage = async ({ searchParams }: { searchParams: SearchParams }) =>
     const page = query.page as string | undefined;
     const { data: products } = await getUserWishlist(page, "6",);
 
+
+
     return (
         <div>
             <div className='bg-[#f8fafd]'>
