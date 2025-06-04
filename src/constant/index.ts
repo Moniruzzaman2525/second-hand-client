@@ -1,4 +1,4 @@
-export const protectedRoutes = ["/login", "/dashboard/purchase-history", "/dashboard/profile", "/dashboard/listing", "/dashboard/sales-history", "/dashboard/admin/user-management", "/dashboard/admin/listings", "/messages", '/dashboard/listing/add-ads', "/dashboard/favorites"]
+export const protectedRoutes = ["/login", "/dashboard/purchase-history", "/dashboard/profile", "/dashboard/listing", "/dashboard/sales-history", "/dashboard/admin/user-management", "/dashboard/admin/listings", "/messages", '/dashboard/listing/add-ads', "/dashboard/favorites", "/dashboard", "/dashboard/messages", "/dashboard/admin/dashboard"];
 
 export const categories = [
     { name: "Electronics", count: 163, value: "electronics", label: "Electronics" },

@@ -5,6 +5,7 @@ import { ImageIcon, ZoomIn } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import Image from "next/image"
 
 // Multiple products data
 const productData = [
@@ -61,7 +62,7 @@ export function UserProductImages() {
 
   // Filter images by category
   const filteredImages =
-    selectedCategory === "all" ? allImages : allImages.filter((img) => img.category === selectedCategory)
+    selectedCategory === "all" ? allImages : allImages?.filter((img) => img.category === selectedCategory)
 
   const totalImages = allImages.length
 
@@ -95,9 +96,9 @@ export function UserProductImages() {
             {filteredImages.map((image, index) => (
               <div key={`${image.productId}-${image.imageIndex}`} className="relative group">
                 <div className="relative aspect-video rounded-lg overflow-hidden border hover:shadow-lg transition-shadow">
-                  <img
+                  <Image
                     src={image.url || "/placeholder.svg?height=200&width=300"}
-                    alt={`${image.productTitle} - Image ${image.imageIndex + 1}`}
+                    alt={`${image.productTitle} - Image ${image.imageIndex + 1} ${index + 1}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                   />
 
@@ -114,9 +115,8 @@ export function UserProductImages() {
 
                   {/* Status badge */}
                   <Badge
-                    className={`absolute top-2 left-2 text-xs ${
-                      image.status === "sold" ? "bg-blue-600" : "bg-green-600"
-                    }`}
+                    className={`absolute top-2 left-2 text-xs ${image.status === "sold" ? "bg-blue-600" : "bg-green-600"
+                      }`}
                   >
                     {image.status}
                   </Badge>

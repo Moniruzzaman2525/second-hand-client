@@ -6,14 +6,14 @@ import { IProduct } from "@/types"
 export function UserProductStatus({ data }: { data: IProduct[] }) {
 
   const statusCounts = {
-    available: data.filter((p) => p.status === "available").length,
-    sold: data.filter((p) => p.status === "sold").length,
-    pending: data.filter((p) => p.permission === "pending").length,
-    accepted: data.filter((p) => p.permission === "accepted").length,
-    rejected: data.filter((p) => p.permission === "rejected").length,
+    available: data?.filter((p) => p.status === "available").length,
+    sold: data?.filter((p) => p.status === "sold").length,
+    pending: data?.filter((p) => p.permission === "pending").length,
+    accepted: data?.filter((p) => p.permission === "accepted").length,
+    rejected: data?.filter((p) => p.permission === "rejected").length,
   }
 
-  const totalProducts = data.length
+  const totalProducts = data?.length
   const getPercentage = (count: number) => (totalProducts > 0 ? Math.round((count / totalProducts) * 100) : 0)
 
   return (

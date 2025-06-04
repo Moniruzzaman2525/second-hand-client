@@ -5,10 +5,10 @@ import { Package, DollarSign, Tag, Eye, TrendingUp } from "lucide-react"
 
 
 export function UserProductStats({ data }: { data: IProduct[] }) {
-  const totalProducts = data.length
-  const totalValue = data.reduce((sum, product) => sum + product.price, 0)
-  const totalViews = data.reduce((sum, product) => sum + (Number(product.views) || 0), 0)
-  const uniqueCategories = [...new Set(data.map((product) => product.category))].length
+  const totalProducts = data?.length
+  const totalValue = data?.reduce((sum, product) => sum + product.price, 0)
+  const totalViews = data?.reduce((sum, product) => sum + (Number(product.views) || 0), 0)
+  const uniqueCategories = [...new Set(data?.map((product) => product.category))].length
   const previousMonthProducts = Math.floor(totalProducts * 0.8)
   const productGrowth = (((totalProducts - previousMonthProducts) / previousMonthProducts) * 100).toFixed(1)
 
@@ -18,28 +18,28 @@ export function UserProductStats({ data }: { data: IProduct[] }) {
   const stats = [
     {
       title: "Total Products",
-      value: totalProducts.toString(),
+      value: totalProducts?.toString(),
       description: `+${productGrowth}% from last month`,
       icon: Package,
       trend: "up",
     },
     {
       title: "Total Value",
-      value: `$${totalValue.toLocaleString()}`,
+      value: `$${totalValue?.toLocaleString()}`,
       description: "Combined listing value",
       icon: DollarSign,
       trend: "up",
     },
     {
       title: "Total Views",
-      value: totalViews.toString(),
+      value: totalViews?.toString(),
       description: `+${viewsGrowth}% from last month`,
       icon: Eye,
       trend: "up",
     },
     {
       title: "Categories",
-      value: uniqueCategories.toString(),
+      value: uniqueCategories?.toString(),
       description: "Product categories",
       icon: Tag,
       trend: "neutral",
@@ -57,7 +57,7 @@ export function UserProductStats({ data }: { data: IProduct[] }) {
       </CardHeader>
       <CardContent className="pt-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat, index) => (
+          {stats?.map((stat, index) => (
             <div key={index} className="space-y-2">
               <div className="flex items-center space-x-2">
                 <stat.icon className="h-4 w-4 text-purple-700" />

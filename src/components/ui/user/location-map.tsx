@@ -5,18 +5,21 @@ import { IProduct } from "@/types"
 
 export function UserLocationMap({ data }: { data: IProduct[] }) {
 
-  const locationStats = data.reduce(
-    (acc, product) => {
-      const location = product.location || "Unknown"
-      if (!acc[location]) {
-        acc[location] = { count: 0, products: [] }
-      }
-      acc[location].count++
-      acc[location].products.push(product)
-      return acc
-    },
-    {} as Record<string, { count: number; products: typeof data }>,
-  )
+  const locationStats = Array.isArray(data)
+    ? data.reduce(
+      (acc, product) => {
+        const location = product?.location || "Unknown"
+        if (!acc[location]) {
+          acc[location] = { count: 0, products: [] }
+        }
+        acc[location].count++
+        acc[location].products.push(product)
+        return acc
+      },
+      {} as Record<string, { count: number; products: typeof data }>
+    )
+    : {}
+
 
   const locations = Object.entries(locationStats)
 
@@ -34,7 +37,7 @@ export function UserLocationMap({ data }: { data: IProduct[] }) {
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full bg-gradient-to-br from-purple-200 to-violet-200"></div>
           </div>
-          {locations.map(([location, data], index) => (
+          {locations?.map(([location, data], index) => (
             <div
               key={location}
               className={`absolute animate-pulse`}
@@ -61,7 +64,7 @@ export function UserLocationMap({ data }: { data: IProduct[] }) {
           </div>
         </div>
         <div className="mt-4 space-y-2">
-          {locations.map(([location, data]) => (
+          {locations?.map(([location, data]) => (
             <div key={location} className="flex items-center justify-between p-2 bg-gray-50 rounded">
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-purple-600" />
@@ -72,7 +75,7 @@ export function UserLocationMap({ data }: { data: IProduct[] }) {
                   {data.count} product{data.count !== 1 ? "s" : ""}
                 </Badge>
                 <div className="flex space-x-1">
-                  {data.products.map((product) => (
+                  {data.products?.map((product) => (
                     <div
                       key={product._id}
                       className={`w-2 h-2 rounded-full ${product.status === "sold" ? "bg-blue-500" : "bg-green-500"}`}

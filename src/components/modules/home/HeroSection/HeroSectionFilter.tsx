@@ -12,7 +12,7 @@ const HeroSectionFilter = () => {
     const [categorySearch, setCategorySearch] = useState("");
     const router = useRouter();
 
-    const filteredCategories = categories.filter((category) =>
+    const filteredCategories = categories?.filter((category) =>
         category.name.toLowerCase().includes(categorySearch.toLowerCase())
     );
 

@@ -41,7 +41,7 @@ export function AdminQuickActions() {
       </CardHeader>
       <CardContent className="pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {actions.map((action, index) => (
+          {actions?.map((action, index) => (
             <Link href={action.link} key={index}
               className={`h-auto p-4 flex flex-col items-center space-y-2 ${action.color} text-white border-0`}
             >

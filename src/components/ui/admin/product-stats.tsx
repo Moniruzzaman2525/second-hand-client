@@ -7,32 +7,32 @@ import { Package, Eye, CheckCircle, AlertTriangle, DollarSign, TrendingUp } from
 export function AdminProductStats({ data }: { data: IProduct[] }) {
 
   const totalProducts = data?.length
-  const totalViews = data.reduce((sum, product) => sum + (Number(product.views) || 0), 0)
-  const approvedProducts = data.filter((p) => p.permission === "accepted").length
-  const pendingProducts = data.filter((p) => p.permission === "pending").length
-  const totalValue = data.reduce((sum, product) => sum + product.price, 0)
+  const totalViews = data?.reduce((sum, product) => sum + (Number(product.views) || 0), 0)
+  const approvedProducts = data?.filter((p) => p.permission === "accepted")?.length
+  const pendingProducts = data?.filter((p) => p.permission === "pending")?.length
+  const totalValue = data?.reduce((sum, product) => sum + product.price, 0)
   const averagePrice = totalProducts > 0 ? Math.round(totalValue / totalProducts) : 0
-  const uniqueCategories = [...new Set(data.map((p) => p.category))].length
-  const totalImages = data.reduce((sum, product) => sum + product.images.length, 0)
+  const uniqueCategories = [...new Set(data?.map((p) => p.category))]?.length
+  const totalImages = data?.reduce((sum, product) => sum + product.images?.length, 0)
 
   const stats = [
     {
       title: "Total Products",
-      value: totalProducts.toString(),
+      value: totalProducts?.toString(),
       description: `${uniqueCategories} categories`,
       icon: Package,
       color: "text-blue-600",
     },
     {
       title: "Total Views",
-      value: totalViews.toString(),
+      value: totalViews?.toString(),
       description: `Avg: ${totalProducts > 0 ? Math.round(totalViews / totalProducts) : 0} per product`,
       icon: Eye,
       color: "text-green-600",
     },
     {
       title: "Pending Approval",
-      value: pendingProducts.toString(),
+      value: pendingProducts?.toString(),
       description: `${approvedProducts} approved`,
       icon: AlertTriangle,
       color: "text-yellow-600",
@@ -46,7 +46,7 @@ export function AdminProductStats({ data }: { data: IProduct[] }) {
     },
     {
       title: "Product Images",
-      value: totalImages.toString(),
+      value: totalImages?.toString(),
       description: `Avg: ${totalProducts > 0 ? Math.round(totalImages / totalProducts) : 0} per product`,
       icon: TrendingUp,
       color: "text-indigo-600",
@@ -71,7 +71,7 @@ export function AdminProductStats({ data }: { data: IProduct[] }) {
       </CardHeader>
       <CardContent className="pt-6">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {stats.map((stat, index) => (
+          {stats?.map((stat, index) => (
             <div key={index} className="space-y-2 p-3 border rounded-lg">
               <div className="flex items-center space-x-2">
                 <stat.icon className={`h-4 w-4 ${stat.color}`} />
