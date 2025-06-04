@@ -11,5 +11,7 @@ export interface IAuthUser {
     address?: string;
     facebook?: string;
     twitter?: string;
+    isBlocked?: boolean;
+    createdAt: string;
 }
 

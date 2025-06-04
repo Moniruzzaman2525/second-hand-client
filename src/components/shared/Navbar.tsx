@@ -153,7 +153,7 @@ const Navbar = () => {
                                             <span>My Profile</span>
                                         </Link>
                                         <Link
-                                            href={`/dashboard/profile`}
+                                            href={`${user?.role === "admin" ? "/dashboard/admin/dashboard" : "/dashboard"}`}
                                             className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
                                         >
                                             Dashboard

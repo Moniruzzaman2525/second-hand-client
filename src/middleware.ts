@@ -11,10 +11,12 @@ const roleBasedPrivateRoutes = {
         "/dashboard/listing",
         "/dashboard/sales-history",
         "/messages",
+        "/dashboard/messages",
         "/dashboard/listing/add-ads",
-        "/dashboard/favorites"
+        "/dashboard/favorites",
+        "/dashboard"
     ],
-    admin: ["/dashboard", "/dashboard/admin/user-management", "/dashboard/admin/listings"],
+    admin: ["/dashboard", "/dashboard/admin/user-management", "/dashboard/admin/listings", "/dashboard/admin/dashboard"],
 };
 
 export const middleware = async (request: NextRequest) => {
@@ -62,6 +64,9 @@ export const config = {
         "/dashboard/admin/listings",
         "/messages",
         "/dashboard/listing/add-ads",
-        "/dashboard/favorites"
+        "/dashboard/favorites",
+        "/dashboard/admin/dashboard",
+        "/dashboard",
+        "/dashboard/messages",
     ],
 };

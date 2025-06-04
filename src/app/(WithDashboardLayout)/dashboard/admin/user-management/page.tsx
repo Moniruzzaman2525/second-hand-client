@@ -7,6 +7,7 @@ import React from 'react';
 const UserManagementPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
     const { data, meta } = await getAllUsers(page, "5");
+    console.log(data)
     return (
         <DashboardLayout>
             <div className='bg-[#f8fafd] h-screen'>

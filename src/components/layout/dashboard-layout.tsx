@@ -13,12 +13,13 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <DashboardHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="flex">
+      <div className="flex pt-16">
         <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className="flex-1 p-6 w-full">{children}</main>
+        <main className="flex-1 p-6 ml-0 lg:ml-64">{children}</main>
       </div>
     </div>
   )

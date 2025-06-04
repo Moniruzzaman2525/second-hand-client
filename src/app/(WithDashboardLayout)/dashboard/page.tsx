@@ -1,10 +1,12 @@
+import { UserDashboard } from "@/components/dashboard/dashboard-overview"
 import { DashboardLayout } from "@/components/layout/dashboard-layout"
-import { DashboardOverview } from "@/components/dashboard/dashboard-overview"
+import { getAllUserProducts } from "@/services/Product";
 
-export default function Page() {
+export default async function Page() {
+      const { data } = await getAllUserProducts();
     return (
         <DashboardLayout>
-            <DashboardOverview />
+            <UserDashboard data={data} />
         </DashboardLayout>
     )
 }

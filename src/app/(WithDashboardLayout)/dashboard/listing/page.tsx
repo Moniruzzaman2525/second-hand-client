@@ -10,6 +10,7 @@ import Link from "next/link";
 const ListingPage = async ({ searchParams }: { searchParams: Promise<{ page: string }> }) => {
     const { page } = await searchParams;
     const { data, meta } = await getAllUserProducts(page, "5");
+    console.log(data)
     if (data?.length === 0) {
         return (
             <DashboardLayout>
