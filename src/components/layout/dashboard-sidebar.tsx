@@ -24,7 +24,7 @@ export function DashboardSidebar({ sidebarOpen, setSidebarOpen }: DashboardSideb
   const { user } = useUser()
   const sidebarItems = [
     { icon: Home, label: "Dashboard", href: "/dashboard", userOnly: true },
-    { icon: Home, label: "Dashboard", href: "/dashboard/admin/dashboard" },
+    { icon: Home, label: "Dashboard", href: "/dashboard/admin/dashboard", adminOnly: true },
     { icon: Home, label: "Profile", href: "/dashboard/profile" },
     { icon: BarChart3, label: "Add New", href: "/dashboard/listing/add-ads" },
     { icon: Users, label: "My Ads", href: "/dashboard/listing" },
