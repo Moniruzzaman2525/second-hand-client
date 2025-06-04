@@ -13,6 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { useUser } from "@/context/UserContext"
+import { logout } from "@/services/AuthService"
+import { protectedRoutes } from "@/constant"
+import { usePathname, useRouter } from "next/navigation"
 
 interface DashboardHeaderProps {
   sidebarOpen: boolean
@@ -20,7 +23,16 @@ interface DashboardHeaderProps {
 }
 
 export function DashboardHeader({ setSidebarOpen }: DashboardHeaderProps) {
-  const { user } = useUser()
+  const { user, setIsLoading } = useUser()
+  const pathname = usePathname()
+  const router = useRouter()
+  const handleLogOut = () => {
+    logout()
+    setIsLoading(true)
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/")
+    }
+  }
   return (
     <header className="bg-gradient-to-r from-[#537cd9] to-[#6d90df] text-white shadow-lg">
       <div className="flex items-center justify-between px-4 py-4">
@@ -51,7 +63,7 @@ export function DashboardHeader({ setSidebarOpen }: DashboardHeaderProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={handleLogOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

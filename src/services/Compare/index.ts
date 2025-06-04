@@ -68,6 +68,7 @@ export const getUserCompare = async (page?: string, limit?: string) => {
             },
         );
         const data = await res.json();
+
         return data;
     } catch (error: any) {
         return new Error(error.message);

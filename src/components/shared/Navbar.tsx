@@ -147,59 +147,16 @@ const Navbar = () => {
                                 <div className="absolute top-[55px] right-[10px] md:right-[-80px] w-[250px] bg-white shadow-lg rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out transform group-hover:scale-x-100 group-hover:scale-y-100 scale-x-0 scale-y-0">
                                     <div className="py-2">
                                         <Link
-                                            href={`/dashboard/listing/add-ads`}
+                                            href={`/dashboard/profile`}
                                             className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
                                         >
-                                            <span>Post Your Ads</span>
-                                        </Link>
-                                        <Link
-                                            href={`/dashboard/listing`}
-                                            className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                        >
-                                            <span>My Ads</span>
-                                        </Link>
-                                        {user.role === "admin" && (
-                                            <Link
-                                                href={`/dashboard/admin/user-management`}
-                                                className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                            >
-                                                <span>User Management</span>
-                                            </Link>
-                                        )}
-                                        {user.role === "admin" && (
-                                            <Link
-                                                href={`/dashboard/admin/listings`}
-                                                className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                            >
-                                                <span>Listings Management</span>
-                                            </Link>
-                                        )}
-                                        <Link href={`/messages`} className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]">
-                                            <span>Message</span>
-                                        </Link>
-                                        <Link
-                                            href={`/dashboard/favorites`}
-                                            className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                        >
-                                            <span>Favorite</span>
+                                            <span>My Profile</span>
                                         </Link>
                                         <Link
                                             href={`/dashboard/profile`}
                                             className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
                                         >
-                                            <span>Profile</span>
-                                        </Link>
-                                        <Link
-                                            href={`/dashboard/purchase-history`}
-                                            className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                        >
-                                            Purchase History
-                                        </Link>
-                                        <Link
-                                            href={`/dashboard/sales-history`}
-                                            className="block text-[#374B5C] font-medium px-4 py-3 hover:bg-[#f8fafd]"
-                                        >
-                                            Sales History
+                                            Dashboard
                                         </Link>
                                         <div className="border-t border-gray-200">
                                             <Link
